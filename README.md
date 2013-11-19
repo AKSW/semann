@@ -16,6 +16,7 @@ What needs to be done
 - Triples need to be saved and loaded from some sort of server, [Storing and loading of triples](https://github.com/AKSW/semann/issues/1)
 - Created annotation snippets should be highlighted in the PDF display, [Highlight annotation snippets in PDF](https://github.com/AKSW/semann/issues/2)
 - Better UI for creating / managin annotations, [UI improvements](https://github.com/AKSW/semann/issues/3).
+- [Find similar publications functionality] (https://github.com/AKSW/semann/issues/4).
 
 ## Used libraries
 
