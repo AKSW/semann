@@ -54,7 +54,7 @@ var scientificAnnotation  = {
     setTextValue:function(selectedText) {
 
         selectedText =selectedText.replace(/(\r\n|\n|\r)/gm,"");
-        $('#objectValueInput').val(selectedText);
+        $('#subjectValueInput').val(selectedText);
     },
 
     /**
@@ -78,10 +78,11 @@ var scientificAnnotation  = {
     addAnnotation:function(){
 
        var propertyValue = $('#propertyValueInput').val();
+       var subjectValue = $('#subjectValueInput').val();
        var objectValue = $('#objectValueInput').val();
 
-       if(propertyValue != '' && objectValue!= '') {
-           scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,objectValue);
+       if(propertyValue != '' && subjectValue!= '' && objectValue!= '') {
+           scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,subjectValue, objectValue);
            scientificAnnotation.clearInputField();
        }
 
@@ -92,13 +93,14 @@ var scientificAnnotation  = {
      * @param propertyValue
      * @param objectiveValue
      */
-    appendAnnotationInDisplayPanel : function (propertyValue, objectiveValue){
+    appendAnnotationInDisplayPanel : function (propertyValue, subjectValue, objectValue){
 
         var previousHtml = $('#displayAnnotationResult').html();
         $('#displayAnnotationResult').empty();
         $('#displayAnnotationResult').append(
+                '<p><strong>Subject:</strong></br>'+subjectValue+'</p>' +
                 '<p><strong>Property:</strong></br>'+propertyValue+'</p>' +
-                '<p><strong>Object:</strong></br>'+objectiveValue+'</p></br>'+
+                '<p><strong>Object:</strong></br>'+objectValue+'</p></br>'+
                  previousHtml
         );
     },
