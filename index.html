@@ -40,6 +40,8 @@
     <script type="text/javascript" src="./libs/viewer.js"></script>
 
     <script type="text/javascript" src="./js/annotation.js"></script>
+
+    <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
   </head>
 
   <body tabindex="1">
@@ -221,7 +223,7 @@
                    ></menuitem>
         </menu>
 
-        <div id="viewerContainer" tabindex="0">
+        <div id="viewerContainer" tabindex="0" >
           <div id="viewer"></div>
         </div>
 
@@ -249,31 +251,53 @@
     <div id="printContainer"></div>
 
     <!-- annotation toolbar -->
-    <div id="annotationToolbar" class="annotationToolbar">
+    <!--<div id="annotationToolbar" class="annotationToolbar">-->
+        <!--<button id="addAnnotationBtn" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>-->
+
+        <!--<div id="resourceProperties" style="display: none;">-->
+        <!--</div>-->
+        <!--<div class="form-inline" role="form" id="newPropertyForm" style="display: none;">-->
+            <!--<hr/>-->
+            <!--<div class="form-group">-->
+                <!--<label class="sr-only" for="propertyInput">Add new property</label>-->
+                <!--<input type="text" class="form-control" id="propertyInput" placeholder="Add new property">-->
+            <!--</div>-->
+            <!--<button id="addPropertyBtn" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button>-->
+        <!--</div>-->
+
+        <!--<div class="similarPubs" id="similarPubs">-->
+            <!--<button id="findSimilarButton" class="btn btn-default">Find Similar Publications</button>-->
+            <!--<div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;">-->
+              <!--<a href="#" class="list-group-item">Balanced scoring method for multiple-mark questions</a>-->
+              <!--<a href="#" class="list-group-item">Can we Create Better Links by Playing Games?</a>-->
+              <!--<a href="#" class="list-group-item">COALA -- Correlation-Aware Active Learning of Link Specifications</a>-->
+              <!--<a href="#" class="list-group-item">Crowd-sourced Open Courseware Authoring with SlideWiki.org </a>-->
+              <!--<a href="#" class="list-group-item">Crowdsourcing Linked Data quality assessment</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+  <!---->
+
+    <div id="annotationToolbar" class="annotationToolbar" >
+        </br></br>
+        <div id="annotationInputArea" >
+
+            <div class="form-inline" role="form" id="newValueForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property"></br></br>
+                    <textarea class="form-control" id="objectValueInput" rows="4" cols="50" placeholder="Object" ></textarea>
+                </div>
+
+            </div>
+            </br>
+        </div>
+
         <button id="addAnnotationBtn" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>
-
-        <div id="resourceProperties" style="display: none;">
-        </div>
-        <div class="form-inline" role="form" id="newPropertyForm" style="display: none;">
-            <hr/>
-            <div class="form-group">
-                <label class="sr-only" for="propertyInput">Add new property</label>
-                <input type="text" class="form-control" id="propertyInput" placeholder="Add new property">
-            </div>
-            <button id="addPropertyBtn" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button>
-        </div>
-
-        <div class="similarPubs" id="similarPubs">
-            <button id="findSimilarButton" class="btn btn-default">Find Similar Publications</button>
-            <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;">
-              <a href="#" class="list-group-item">Balanced scoring method for multiple-mark questions</a>
-              <a href="#" class="list-group-item">Can we Create Better Links by Playing Games?</a>
-              <a href="#" class="list-group-item">COALA -- Correlation-Aware Active Learning of Link Specifications</a>
-              <a href="#" class="list-group-item">Crowd-sourced Open Courseware Authoring with SlideWiki.org </a>
-              <a href="#" class="list-group-item">Crowdsourcing Linked Data quality assessment</a>
-            </div>
+        <div id="displayAnnotationResult" style='overflow:auto; width:600px; height:500px;'>
         </div>
     </div>
+
+
   </body>
 </html>
 
