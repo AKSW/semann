@@ -37,7 +37,8 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 sparql.parseResponse(response);
             },
             error: function(jqXHR, textStatus, ex){
-                console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+                //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
             }
         });
 
@@ -72,7 +73,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 alert('successfully add to sparql :-)');
             },
             error: function(jqXHR, textStatus, ex){
-                console.log("error occur while insert data:"+ textStatus + "," + ex + "," + jqXHR.responseText);
+                //console.log("error occur while insert data:"+ textStatus + "," + ex + "," + jqXHR.responseText);
+                alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+
             }
         });
 
