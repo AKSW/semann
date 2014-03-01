@@ -52,7 +52,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
      */
     addAnnotation:function(property, subject, object){
 
-
+       //object = encodeURIComponent(object);
 
         var insertQuery = 'INSERT DATA { GRAPH <'+scientificAnnotation.GRAPH_NAME+'> { <' + subject + '> <' + property + '> <' + object + '> } }';
 

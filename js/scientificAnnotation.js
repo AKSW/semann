@@ -20,7 +20,11 @@ var scientificAnnotation  = {
 
         $("#addAnnotationBtn").bind("click", function () {
             //scientificAnnotation.displayAnnotationInputArea();
-            scientificAnnotation.addAnnotation();
+//            scientificAnnotation.addAnnotation();
+
+            var searchItem = $('#subjectValueInput').val();
+//            console.log(searchItem);
+            PDFFindBar.searchAndHighlight(searchItem.toString());
         });
 
         $("#queryBtn").bind("click", function () {

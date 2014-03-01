@@ -97,39 +97,65 @@ var PDFFindController = {
 
   calcFindMatch: function(pageIndex) {
     var pageContent = this.pageContents[pageIndex];
-    var query = this.state.query;
-    var caseSensitive = this.state.caseSensitive;
-    var queryLen = query.length;
 
-    if (queryLen === 0) {
-      // Do nothing the matches should be wiped out already.
-      return;
-    }
+//      console.log('calling from function: calcFindMatch');
 
-    if (!caseSensitive) {
-      pageContent = pageContent.toLowerCase();
-      query = query.toLowerCase();
-    }
+    var queryList = this.state.query;
+
+    var splitQuery = queryList.split(',');
+
+//    console.log(queryList);
 
     var matches = [];
 
-    var matchIdx = -queryLen;
-    while (true) {
-      matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
-      if (matchIdx === -1) {
-        break;
-      }
+// support for multiple search item
+    for (var i = 0; i < splitQuery.length; i++) {
 
-      matches.push(matchIdx);
-    }
-    this.pageMatches[pageIndex] = matches;
+        //var matches = [];
+        var query = splitQuery[i];
+
+        console.log('searching for::'+query);
+
+        var caseSensitive = this.state.caseSensitive;
+        var queryLen = query.length;
+
+        if (queryLen === 0) {
+          // Do nothing the matches should be wiped out already.
+          continue;
+        }
+
+        if (!caseSensitive) {
+          pageContent = pageContent.toLowerCase();
+          query = query.toLowerCase();
+        }
+
+        var matchIdx = -queryLen;
+        while (true) {
+          matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
+          if (matchIdx === -1) {
+            break;
+          }
+
+          matches.push(matchIdx);
+        }
+
+
+    } // end of for loop
+
+     // matches = [6,10];
+
+      this.pageMatches[pageIndex] = matches;
     this.updatePage(pageIndex);
+
+        console.log(this.pageMatches);
+
     if (this.resumePageIdx === pageIndex) {
       var callback = this.resumeCallback;
       this.resumePageIdx = null;
       this.resumeCallback = null;
       callback();
     }
+
   },
 
   extractText: function() {
