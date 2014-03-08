@@ -20,11 +20,15 @@ var scientificAnnotation  = {
 
         $("#addAnnotationBtn").bind("click", function () {
             //scientificAnnotation.displayAnnotationInputArea();
-//            scientificAnnotation.addAnnotation();
+            scientificAnnotation.addAnnotation();
+//            var currentPage = $('#pageNumber').val();
+//            console.log('currentPage::'+currentPage);
+//            var url = window.location;
+            //var filename = getPDFFileNameFromURL(url);
 
-            var searchItem = $('#subjectValueInput').val();
-//            console.log(searchItem);
-            PDFFindBar.searchAndHighlight(searchItem.toString());
+//            var searchItem = $('#subjectValueInput').val();
+////            console.log(searchItem);
+//            PDFFindBar.searchAndHighlight(searchItem.toString());
         });
 
         $("#queryBtn").bind("click", function () {
@@ -32,6 +36,35 @@ var scientificAnnotation  = {
         });
 
     },
+
+    getSelectionCharOffsetsWithin: function (element) {
+    var start = 0, end = 0;
+    var sel, range, priorRange;
+//        console.log(element[0]);
+//        return;
+    if (typeof window.getSelection != "undefined") {
+        range = window.getSelection().getRangeAt(0);
+        priorRange = range.cloneRange();
+//        priorRange.selectNodeContents(element);
+        priorRange.moveToElementText(element);
+        priorRange.setEnd(range.startContainer, range.startOffset);
+        start = priorRange.toString().length;
+        end = start + range.toString().length;
+    } else if (typeof document.selection != "undefined" &&
+        (sel = document.selection).type != "Control") {
+        range = sel.createRange();
+        priorRange = document.body.createTextRange();
+        priorRange.moveToElementText(element);
+        priorRange.setEndPoint("EndToStart", range);
+        start = priorRange.text.length;
+        end = start + range.text.length;
+    }
+    return {
+        start: start,
+        end: end
+    };
+},
+
 
     /**
      * bind the mouse up event
@@ -45,6 +78,25 @@ var scientificAnnotation  = {
                 scientificAnnotation.setTextValue(text);
             }
         });
+
+    },
+
+    /**
+     * bind the mouse up event
+     */
+    bindAnnotationTableSubjectClickEvent: function () {
+
+        $('#sparqlTable').on('click', 'tr', function() {
+            var subject = this.cells[0];  // the first <td>
+            subject = subject.innerHTML
+            console.log(subject);
+            if(subject != ''){
+                subject = $.trim(subject);
+
+                PDFFindBar.searchAndHighlight(subject);
+            }
+        });
+
 
     },
 
@@ -74,7 +126,6 @@ var scientificAnnotation  = {
      * @returns {string}
      */
     getSelectedTextFromPDF : function(){
-
         if (window.getSelection) {
             return window.getSelection().toString();
         } else if (document.selection) {
@@ -123,13 +174,18 @@ var scientificAnnotation  = {
         );
     },
 
+    resetAnnotationTable:function (){
+        $('#displaySparqlTable1').empty();
+        $('#displaySparqlTable2').empty();
+    },
+
     /**
      * Show the added annotation of the document from spaql
      * @param propertyValue
      * @param subjectValue
      * @param objectiveValue
      */
-    addDataToSparqlTableView : function (propertyValue, subjectValue, objectValue){
+    addDataToSparqlTableView : function (subjectValue ,propertyValue, objectValue){
 
         $('#sparqlTable tr:last').after(
             '<tr>' +
@@ -144,18 +200,20 @@ var scientificAnnotation  = {
      * 
      */
     createSparqlTable:function(){
-        $('#displaySparqlTable').empty();
-        $('#displaySparqlTable').append(
-            '<br><p>Loading data form sparql:::</p>'
+        $('#displaySparqlTable1').empty();
+        $('#displaySparqlTable1').append(
+            '<br><p>Available annotation of this file:::</p><br>'
         );
 
-        $('#displaySparqlTable').append(
+        $('#displaySparqlTable2').append(
             "<table id='sparqlTable' width='100%'>"+
                 "<tr>"+
-                    "<th> Subject </th> <th> Property </th> <th> Object </th>"+
+                    "<th width='50%'> Subject </th> <th width='20%'> Property </th> <th width='30%'> Object </th>"+
                 "</tr>"+
             "</table>"
         );
+
+        scientificAnnotation.bindAnnotationTableSubjectClickEvent();
     },
 
     /**
@@ -164,7 +222,7 @@ var scientificAnnotation  = {
     displayAvailableAnnotationFromSparql:function(){
         $('#displayAnnotationResult').empty();
         scientificAnnotation.createSparqlTable();
-        $('#displaySparqlTable').show();
+        $('#displaySparqlTable2').show();
     },
 
     /**
@@ -173,6 +231,7 @@ var scientificAnnotation  = {
     init:function(){
         scientificAnnotation.bindClickEventForAddAnnotationButton();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
+
     }
 
 };
@@ -183,4 +242,5 @@ var scientificAnnotation  = {
  */
 $(function () {
     scientificAnnotation.init();
+
 });

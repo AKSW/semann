@@ -97,65 +97,40 @@ var PDFFindController = {
 
   calcFindMatch: function(pageIndex) {
     var pageContent = this.pageContents[pageIndex];
+    var query = this.state.query;
+    var caseSensitive = this.state.caseSensitive;
+    var queryLen = query.length;
 
-//      console.log('calling from function: calcFindMatch');
+    if (queryLen === 0) {
+      // Do nothing the matches should be wiped out already.
+      return;
+    }
 
-    var queryList = this.state.query;
-
-    var splitQuery = queryList.split(',');
-
-//    console.log(queryList);
+    if (!caseSensitive) {
+      pageContent = pageContent.toLowerCase();
+      query = query.toLowerCase();
+    }
 
     var matches = [];
 
-// support for multiple search item
-    for (var i = 0; i < splitQuery.length; i++) {
+    var matchIdx = -queryLen;
+    while (true) {
+      matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
+      if (matchIdx === -1) {
+        break;
+      }
 
-        //var matches = [];
-        var query = splitQuery[i];
+      matches.push(matchIdx);
+    }
+    this.pageMatches[pageIndex] = matches;
 
-        console.log('searching for::'+query);
-
-        var caseSensitive = this.state.caseSensitive;
-        var queryLen = query.length;
-
-        if (queryLen === 0) {
-          // Do nothing the matches should be wiped out already.
-          continue;
-        }
-
-        if (!caseSensitive) {
-          pageContent = pageContent.toLowerCase();
-          query = query.toLowerCase();
-        }
-
-        var matchIdx = -queryLen;
-        while (true) {
-          matchIdx = pageContent.indexOf(query, matchIdx + queryLen);
-          if (matchIdx === -1) {
-            break;
-          }
-
-          matches.push(matchIdx);
-        }
-
-
-    } // end of for loop
-
-     // matches = [6,10];
-
-      this.pageMatches[pageIndex] = matches;
     this.updatePage(pageIndex);
-
-        console.log(this.pageMatches);
-
     if (this.resumePageIdx === pageIndex) {
       var callback = this.resumeCallback;
       this.resumePageIdx = null;
       this.resumeCallback = null;
       callback();
     }
-
   },
 
   extractText: function() {
@@ -358,6 +333,7 @@ var PDFFindController = {
     if (found) {
       var previousPage = this.selected.pageIdx;
       this.selected.pageIdx = this.offset.pageIdx;
+        console.log('page:'+this.selected.pageIdx);
       this.selected.matchIdx = this.offset.matchIdx;
       state = wrapped ? FindStates.FIND_WRAPPED : FindStates.FIND_FOUND;
       // Update the currently selected page to wipe out any selected matches.

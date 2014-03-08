@@ -193,6 +193,8 @@ var PDFView = {
 
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
+
+    scientificAnnotation.resetAnnotationTable();
     var self = this;
     var container = this.container = document.getElementById('viewerContainer');
     this.pageViewScroll = {};
@@ -845,6 +847,10 @@ var PDFView = {
   },
 
   load: function pdfViewLoad(pdfDocument, scale) {
+
+    scientificAnnotation.resetAnnotationTable();
+
+
     function bindOnAfterDraw(pageView, thumbnailView) {
       // when page is painted, using the image as thumbnail base
       pageView.onAfterDraw = function pdfViewLoadOnAfterDraw() {
@@ -1652,6 +1658,7 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
     document.getElementById('openFile').setAttribute('hidden', 'true');
     document.getElementById('secondaryOpenFile').setAttribute('hidden', 'true');
+
   } else {
     document.getElementById('fileInput').value = null;
   }

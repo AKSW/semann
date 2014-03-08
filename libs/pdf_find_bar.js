@@ -176,6 +176,7 @@ var PDFFindBar = {
      * @param searchItem
      */
   searchAndHighlight:function(searchItem){
+        console.log(searchItem);
       this.dispatchEvent('');
       this.findField.value = searchItem;
 //      this.findField.value = ['me','world'];
