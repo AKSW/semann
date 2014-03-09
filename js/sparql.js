@@ -67,7 +67,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
      * @param property
      * @param object
      */
-    addAnnotation:function(property, subject, object){
+    addAnnotation:function(property, subject, object, textStartPos, textEndPos){
 
         // insert query
         /*
@@ -95,7 +95,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         var fileName = document.title.toString();
         var uri = 'semannpdf:'+fileName;
         var currentPage = $('#pageNumber').val();
-        var charStart = 10, charEnd=10, length=15;
+        var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
 
         var URIs = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'#page='+currentPage+'&char='+charStart+','+charEnd+';length='+length+',UTF-8>';
 
@@ -118,6 +118,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         'semann:Abstract rdfs:label "'+object+'"@en. '+'\n'+
                 '} ' +'\n'+
             '}';
+
+//        console.log(insertQuery);
+//        return;
 
 
         $.ajax({

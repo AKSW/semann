@@ -12,6 +12,8 @@ var scientificAnnotation  = {
 
     GRAPH_NAME : 'scientificAnnotation',
 
+    selectedTextPosition:null,
+
 
     /**
      * bind the click event
@@ -21,14 +23,6 @@ var scientificAnnotation  = {
         $("#addAnnotationBtn").bind("click", function () {
             //scientificAnnotation.displayAnnotationInputArea();
             scientificAnnotation.addAnnotation();
-//            var currentPage = $('#pageNumber').val();
-//            console.log('currentPage::'+currentPage);
-//            var url = window.location;
-            //var filename = getPDFFileNameFromURL(url);
-
-//            var searchItem = $('#subjectValueInput').val();
-////            console.log(searchItem);
-//            PDFFindBar.searchAndHighlight(searchItem.toString());
 
         });
 
@@ -38,7 +32,7 @@ var scientificAnnotation  = {
 
     },
 
-    getSelectionCharOffsetsWithin: function (element) {
+    getSelectionCharOffsetsWithin: function () {
 
 
         var currentPage =  $('#pageNumber').val();
@@ -59,20 +53,20 @@ var scientificAnnotation  = {
 
         if(start > previousPagesCharCount) {
             start = start - previousPagesCharCount;
-        }else{
-            console.log(start - previousPagesCharCount);
         }
+
         if(end > previousPagesCharCount){
             end = end - previousPagesCharCount;
         }
 
-//        return {
-//            start: start,
-//            end: end
-//        };
 
-//        console.log('start::'+start+'  end::'+end +'::page ::'+currentPage);
-        alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
+        console.log('start::'+start+'  end::'+end +'::page ::'+currentPage);
+        // alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
+
+        return {
+            start: start,
+            end: end
+        };
 },
 
     /**
@@ -154,7 +148,7 @@ var scientificAnnotation  = {
             var text=scientificAnnotation.getSelectedTextFromPDF();
             if (text!='') {
                 scientificAnnotation.setTextValue(text);
-                scientificAnnotation.getSelectionCharOffsetsWithin();
+                scientificAnnotation.selectedTextPosition = scientificAnnotation.getSelectionCharOffsetsWithin();
             }
 
 
@@ -229,9 +223,17 @@ var scientificAnnotation  = {
         subjectValue = $.trim(subjectValue);
         objectValue = $.trim(objectValue);
 
+        var textPosition = scientificAnnotation.selectedTextPosition;
+        var startPos = 0, endPos = 0;
+
+        if(scientificAnnotation.selectedTextPosition != null){
+            startPos = scientificAnnotation.selectedTextPosition.start;
+            endPos = scientificAnnotation.selectedTextPosition.end;
+        }
+
        if(propertyValue != '' && subjectValue!= '' && objectValue!= '') {
            scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,subjectValue, objectValue);
-           sparql.addAnnotation(propertyValue,subjectValue, objectValue);
+           sparql.addAnnotation(propertyValue,subjectValue, objectValue, startPos, endPos);
            scientificAnnotation.clearInputField();
        }
 
