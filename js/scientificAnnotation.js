@@ -29,6 +29,7 @@ var scientificAnnotation  = {
 //            var searchItem = $('#subjectValueInput').val();
 ////            console.log(searchItem);
 //            PDFFindBar.searchAndHighlight(searchItem.toString());
+
         });
 
         $("#queryBtn").bind("click", function () {
@@ -38,33 +39,110 @@ var scientificAnnotation  = {
     },
 
     getSelectionCharOffsetsWithin: function (element) {
-    var start = 0, end = 0;
-    var sel, range, priorRange;
-//        console.log(element[0]);
-//        return;
-    if (typeof window.getSelection != "undefined") {
-        range = window.getSelection().getRangeAt(0);
-        priorRange = range.cloneRange();
-//        priorRange.selectNodeContents(element);
-        priorRange.moveToElementText(element);
-        priorRange.setEnd(range.startContainer, range.startOffset);
-        start = priorRange.toString().length;
-        end = start + range.toString().length;
-    } else if (typeof document.selection != "undefined" &&
-        (sel = document.selection).type != "Control") {
-        range = sel.createRange();
-        priorRange = document.body.createTextRange();
-        priorRange.moveToElementText(element);
-        priorRange.setEndPoint("EndToStart", range);
-        start = priorRange.text.length;
-        end = start + range.text.length;
-    }
-    return {
-        start: start,
-        end: end
-    };
+
+
+        var currentPage =  $('#pageNumber').val();
+        var element=document.body;
+        var sel, range;
+        var start = 0, end = 0, previousPagesCharCount = 0;
+        if (window.getSelection) {
+            sel = window.getSelection();
+            if (sel.rangeCount) {
+                range = sel.getRangeAt(sel.rangeCount - 1);
+                start = scientificAnnotation.getBodyTextOffset(range.startContainer, range.startOffset,element);
+                end = scientificAnnotation.getBodyTextOffset(range.endContainer, range.endOffset,element);
+                sel.removeAllRanges();
+                sel.addRange(range);
+                previousPagesCharCount = scientificAnnotation.getPreviousPagesCharacterCount(currentPage);
+            }
+        }
+
+        if(start > previousPagesCharCount) {
+            start = start - previousPagesCharCount;
+        }else{
+            console.log(start - previousPagesCharCount);
+        }
+        if(end > previousPagesCharCount){
+            end = end - previousPagesCharCount;
+        }
+
+//        return {
+//            start: start,
+//            end: end
+//        };
+
+//        console.log('start::'+start+'  end::'+end +'::page ::'+currentPage);
+        alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
 },
 
+    /**
+     *
+     * @param node
+     * @param offset
+     * @param element
+     * @returns {Number}
+     */
+    getBodyTextOffset:function(node, offset,element) {
+        var sel = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        range.setEnd(node, offset);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return sel.toString().length;
+    },
+
+    /**
+     *
+     * @param pageNumber
+     * @returns {number}
+     */
+    getPageTotalCharLength : function(pageIndex){
+        var count = 0;
+        console.log(PDFFindController.pdfPageSource.pages[pageIndex]);
+        var textContent = PDFFindController.pdfPageSource.pages[pageIndex].getTextContent();
+        if(textContent != null){
+            var lines = textContent._value.bidiTexts;
+            var page_text = "";
+            var last_block = null;
+            for( var k = 0; k < lines.length; k++ ){
+                var block = lines[k];
+                if( last_block != null && last_block.str[last_block.str.length-1] != ' '){
+                    if( block.x < last_block.x ){
+                        page_text += "\r\n";
+                    }
+                    else if ( last_block.y != block.y && ( last_block.str.match(/^(\s?[a-zA-Z])$|^(.+\s[a-zA-Z])$/) == null ))
+                        page_text += ' ';
+                }
+                page_text += block.str;
+                last_block = block;
+            }
+
+            count = page_text.length;
+
+//            console.log('count:'+count);
+//            console.log('newlinecount:'+new_line);
+        }
+
+       return count;
+   },
+
+    /**
+     *
+     * @param currentPage
+     * @returns {number}
+     */
+    getPreviousPagesCharacterCount : function(currentPage){
+        var previousPagesCharCount = 0;
+//        if(currentPage >1){
+            for(var i=0; i<currentPage -1;i++){
+                previousPagesCharCount += scientificAnnotation.getPageTotalCharLength(i);
+                console.log('previousPagesCharCount:'+previousPagesCharCount);
+            }
+//        }
+
+        return previousPagesCharCount;
+    },
 
     /**
      * bind the mouse up event
@@ -76,7 +154,10 @@ var scientificAnnotation  = {
             var text=scientificAnnotation.getSelectedTextFromPDF();
             if (text!='') {
                 scientificAnnotation.setTextValue(text);
+                scientificAnnotation.getSelectionCharOffsetsWithin();
             }
+
+
         });
 
     },
@@ -231,6 +312,7 @@ var scientificAnnotation  = {
     init:function(){
         scientificAnnotation.bindClickEventForAddAnnotationButton();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
+
 
     }
 

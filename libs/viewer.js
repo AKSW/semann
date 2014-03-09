@@ -22,7 +22,7 @@
 
 'use strict';
 
-var DEFAULT_URL = 'pdf/test.pdf';
+var DEFAULT_URL = 'pdf/sample.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -2028,6 +2028,8 @@ window.addEventListener('scalechange', function scalechange(evt) {
 }, true);
 
 window.addEventListener('pagechange', function pagechange(evt) {
+
+  console.log()
   var page = evt.pageNumber;
   if (PDFView.previousPageNumber !== page) {
     document.getElementById('pageNumber').value = page;
