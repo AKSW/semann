@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./css/annotation.css"/>
 
     <script type="text/javascript" src="./libs/jquery.min.js"></script>
-    <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="./libs/bootstrap.min.js"></script>-->
     <script type="text/javascript" src="./libs/typeahead.min.js"></script>
 
     <script type="text/javascript" src="./external/webL10n/l10n.js"></script>
@@ -260,11 +260,9 @@
             <div class="form-inline" role="form" id="newValueForm">
                 <div class="form-group">
                     <textarea class="form-control" id="subjectValueInput" rows="4" cols="50" placeholder="Subject" ></textarea></br></br>
-                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property"></br></br>
+                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off"></br></br>
                     <textarea class="form-control" id="objectValueInput" rows="4" cols="50" placeholder="Object" ></textarea>
                 </div>
-
-
 
             </div>
             </br>
@@ -277,7 +275,7 @@
 
         <div id="displaySparqlTable1">
         </div>
-        <div id="displaySparqlTable2" style='overflow:auto; display:none ; width:800px; height:250px;'>
+        <div id="displaySparqlTable2" style='overflow:auto; display:none ; width:800px; height:250px; background-color:#ffffff'>
 
         </div>
 

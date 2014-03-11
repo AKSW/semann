@@ -23,6 +23,9 @@ var scientificAnnotation  = {
         $("#addAnnotationBtn").bind("click", function () {
             //scientificAnnotation.displayAnnotationInputArea();
             scientificAnnotation.addAnnotation();
+            //sparql.getAutoCompleteProperty('aa');
+//            var source = ['a','b'];
+//            scientificAnnotation.bindAutoComputeForPropertyField(source);
 
         });
 
@@ -31,6 +34,20 @@ var scientificAnnotation  = {
         });
 
     },
+
+    setAutoComputeDataForPropertyField :function(properties){
+
+        var propertyField = $('#propertyValueInput');
+        propertyField.typeahead('destroy');
+        propertyField.typeahead(
+            {
+                local: properties
+             }
+        );
+
+    },
+
+
 
     getSelectionCharOffsetsWithin: function () {
 
@@ -314,8 +331,7 @@ var scientificAnnotation  = {
     init:function(){
         scientificAnnotation.bindClickEventForAddAnnotationButton();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
-
-
+        sparql.bindAutoCompleteProperty();
     }
 
 };

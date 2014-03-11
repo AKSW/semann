@@ -98,6 +98,11 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
 
         var URIs = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'#page='+currentPage+'&char='+charStart+','+charEnd+';length='+length+',UTF-8>';
+        var camelProp = sparql.camelCase(property);
+        var camelObject = sparql.camelCase(object);
+
+//        console.log('camelProp::'+camelProp);
+//        console.log('camelObject::'+camelObject);
 
         var insertQuery =
                 'prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>' +'\n'+
@@ -113,9 +118,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         uri+' rdf:type semannpub:Publication. '+'\n'+
                         uri+' semannpub:hasExcerpt '+ URIs +' .'+'\n'+
                         URIs +' rdfs:label "'+subject+'"@en; ' +'\n'+
-                        'semannp:isAbstact semann:Abstract. '+'\n'+
-                        'semannp:isAbstact rdfs:label "'+property+'"@en. '+'\n'+
-                        'semann:Abstract rdfs:label "'+object+'"@en. '+'\n'+
+                        'semannp:'+camelProp+' semann:'+camelObject+' .'+'\n'+
+                        'semannp:'+camelProp+'  rdfs:label "'+property+'"@en. '+'\n'+
+                        'semann:'+camelObject+' rdfs:label "'+object+'"@en. '+'\n'+
                 '} ' +'\n'+
             '}';
 
@@ -136,6 +141,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             cache: false,
             success: function(response){
                 console.log('add successfully');
+                sparql.bindAutoCompleteProperty('');
                 alert('successfully add to sparql :-)');
             },
             error: function(jqXHR, textStatus, ex){
@@ -148,12 +154,85 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
     },
 
 
+    /**
+     *
+     * @param searchItem
+     * @returns {Array}
+     */
+    bindAutoCompleteProperty :function(searchItem){
+
+        if(searchItem == null){
+            searchItem = '';
+        }
+
+        /**
+         SELECT distinct  str(?label) as ?PROPERTY FROM <scientificAnnotation>
+         WHERE
+         {
+           ?p <http://www.w3.org/2000/rdf-schema#label> ?label
+           FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))
+         }
+         ORDER BY fn:lower-case(?LABEL) LIMIT 200
+         }
+         */
+
+        var selectQuery = 'SELECT distinct  str(?label) as ?PROPERTY FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
+            ' WHERE ' +'\n'+
+            '{ ' +'\n'+
+                '?p <http://www.w3.org/2000/rdf-schema#label> ?label ' +'\n'+
+                'FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))' +'\n'+
+            '} ORDER BY fn:lower-case(?LABEL) LIMIT 200';
+
+//        console.log(selectQuery);return;
+
+        var source = null;
+
+        $.ajax({
+            type: "GET",
+            url: sparql.SERVER_ADDRESS,
+            data: {
+                query: selectQuery,
+                format: "application/json"
+            },
+            async: true,
+            dataType: "jsonp",
+            crossDomain: true,
+            cache: false,
+            success: function(response){
+                source = sparql.parseProperty(response);
+                scientificAnnotation.setAutoComputeDataForPropertyField(source);
+            },
+            error: function(jqXHR, textStatus, ex){
+                //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            }
+        });
+
+        console.log(source);
+
+        return source;
+
+    },
+
+    /**
+     *
+     * @param str
+     * @returns {XML|string|void|*}
+     */
+    camelCase :function (str){
+        str     = $.camelCase(str.replace(/[_ ]/g, '-')).replace(/-/g, '');
+        return  str;//.substring(0,1).toUpperCase()+str.substring(1);
+    },
+
+
+    /**
+     *
+     * @param response
+     */
     parseResponse:function(response){
 
         $.each(response, function(name, value) {
             if(name == 'results'){
-
-//                console.log(value.bindings);
                 $.each(value.bindings, function(index,item) {
                     scientificAnnotation.addDataToSparqlTableView(
                         item.SUBJECT.value,
@@ -161,12 +240,28 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         item.OBJECT.value
                     );
 
-//                        console.log(item.PROPERTY.value);
-//                        console.log(item.SUBJECT.value);
-//                        console.log(item.SUBJECT.value);
                 });
             }
         });
+    },
+
+    /**
+     *
+     * @param response
+     * @returns {Array}
+     */
+    parseProperty:function(response) {
+
+        var items = [];
+
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    items.push(item.PROPERTY.value);
+                });
+            }
+        });
+        return items;
     }
 
 
