@@ -72,7 +72,7 @@ var scientificAnnotation  = {
             end = end - previousPagesCharCount;
         }
 
-	var rangy_result = rangy_serialize();
+	var rangy_result = highlight.rangy_serialize();
         console.log('start::'+start+'  end::'+end +' page::'+currentPage+' rangy.page::'+rangy_result.Page+' rangy::'+rangy_result.Rangy);
         // alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
 
@@ -110,7 +110,7 @@ var scientificAnnotation  = {
         var count = 0;
         console.log(PDFFindController.pdfPageSource.pages[pageIndex]);
         var textContent = PDFFindController.pdfPageSource.pages[pageIndex].getTextContent();
-        if(textContent != null){
+        if(textContent != null && textContent._value !== null){
             var lines = textContent._value.bidiTexts;
             var page_text = "";
             var last_block = null;
@@ -235,6 +235,9 @@ var scientificAnnotation  = {
         subjectValue = $.trim(subjectValue);
         objectValue = $.trim(objectValue);
 
+        var rangyFragment = null;
+        var rangyPage = null;
+
         var textPosition = scientificAnnotation.selectedTextPosition;
         var startPos = 0, endPos = 0;
 
@@ -349,5 +352,6 @@ var scientificAnnotation  = {
  */
 $(function () {
     scientificAnnotation.init();
+    highlight.init();
 
 });

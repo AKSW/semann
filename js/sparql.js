@@ -53,8 +53,8 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             success: function(response){
                 scientificAnnotation.displayAvailableAnnotationFromSparql();
                 var fragments = sparql.parseResponse(response);
-		console.log("total fragments:" +fragments.length);
-		rangy_highlight(fragments);
+                console.log("total fragments:" +fragments.length);
+                highlight.rangy_highlight(fragments);
             },
             error: function(jqXHR, textStatus, ex){
                 //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
@@ -242,8 +242,8 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         item.PROPERTY.value,
                         item.OBJECT.value
                     );
-		fragments.push(getURLParameters(item.excerpt.value, "rangyFragment"));
-		//console.log(item.excerpt.value);
+		            fragments.push(highlight.getURLParameters(item.excerpt.value, "rangyFragment"));
+		            //console.log(item.excerpt.value);
                 });
             }
         });
