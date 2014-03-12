@@ -142,6 +142,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             success: function(response){
                 console.log('add successfully');
                 sparql.bindAutoCompleteProperty('');
+                scientificAnnotation.hideAnnotationDisplayTable();
                 alert('successfully add to sparql :-)');
             },
             error: function(jqXHR, textStatus, ex){

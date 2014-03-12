@@ -21,11 +21,7 @@ var scientificAnnotation  = {
     bindClickEventForAddAnnotationButton: function () {
 
         $("#addAnnotationBtn").bind("click", function () {
-            //scientificAnnotation.displayAnnotationInputArea();
             scientificAnnotation.addAnnotation();
-            //sparql.getAutoCompleteProperty('aa');
-//            var source = ['a','b'];
-//            scientificAnnotation.bindAutoComputeForPropertyField(source);
 
         });
 
@@ -167,8 +163,6 @@ var scientificAnnotation  = {
                 scientificAnnotation.setTextValue(text);
                 scientificAnnotation.selectedTextPosition = scientificAnnotation.getSelectionCharOffsetsWithin();
             }
-
-
         });
 
     },
@@ -184,7 +178,6 @@ var scientificAnnotation  = {
             console.log(subject);
             if(subject != ''){
                 subject = $.trim(subject);
-
                 PDFFindBar.searchAndHighlight(subject);
             }
         });
@@ -305,6 +298,7 @@ var scientificAnnotation  = {
             '<br><p>Available annotation of this file:::</p><br>'
         );
 
+        $('#displaySparqlTable2').empty();
         $('#displaySparqlTable2').append(
             "<table id='sparqlTable' width='100%'>"+
                 "<tr>"+
@@ -321,8 +315,17 @@ var scientificAnnotation  = {
      */
     displayAvailableAnnotationFromSparql:function(){
         $('#displayAnnotationResult').empty();
+        $('#displaySparqlTable1').show();
         scientificAnnotation.createSparqlTable();
         $('#displaySparqlTable2').show();
+    },
+
+    /**
+     *
+     */
+    hideAnnotationDisplayTable:function(){
+        $('#displaySparqlTable1').hide();
+        $('#displaySparqlTable2').hide();
     },
 
     /**
