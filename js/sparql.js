@@ -31,7 +31,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         * */
 
         var fileName = document.title.toString();
-        var selectQuery = 'SELECT distinct str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> WHERE ' +
+        var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> WHERE ' +
             '{ ' +
                 '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt . ' +
                 '?excerpt <http://www.w3.org/2000/rdf-schema#label> ?SUBJECT. ?excerpt ?prop ?obj. ' +
@@ -52,7 +52,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             cache: false,
             success: function(response){
                 scientificAnnotation.displayAvailableAnnotationFromSparql();
-                sparql.parseResponse(response);
+                var fragments = sparql.parseResponse(response);
+		console.log("total fragments:" +fragments.length);
+		rangy_highlight(fragments);
             },
             error: function(jqXHR, textStatus, ex){
                 //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
@@ -67,8 +69,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
      * @param property
      * @param object
      */
-    addAnnotation:function(property, subject, object, textStartPos, textEndPos){
-
+    addAnnotation:function(property, subject, object, textStartPos, textEndPos, rangyPage, rangyFragment){
         // insert query
         /*
          prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>
@@ -97,12 +98,13 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         var currentPage = $('#pageNumber').val();
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
 
-        var URIs = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'#page='+currentPage+'&char='+charStart+','+charEnd+';length='+length+',UTF-8>';
+        var URIs = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'#page='+currentPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyPage='+rangyPage+'&rangyFragment='+rangyFragment+'>';
         var camelProp = sparql.camelCase(property);
         var camelObject = sparql.camelCase(object);
 
 //        console.log('camelProp::'+camelProp);
 //        console.log('camelObject::'+camelObject);
+
 
         var insertQuery =
                 'prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>' +'\n'+
@@ -231,7 +233,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
      * @param response
      */
     parseResponse:function(response){
-
+	var fragments = [];
         $.each(response, function(name, value) {
             if(name == 'results'){
                 $.each(value.bindings, function(index,item) {
@@ -240,10 +242,12 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         item.PROPERTY.value,
                         item.OBJECT.value
                     );
-
+		fragments.push(getURLParameters(item.excerpt.value, "rangyFragment"));
+		//console.log(item.excerpt.value);
                 });
             }
         });
+	return fragments;
     },
 
     /**

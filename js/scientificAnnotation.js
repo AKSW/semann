@@ -72,13 +72,15 @@ var scientificAnnotation  = {
             end = end - previousPagesCharCount;
         }
 
-
-        console.log('start::'+start+'  end::'+end +'::page ::'+currentPage);
+	var rangy_result = rangy_serialize();
+        console.log('start::'+start+'  end::'+end +' page::'+currentPage+' rangy.page::'+rangy_result.Page+' rangy::'+rangy_result.Rangy);
         // alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
 
         return {
             start: start,
-            end: end
+            end: end,
+            rangyFragment: rangy_result.Rangy,
+            rangyPage: rangy_result.Page	
         };
 },
 
@@ -239,11 +241,13 @@ var scientificAnnotation  = {
         if(scientificAnnotation.selectedTextPosition != null){
             startPos = scientificAnnotation.selectedTextPosition.start;
             endPos = scientificAnnotation.selectedTextPosition.end;
+            rangyFragment = scientificAnnotation.selectedTextPosition.rangyFragment;
+            rangyPage = scientificAnnotation.selectedTextPosition.rangyPage;
         }
-
+	
        if(propertyValue != '' && subjectValue!= '' && objectValue!= '') {
            scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,subjectValue, objectValue);
-           sparql.addAnnotation(propertyValue,subjectValue, objectValue, startPos, endPos);
+           sparql.addAnnotation(propertyValue,subjectValue, objectValue, startPos, endPos, rangyPage, rangyFragment);
            scientificAnnotation.clearInputField();
        }
 
