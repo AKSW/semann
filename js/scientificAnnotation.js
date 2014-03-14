@@ -1,22 +1,25 @@
 /**
- * Created with JetBrains PhpStorm.
- * User: Islam_s
- * Date: 21.11.13
- * Time: 11:32
- * To change this template use File | Settings | File Templates.
+This file is the main entry point for this tools for all the event
+ that need to perform.
+
+ @dependency
+
+ sparql.js
+ highlight.js
+
  */
 
 
 var scientificAnnotation  = {
 
-
     GRAPH_NAME : 'scientificAnnotation',
 
+    // selected text position info
     selectedTextPosition:null,
 
 
     /**
-     * bind the click event
+     * bind the click event for add annotation
      */
     bindClickEventForAddAnnotationButton: function () {
 
@@ -31,6 +34,10 @@ var scientificAnnotation  = {
 
     },
 
+    /**
+     * Set auto compute data for property field
+     * @param properties
+     */
     setAutoComputeDataForPropertyField :function(properties){
 
         var propertyField = $('#propertyValueInput');
@@ -43,8 +50,27 @@ var scientificAnnotation  = {
 
     },
 
+    /**
+     * Set auto compute data for object field
+     * @param properties
+     */
+    setAutoComputeDataForObjectField :function(properties){
 
+        var propertyField = $('#objectValueInput');
+        propertyField.typeahead('destroy');
+        propertyField.typeahead(
+            {
+                local: properties
+             }
+        );
 
+    },
+
+    /**
+     * Return the selected Position details
+     *
+     * @returns {{start: number, end: number, rangyFragment: (highlight.rangy_serialize.Rangy|*), rangyPage: (highlight.rangy_serialize.Page|*)}}
+     */
     getSelectionCharOffsetsWithin: function () {
 
 
@@ -72,9 +98,7 @@ var scientificAnnotation  = {
             end = end - previousPagesCharCount;
         }
 
-	var rangy_result = highlight.rangy_serialize();
-        console.log('start::'+start+'  end::'+end +' page::'+currentPage+' rangy.page::'+rangy_result.Page+' rangy::'+rangy_result.Rangy);
-        // alert('start::'+start+'  end::'+end +'::page ::'+currentPage);
+	    var rangy_result = highlight.rangy_serialize();
 
         return {
             start: start,
@@ -85,6 +109,7 @@ var scientificAnnotation  = {
 },
 
     /**
+     * Get selected body text
      *
      * @param node
      * @param offset
@@ -102,6 +127,7 @@ var scientificAnnotation  = {
     },
 
     /**
+     * Get the total character size of a single pdf page
      *
      * @param pageNumber
      * @returns {number}
@@ -128,33 +154,28 @@ var scientificAnnotation  = {
             }
 
             count = page_text.length;
-
-//            console.log('count:'+count);
-//            console.log('newlinecount:'+new_line);
         }
 
        return count;
    },
 
     /**
+     * Get all characters before current page
      *
      * @param currentPage
      * @returns {number}
      */
     getPreviousPagesCharacterCount : function(currentPage){
         var previousPagesCharCount = 0;
-//        if(currentPage >1){
             for(var i=0; i<currentPage -1;i++){
                 previousPagesCharCount += scientificAnnotation.getPageTotalCharLength(i);
                 console.log('previousPagesCharCount:'+previousPagesCharCount);
             }
-//        }
-
         return previousPagesCharCount;
     },
 
     /**
-     * bind the mouse up event
+     * bind mouse event for click in the page for select the document
      */
     bindMouseUpEventForPDFViewer: function () {
 
@@ -170,7 +191,8 @@ var scientificAnnotation  = {
     },
 
     /**
-     * bind the mouse up event
+     * bind the mouse click event in the displayed table rows to
+     * highlight the subject part in the whole document
      */
     bindAnnotationTableSubjectClickEvent: function () {
 
@@ -187,7 +209,6 @@ var scientificAnnotation  = {
 
     },
 
-
     /**
      * clear the values of input text field
      */
@@ -196,7 +217,6 @@ var scientificAnnotation  = {
         $('#subjectValueInput').val('');
         $('#objectValueInput').val('');
     },
-
 
     /**
      * set the input
@@ -221,7 +241,6 @@ var scientificAnnotation  = {
         return '';
     },
 
-
     /**
      * perform the adding of  annotation
      */
@@ -241,11 +260,11 @@ var scientificAnnotation  = {
         var textPosition = scientificAnnotation.selectedTextPosition;
         var startPos = 0, endPos = 0;
 
-        if(scientificAnnotation.selectedTextPosition != null){
-            startPos = scientificAnnotation.selectedTextPosition.start;
-            endPos = scientificAnnotation.selectedTextPosition.end;
-            rangyFragment = scientificAnnotation.selectedTextPosition.rangyFragment;
-            rangyPage = scientificAnnotation.selectedTextPosition.rangyPage;
+        if(textPosition != null){
+            startPos = textPosition.start;
+            endPos = textPosition.end;
+            rangyFragment = textPosition.rangyFragment;
+            rangyPage = textPosition.rangyPage;
         }
 	
        if(propertyValue != '' && subjectValue!= '' && objectValue!= '') {
@@ -274,6 +293,9 @@ var scientificAnnotation  = {
         );
     },
 
+    /**
+     * Reset the annotation display tables
+     */
     resetAnnotationTable:function (){
         $('#displaySparqlTable1').empty();
         $('#displaySparqlTable2').empty();
@@ -297,7 +319,7 @@ var scientificAnnotation  = {
     },
 
     /**
-     * 
+     * Create the tables for viewing the available data from the db
      */
     createSparqlTable:function(){
         $('#displaySparqlTable1').empty();
@@ -318,7 +340,7 @@ var scientificAnnotation  = {
     },
 
     /**
-     * 
+     * Showing the available annotation tables
      */
     displayAvailableAnnotationFromSparql:function(){
         $('#displayAnnotationResult').empty();
@@ -328,7 +350,18 @@ var scientificAnnotation  = {
     },
 
     /**
-     *
+     * Showing the available annotation tables
+     */
+    noAvailableAnnotationFromSparql:function(){
+        $('#displaySparqlTable1').empty();
+        $('#displaySparqlTable1').append(
+            '<br><p>No available  annotation found  of this file.</p><br>'
+        );
+        $('#displaySparqlTable1').show();
+    },
+
+    /**
+     * Hide the available annotation table
      */
     hideAnnotationDisplayTable:function(){
         $('#displaySparqlTable1').hide();
@@ -342,8 +375,8 @@ var scientificAnnotation  = {
         scientificAnnotation.bindClickEventForAddAnnotationButton();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
         sparql.bindAutoCompleteProperty();
+        sparql.bindAutoCompleteObject();
     }
-
 };
 
 

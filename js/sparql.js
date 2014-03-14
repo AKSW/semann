@@ -1,9 +1,12 @@
 /**
- * Created with JetBrains PhpStorm.
- * User: Islam_s
- * Date: 21.11.13
- * Time: 11:32
- * To change this template use File | Settings | File Templates.
+ This file contain all the necessary sparql related queries,
+ that need to perform.
+
+ @dependency
+
+ scientificAnnotation.js
+ highlight.js
+
  */
 
 
@@ -21,12 +24,12 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
 
         // select query
         /*
-         SELECT ?excerpt ?s ?p ?o FROM <scientificAnnotation> WHERE
+         SELECT distinct ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <scientificAnnotation> WHERE
          {
              <http://eis.iai.uni-bonn.de/semann/pdf/test6.pdf> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt .
-             ?excerpt <http://www.w3.org/2000/rdf-schema#label> ?s. ?excerpt ?prop ?obj.
-             ?prop <http://www.w3.org/2000/rdf-schema#label> ?p.
-             ?obj <http://www.w3.org/2000/rdf-schema#label> ?o.
+             ?excerpt <http://www.w3.org/2000/rdf-schema#label> ?SUBJECT. ?excerpt ?prop ?obj.
+             ?prop <http://www.w3.org/2000/rdf-schema#label> ?PROPERTY.
+             ?obj <http://www.w3.org/2000/rdf-schema#label> ?OBJECT.
          }
         * */
 
@@ -51,10 +54,15 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             crossDomain: true,
             cache: false,
             success: function(response){
-                scientificAnnotation.displayAvailableAnnotationFromSparql();
-                var fragments = sparql.parseResponse(response);
-                console.log("total fragments:" +fragments.length);
-                highlight.rangy_highlight(fragments);
+
+                if( response!= null && response.results.bindings.length >0) {
+                    scientificAnnotation.displayAvailableAnnotationFromSparql();
+                    var fragments = sparql.parseResponse(response);
+                    console.log("total fragments:" +fragments.length);
+                    highlight.rangy_highlight(fragments);
+                } else {
+                    scientificAnnotation.noAvailableAnnotationFromSparql();
+                }
             },
             error: function(jqXHR, textStatus, ex){
                 //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
@@ -65,9 +73,13 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
 
     /**
      *
-     * @param subject
      * @param property
+     * @param subject
      * @param object
+     * @param textStartPos
+     * @param textEndPos
+     * @param rangyPage
+     * @param rangyFragment
      */
     addAnnotation:function(property, subject, object, textStartPos, textEndPos, rangyPage, rangyFragment){
         // insert query
@@ -102,10 +114,6 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         var camelProp = sparql.camelCase(property);
         var camelObject = sparql.camelCase(object);
 
-//        console.log('camelProp::'+camelProp);
-//        console.log('camelObject::'+camelObject);
-
-
         var insertQuery =
                 'prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>' +'\n'+
                 'prefix semannp: <http://eis.iai.uni-bonn.de/semann/property#>'+'\n'+
@@ -126,10 +134,6 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 '} ' +'\n'+
             '}';
 
-//        console.log(insertQuery);
-//        return;
-
-
         $.ajax({
             type: "GET",
             url: sparql.SERVER_ADDRESS,
@@ -143,30 +147,23 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             cache: false,
             success: function(response){
                 console.log('add successfully');
-                sparql.bindAutoCompleteProperty('');
+                sparql.bindAutoCompleteProperty();
+                sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
                 alert('successfully add to sparql :-)');
             },
             error: function(jqXHR, textStatus, ex){
-                //console.log("error occur while insert data:"+ textStatus + "," + ex + "," + jqXHR.responseText);
                 alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-
             }
         });
-
     },
 
-
     /**
-     *
+     * Provide the data for the auto complete in the property field
      * @param searchItem
      * @returns {Array}
      */
-    bindAutoCompleteProperty :function(searchItem){
-
-        if(searchItem == null){
-            searchItem = '';
-        }
+    bindAutoCompleteProperty :function(){
 
         /**
          SELECT distinct  str(?label) as ?PROPERTY FROM <scientificAnnotation>
@@ -175,8 +172,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
            ?p <http://www.w3.org/2000/rdf-schema#label> ?label
            FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))
          }
-         ORDER BY fn:lower-case(?LABEL) LIMIT 200
-         }
+         ORDER BY fn:lower-case(?PROPERTY) LIMIT 200
+
+
          */
 
         var selectQuery = 'SELECT distinct  str(?label) as ?PROPERTY FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
@@ -184,9 +182,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             '{ ' +'\n'+
                 '?p <http://www.w3.org/2000/rdf-schema#label> ?label ' +'\n'+
                 'FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))' +'\n'+
-            '} ORDER BY fn:lower-case(?LABEL) LIMIT 200';
-
-//        console.log(selectQuery);return;
+            '} ORDER BY fn:lower-case(?PROPERTY) LIMIT 200';
 
         var source = null;
 
@@ -211,14 +207,62 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             }
         });
 
-        console.log(source);
+        return source;
+    },
+
+
+    /**
+     * Provide the data for the auto complete in the  object field
+     * @param searchItem
+     * @returns {Array}
+     */
+    bindAutoCompleteObject :function(){
+
+        /**
+         SELECT distinct  str(?label) as ?OBJECT FROM <scientificAnnotation>
+         WHERE
+         {
+           ?o <http://www.w3.org/2000/rdf-schema#label> ?label
+           FILTER(STRSTARTS(STR(?o), "http://eis.iai.uni-bonn.de/semann/owl#"))
+         }
+         ORDER BY fn:lower-case(?OBJECT) LIMIT 200
+
+         */
+
+        var selectQuery = 'SELECT distinct  str(?label) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
+            ' WHERE ' +'\n'+
+            '{ ' +'\n'+
+                '?o <http://www.w3.org/2000/rdf-schema#label> ?label ' +'\n'+
+                'FILTER(STRSTARTS(STR(?o), "http://eis.iai.uni-bonn.de/semann/owl#"))' +'\n'+
+            '} ORDER BY fn:lower-case(?OBJECT) LIMIT 200';
+
+        var source = null;
+
+        $.ajax({
+            type: "GET",
+            url: sparql.SERVER_ADDRESS,
+            data: {
+                query: selectQuery,
+                format: "application/json"
+            },
+            async: true,
+            dataType: "jsonp",
+            crossDomain: true,
+            cache: false,
+            success: function(response){
+                source = sparql.parseObject(response);
+                scientificAnnotation.setAutoComputeDataForObjectField(source);
+            },
+            error: function(jqXHR, textStatus, ex){
+                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            }
+        });
 
         return source;
-
     },
 
     /**
-     *
+     * Return the camelCase of a sentences (Hello World --> helloWorld)
      * @param str
      * @returns {XML|string|void|*}
      */
@@ -227,9 +271,8 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
         return  str;//.substring(0,1).toUpperCase()+str.substring(1);
     },
 
-
     /**
-     *
+     * Parse the json response form db and render the tabular view, while display available annotations
      * @param response
      */
     parseResponse:function(response){
@@ -243,7 +286,6 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                         item.OBJECT.value
                     );
 		            fragments.push(highlight.getURLParameters(item.excerpt.value, "rangyFragment"));
-		            //console.log(item.excerpt.value);
                 });
             }
         });
@@ -251,6 +293,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
     },
 
     /**
+     * Parse the json response and return as array
      *
      * @param response
      * @returns {Array}
@@ -267,8 +310,27 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             }
         });
         return items;
-    }
+    },
 
+    /**
+     * Parse the json response and return as array
+     *
+     * @param response
+     * @returns {Array}
+     */
+    parseObject:function(response) {
+
+        var items = [];
+
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    items.push(item.OBJECT.value);
+                });
+            }
+        });
+        return items;
+    }
 
 };
 
