@@ -23,13 +23,30 @@ var scientificAnnotation  = {
      */
     bindClickEventForAddAnnotationButton: function () {
 
-        $("#addAnnotationBtn").bind("click", function () {
+        $("#addAnnotationButton").bind("click", function () {
             scientificAnnotation.addAnnotation();
 
         });
 
-        $("#queryBtn").bind("click", function () {
-            sparql.showDataFromSparql();
+        $("#showSimilarSearchButton").bind("click", function () {
+            scientificAnnotation.showSimilarSearchResult();
+
+        });
+
+        $("#queryButton").bind("click", function () {
+            var outputTable = $('#displaySparqlTableRows');
+            var displayFileInfoTitle = $('#displayTableTitle');
+            var similarPubsList = $("#similarPubsList");
+            similarPubsList.hide();
+            if (!outputTable.is(':visible')) {
+                sparql.showDataFromSparql();
+                outputTable.fadeIn(500);
+                displayFileInfoTitle.fadeIn(500);
+            } else {
+                outputTable.fadeOut(300);
+                displayFileInfoTitle.fadeOut(300);
+            }
+
         });
 
     },
@@ -63,6 +80,28 @@ var scientificAnnotation  = {
                 local: properties
              }
         );
+
+    },
+
+
+    /**
+     * Set similar search result
+     * @param searchResult
+     */
+    setSimilarSearchResult :function(searchResult){
+
+        var similarPubsList = $("#similarPubsList");
+
+        if(searchResult.length > 0) {
+            scientificAnnotation.hideAnnotationDisplayTable();
+            similarPubsList.empty();
+            for(var i = 0; i < searchResult.length; i++) {
+                similarPubsList.append(
+                    '<a href="'+searchResult[i]+'" class="list-group-item">'+searchResult[i]+'</a>'
+                );
+            }
+            similarPubsList.fadeIn(500);// show the result
+        }
 
     },
 
@@ -297,8 +336,8 @@ var scientificAnnotation  = {
      * Reset the annotation display tables
      */
     resetAnnotationTable:function (){
-        $('#displaySparqlTable1').empty();
-        $('#displaySparqlTable2').empty();
+        $('#displayTableTitle').empty();
+        $('#displaySparqlTableRows').empty();
     },
 
     /**
@@ -322,14 +361,14 @@ var scientificAnnotation  = {
      * Create the tables for viewing the available data from the db
      */
     createSparqlTable:function(){
-        $('#displaySparqlTable1').empty();
-        $('#displaySparqlTable1').append(
+        $('#displayTableTitle').empty();
+        $('#displayTableTitle').append(
             '<br><p>Available annotation of this file:::</p><br>'
         );
 
-        $('#displaySparqlTable2').empty();
-        $('#displaySparqlTable2').append(
-            "<table id='sparqlTable' width='100%'>"+
+        $('#displaySparqlTableRows').empty();
+        $('#displaySparqlTableRows').append(
+            "<table id='sparqlTable' width='100%' >"+
                 "<tr>"+
                     "<th width='50%'> Subject </th> <th width='20%'> Property </th> <th width='30%'> Object </th>"+
                 "</tr>"+
@@ -343,29 +382,45 @@ var scientificAnnotation  = {
      * Showing the available annotation tables
      */
     displayAvailableAnnotationFromSparql:function(){
+
         $('#displayAnnotationResult').empty();
-        $('#displaySparqlTable1').show();
+        $('#displayTableTitle').show();
         scientificAnnotation.createSparqlTable();
-        $('#displaySparqlTable2').show();
+        $('#displaySparqlTableRows').show();
     },
 
     /**
      * Showing the available annotation tables
      */
     noAvailableAnnotationFromSparql:function(){
-        $('#displaySparqlTable1').empty();
-        $('#displaySparqlTable1').append(
+        $('#displayTableTitle').empty();
+        $('#displayTableTitle').append(
             '<br><p>No available  annotation found  of this file.</p><br>'
         );
-        $('#displaySparqlTable1').show();
+        $('#displayTableTitle').fadeIn(300); // show the table
     },
 
     /**
      * Hide the available annotation table
      */
     hideAnnotationDisplayTable:function(){
-        $('#displaySparqlTable1').hide();
-        $('#displaySparqlTable2').hide();
+        $('#displayTableTitle').hide();
+        $('#displaySparqlTableRows').hide();
+    },
+
+
+    /**
+     * Display similar search
+     */
+    showSimilarSearchResult:function(){
+
+       var similarPubsList = $("#similarPubsList");
+        if (!similarPubsList.is(':visible')) {
+            sparql.findSimilarFiles();
+
+        } else {
+            similarPubsList.fadeOut(300);
+        }
     },
 
     /**

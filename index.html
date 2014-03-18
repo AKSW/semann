@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="./css/highlight.css"/>
 
     <script type="text/javascript" src="./libs/jquery.min.js"></script>
-    <!--<script type="text/javascript" src="./libs/bootstrap.min.js"></script>-->
     <script type="text/javascript" src="./libs/typeahead.min.js"></script>
 
     <script type="text/javascript" src="./external/webL10n/l10n.js"></script>
@@ -44,11 +43,12 @@
     <script type="text/javascript" src="./libs/rangy/rangy-core.js"></script>
     <script type="text/javascript" src="./libs/rangy/rangy-serializer.js"></script>
     <script type="text/javascript" src="./libs/rangy/rangy-cssclassapplier.js"></script>
-    <script type="text/javascript" src="./js/annotation.js"></script>
     <script type="text/javascript" src="./js/highlight.js"></script>
 
+    <script type="text/javascript" src="./js/annotation.js"></script>
     <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
     <script type="text/javascript" src="./js/sparql.js"></script>
+    <script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
   </head>
 
   <body tabindex="1">
@@ -274,14 +274,26 @@
             </br>
         </div>
 
-        <button id="addAnnotationBtn" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button><br>
-        <button id="queryBtn" class="btn btn-info"><span class="glyphicon"></span>Show local sparql data</button>
+        <button id="addAnnotationButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>
+        <button id="queryButton" class="btn btn-info"><span class="glyphicon "></span> Show local sparql data</button>
+        <button id="showSimilarSearchButton" class="btn btn-default"> Find Similar</button>
+
+            <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;">
+                <!--<a href="#" class="list-group-item">Balanced scoring method for multiple-mark questions</a>-->
+                <!--<a href="#" class="list-group-item">Can we Create Better Links by Playing Games?</a>-->
+                <!--<a href="#" class="list-group-item">COALA -- Correlation-Aware Active Learning of Link Specifications</a>-->
+                <!--<a href="#" class="list-group-item">Crowd-sourced Open Courseware Authoring with SlideWiki.org </a>-->
+                <!--<a href="#" class="list-group-item">Crowdsourcing Linked Data quality assessment</a>-->
+            </div>
+
+
+
         <div id="displayAnnotationResult" style='overflow:auto; width:600px;'>
         </div>
 
-        <div id="displaySparqlTable1">
+        <div id="displayTableTitle">
         </div>
-        <div id="displaySparqlTable2" style='overflow:auto; display:none ; width:800px; height:250px;'>
+        <div id="displaySparqlTableRows" style='overflow:auto; display:none ; width:800px; height:300px;'>
 
         </div>
 

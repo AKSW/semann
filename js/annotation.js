@@ -98,10 +98,10 @@
             newPropertyForm.fadeIn(50);
         });
 
-        findSimilarButton.on('click', function(){
-            similarPubsList.fadeIn(300);
-            //similarPubs.animate({height: "+=30"}, 300);
-        });
+//        findSimilarButton.on('click', function(){
+//            similarPubsList.fadeIn(300);
+//            //similarPubs.animate({height: "+=30"}, 300);
+//        });
 
         // handle add property
         addPropertyBtn.on('click', function(){
