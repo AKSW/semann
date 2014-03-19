@@ -311,7 +311,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                             '?prop <http://www.w3.org/2000/rdf-schema#label> ?p.' +'\n'+
                             '?obj <http://www.w3.org/2000/rdf-schema#label> ?o.' +'\n'+
                         '}' +'\n'+
-                        ' FILTER (?obj in (?curr_obj) and !sameTerm(<http://eis.iai.uni-bonn.de/semann/pdf/sample.pdf>, ?file))' +'\n'+
+                        ' FILTER (?obj in (?curr_obj) and !sameTerm(<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'>, ?file))' +'\n'+
                     '}' +'\n'+
                 '}' +'\n'+
                 ' GROUP BY ?file ' +'\n'+
