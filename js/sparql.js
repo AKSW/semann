@@ -33,7 +33,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
          }
         * */
 
-        var fileName = document.title.toString();
+        var fileName = encodeURI(document.title.toString());
         var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> WHERE ' +
             '{ ' +
                 '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt . ' +
@@ -105,8 +105,9 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
          }
          */
 
-        var fileName = document.title.toString();
-        var uri = 'semannpdf:'+fileName;
+        var fileName = encodeURI(document.title.toString());
+	
+        var uri = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'>';
         var currentPage = $('#pageNumber').val();
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
 
@@ -118,7 +119,6 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 'prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>' +'\n'+
                 'prefix semannp: <http://eis.iai.uni-bonn.de/semann/property#>'+'\n'+
                 'prefix semannpub: <http://eis.iai.uni-bonn.de/semann/publication/>' +'\n'+
-                'prefix semannpdf: <http://eis.iai.uni-bonn.de/semann/pdf/>' +'\n'+
                 'prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns>' +'\n'+
                 'prefix rdfs: <http://www.w3.org/2000/rdf-schema#>'+'\n'+
             'INSERT DATA ' +'\n'+
@@ -146,7 +146,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
             crossDomain: true,
             cache: false,
             success: function(response){
-                console.log('add successfully');
+                console.log('added successfully');
                 sparql.bindAutoCompleteProperty();
                 sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
@@ -292,7 +292,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                      LIMIT 10
          */
 
-        var fileName = document.title.toString();
+        var fileName = encodeURI(document.title.toString());
         var selectQuery =
             ' SELECT ?file ' +'\n'+
                 ' WHERE ' +'\n'+
