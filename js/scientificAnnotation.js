@@ -418,7 +418,7 @@ var scientificAnnotation  = {
     },
 
     /**
-     * Display error message
+     * Display success message
      *
      * @param message
      */
