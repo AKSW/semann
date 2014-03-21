@@ -14,6 +14,11 @@ var sparql  = {
 
 
 SERVER_ADDRESS : "http://localhost:8890/sparql",
+PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
+PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
+PREFIX_RDFS : "http://www.w3.org/2000/rdf-schema#",
+PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/owl#",
+PREFIX_SEMANNP : "http://eis.iai.uni-bonn.de/semann/property#",
 
 
     /**
@@ -33,13 +38,13 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
          }
         * */
 
-        var fileName = encodeURI(document.title.toString());
+        var q = sparql.resource();	
         var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> WHERE ' +
             '{ ' +
-                '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt . ' +
-                '?excerpt <http://www.w3.org/2000/rdf-schema#label> ?SUBJECT. ?excerpt ?prop ?obj. ' +
-                '?prop <http://www.w3.org/2000/rdf-schema#label> ?PROPERTY. ' +
-                '?obj <http://www.w3.org/2000/rdf-schema#label> ?OBJECT.' +
+                q.File + ' '+ q.hasExcerpt + ' ?excerpt . ' +
+                '?excerpt ' + q.label + ' ?SUBJECT. ?excerpt ?prop ?obj. ' +
+                '?prop ' + q.label + ' ?PROPERTY. ' +
+                '?obj ' + q.label + ' ?OBJECT.' +
             '}';
 
         $.ajax({
@@ -64,9 +69,25 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                     scientificAnnotation.noAvailableAnnotationFromSparql();
                 }
             },
-            error: function(jqXHR, textStatus, ex){
-                //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            error: function(jqXHR, exception){
+		var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+                //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+		if (jqXHR.status === 0) {
+			errorTxt=errorTxt + '\nNot connected. Verify network.';
+		} else if (jqXHR.status == 404) {
+			errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+		} else if (jqXHR.status == 500) {
+			errorTxt=errorTxt + '\nInternal server error [500].';
+		} else if (exception === 'parsererror') {
+			errorTxt=errorTxt + '\nRequested JSON parse failed.';
+		} else if (exception === 'timeout') {
+			errorTxt=errorTxt + '\nTimeout error.';
+		} else if (exception === 'abort') {
+			errorTxt=errorTxt + '\nAjax request aborted.';
+		} else {
+			errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
+		}
+		alert(errorTxt);
             }
         });
     },
@@ -105,32 +126,26 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
          }
          */
 
-        var fileName = encodeURI(document.title.toString());
-	
-        var uri = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'>';
         var currentPage = $('#pageNumber').val();
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
-
-        var URIs = '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'#page='+currentPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyPage='+rangyPage+'&rangyFragment='+rangyFragment+'>';
+	var fileFragment = '#page='+currentPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyPage='+rangyPage+'&rangyFragment='+rangyFragment;
+	var q = sparql.resource(fileFragment);
         var camelProp = sparql.camelCase(property);
         var camelObject = sparql.camelCase(object);
 
         var insertQuery =
-                'prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>' +'\n'+
-                'prefix semannp: <http://eis.iai.uni-bonn.de/semann/property#>'+'\n'+
-                'prefix semannpub: <http://eis.iai.uni-bonn.de/semann/publication/>' +'\n'+
-                'prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns>' +'\n'+
-                'prefix rdfs: <http://www.w3.org/2000/rdf-schema#>'+'\n'+
+                'prefix semann: <'+sparql.PREFIX_SEMANN+'>' +'\n'+
+                'prefix semannp: <'+sparql.PREFIX_SEMANNP+'>'+'\n'+
             'INSERT DATA ' +'\n'+
             '{ ' +'\n'+
                 'GRAPH <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
                 '{ ' +'\n'+
-                        uri+' rdf:type semannpub:Publication. '+'\n'+
-                        uri+' semannpub:hasExcerpt '+ URIs +' .'+'\n'+
-                        URIs +' rdfs:label "'+subject+'"@en; ' +'\n'+
+                        q.File+' a ' +q.Publication+ '. '+'\n'+
+                        q.File+' ' + q.hasExcerpt + ' '+ q.Excerpt +' .'+'\n'+
+                        q.Excerpt +' ' + q.label + ' "'+subject+'"@en; ' +'\n'+
                         'semannp:'+camelProp+' semann:'+camelObject+' .'+'\n'+
-                        'semannp:'+camelProp+'  rdfs:label "'+property+'"@en. '+'\n'+
-                        'semann:'+camelObject+' rdfs:label "'+object+'"@en. '+'\n'+
+                        'semannp:'+camelProp+'  ' + q.label + ' "'+property+'"@en. '+'\n'+
+                        'semann:'+camelObject+' ' + q.label + ' "'+object+'"@en. '+'\n'+
                 '} ' +'\n'+
             '}';
 
@@ -150,10 +165,27 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 sparql.bindAutoCompleteProperty();
                 sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
-                alert('successfully add to sparql :-)');
+                alert('successfully added to sparql :-)');
             },
-            error: function(jqXHR, textStatus, ex){
-                alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            error: function(jqXHR, exception){
+		var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+                //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+		if (jqXHR.status === 0) {
+			errorTxt=errorTxt + '\nNot connected. Verify network.';
+		} else if (jqXHR.status == 404) {
+			errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+		} else if (jqXHR.status == 500) {
+			errorTxt=errorTxt + '\nInternal server error [500].';
+		} else if (exception === 'parsererror') {
+			errorTxt=errorTxt + '\nRequested JSON parse failed.';
+		} else if (exception === 'timeout') {
+			errorTxt=errorTxt + '\nTimeout error.';
+		} else if (exception === 'abort') {
+			errorTxt=errorTxt + '\nAjax request aborted.';
+		} else {
+			errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
+		}
+		alert(errorTxt);
             }
         });
     },
@@ -176,12 +208,12 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
 
 
          */
-
+	var q = sparql.resource();
         var selectQuery = 'SELECT distinct  str(?label) as ?PROPERTY FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
             ' WHERE ' +'\n'+
             '{ ' +'\n'+
-                '?p <http://www.w3.org/2000/rdf-schema#label> ?label ' +'\n'+
-                'FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))' +'\n'+
+                '?p ' + q.label + ' ?label ' +'\n'+
+                'FILTER(STRSTARTS(STR(?p), "'+sparql.PREFIX_SEMANNP+'"))' +'\n'+
             '} ORDER BY fn:lower-case(?PROPERTY) LIMIT 200';
 
         var source = null;
@@ -201,9 +233,25 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 source = sparqlResponseParser.parseProperty(response);
                 scientificAnnotation.setAutoComputeDataForPropertyField(source);
             },
-            error: function(jqXHR, textStatus, ex){
-                //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            error: function(jqXHR, exception){
+		var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+                //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+		if (jqXHR.status === 0) {
+			errorTxt=errorTxt + '\nNot connected. Verify network.';
+		} else if (jqXHR.status == 404) {
+			errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+		} else if (jqXHR.status == 500) {
+			errorTxt=errorTxt + '\nInternal server error [500].';
+		} else if (exception === 'parsererror') {
+			errorTxt=errorTxt + '\nRequested JSON parse failed.';
+		} else if (exception === 'timeout') {
+			errorTxt=errorTxt + '\nTimeout error.';
+		} else if (exception === 'abort') {
+			errorTxt=errorTxt + '\nAjax request aborted.';
+		} else {
+			errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
+		}
+		alert(errorTxt);
             }
         });
 
@@ -228,12 +276,12 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
          ORDER BY fn:lower-case(?OBJECT) LIMIT 200
 
          */
-
+	var q = sparql.resource();
         var selectQuery = 'SELECT distinct  str(?label) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
             ' WHERE ' +'\n'+
             '{ ' +'\n'+
-                '?o <http://www.w3.org/2000/rdf-schema#label> ?label ' +'\n'+
-                'FILTER(STRSTARTS(STR(?o), "http://eis.iai.uni-bonn.de/semann/owl#"))' +'\n'+
+                '?o ' + q.label + ' ?label ' +'\n'+
+                'FILTER(STRSTARTS(STR(?o), "'+sparql.PREFIX_SEMANN+'"))' +'\n'+
             '} ORDER BY fn:lower-case(?OBJECT) LIMIT 200';
 
         var source = null;
@@ -253,8 +301,25 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 source = sparqlResponseParser.parseObject(response);
                 scientificAnnotation.setAutoComputeDataForObjectField(source);
             },
-            error: function(jqXHR, textStatus, ex){
-                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            error: function(jqXHR, exception){
+		var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+                //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+		if (jqXHR.status === 0) {
+			errorTxt=errorTxt + '\nNot connected. Verify network.';
+		} else if (jqXHR.status == 404) {
+			errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+		} else if (jqXHR.status == 500) {
+			errorTxt=errorTxt + '\nInternal server error [500].';
+		} else if (exception === 'parsererror') {
+			errorTxt=errorTxt + '\nRequested JSON parse failed.';
+		} else if (exception === 'timeout') {
+			errorTxt=errorTxt + '\nTimeout error.';
+		} else if (exception === 'abort') {
+			errorTxt=errorTxt + '\nAjax request aborted.';
+		} else {
+			errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
+		}
+		alert(errorTxt);
             }
         });
 
@@ -291,8 +356,7 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                      ORDER BY DESC(count(?file)) #file ranking by no. of object hits
                      LIMIT 10
          */
-
-        var fileName = encodeURI(document.title.toString());
+	var q = sparql.resource();
         var selectQuery =
             ' SELECT ?file ' +'\n'+
                 ' WHERE ' +'\n'+
@@ -301,17 +365,17 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                     ' WHERE ' +'\n'+
                     '{' +'\n'+
                         '{' +'\n'+
-                            '<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?curr_excerpt .' +'\n'+
+                            q.File+' '+q.hasExcerpt+' ?curr_excerpt .' +'\n'+
                             '?curr_excerpt ?curr_prop ?curr_obj.' +'\n'+
-                            '?curr_obj <http://www.w3.org/2000/rdf-schema#label> ?curr_o.' +'\n'+
+                            '?curr_obj ' + q.label + ' ?curr_o.' +'\n'+
                         '}' +'\n'+
                         '{' +'\n'+
-                            '?file <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt .' +'\n'+
-                            '?excerpt <http://www.w3.org/2000/rdf-schema#label> ?s. ?excerpt ?prop ?obj.' +'\n'+
-                            '?prop <http://www.w3.org/2000/rdf-schema#label> ?p.' +'\n'+
-                            '?obj <http://www.w3.org/2000/rdf-schema#label> ?o.' +'\n'+
+                            '?file '+q.hasExcerpt+' ?excerpt .' +'\n'+
+                            '?excerpt ' + q.label + ' ?s. ?excerpt ?prop ?obj.' +'\n'+
+                            '?prop ' + q.label + ' ?p.' +'\n'+
+                            '?obj ' + q.label + ' ?o.' +'\n'+
                         '}' +'\n'+
-                        ' FILTER (?obj in (?curr_obj) and !sameTerm(<http://eis.iai.uni-bonn.de/semann/pdf/'+fileName+'>, ?file))' +'\n'+
+                        ' FILTER (?obj in (?curr_obj) and !sameTerm('+q.File+', ?file))' +'\n'+
                     '}' +'\n'+
                 '}' +'\n'+
                 ' GROUP BY ?file ' +'\n'+
@@ -335,9 +399,24 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
                 source = sparqlResponseParser.parseSimilarSearch(response);
                 scientificAnnotation.setSimilarSearchResult(source);
             },
-            error: function(jqXHR, textStatus, ex){
-                //console.log("error occur while select :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                alert("Error occur while reading using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
+            error: function(jqXHR, exception){
+		var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+		if (jqXHR.status === 0) {
+			errorTxt=errorTxt + '\nNot connected. Verify network.';
+		} else if (jqXHR.status == 404) {
+			errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+		} else if (jqXHR.status == 500) {
+			errorTxt=errorTxt + '\nInternal server error [500].';
+		} else if (exception === 'parsererror') {
+			errorTxt=errorTxt + '\nRequested JSON parse failed.';
+		} else if (exception === 'timeout') {
+			errorTxt=errorTxt + '\nTimeout error.';
+		} else if (exception === 'abort') {
+			errorTxt=errorTxt + '\nAjax request aborted.';
+		} else {
+			errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
+		}
+		alert(errorTxt);
             }
         });
 
@@ -352,7 +431,24 @@ SERVER_ADDRESS : "http://localhost:8890/sparql",
     camelCase :function (str){
         str     = $.camelCase(str.replace(/[_ ]/g, '-')).replace(/-/g, '');
         return  str;//.substring(0,1).toUpperCase()+str.substring(1);
+    },
+    
+    /**
+     * Return the URI of resources to be used in sparql queries.
+     * @param optional file fragment location 
+     * @returns object with resources you can use in sparql queries.
+     */
+    resource :function (fragment){
+	var fileURI = sparql.PREFIX_FILE + encodeURI(document.title.toString());
+	var excerptURI = fileURI + fragment;
+	var hasExcerptURI = sparql.PREFIX_PUB + 'hasExcerpt';
+        return {
+		File:			'<'+fileURI+'>',
+		hasExcerpt:	'<'+hasExcerptURI+'>',
+		label:			'<'+sparql.PREFIX_RDFS+'label>',
+		Publication:		'<'+sparql.PREFIX_PUB+'Publication>',
+		Excerpt:		'<'+excerptURI+'>'
+	}
     }
-
 };
 

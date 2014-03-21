@@ -395,7 +395,7 @@ var scientificAnnotation  = {
     noAvailableAnnotationFromSparql:function(){
         $('#displayTableTitle').empty();
         $('#displayTableTitle').append(
-            '<br><p>No available  annotation found  of this file.</p><br>'
+            '<br><p>No available annotation found  of this file.</p><br>'
         );
         $('#displayTableTitle').fadeIn(300); // show the table
     },
