@@ -17,7 +17,6 @@ var scientificAnnotation  = {
     // selected text position info
     selectedTextPosition:null,
 
-
     /**
      * bind the click event for add annotation
      */
@@ -25,12 +24,10 @@ var scientificAnnotation  = {
 
         $("#addAnnotationButton").bind("click", function () {
             scientificAnnotation.addAnnotation();
-
         });
 
         $("#showSimilarSearchButton").bind("click", function () {
             scientificAnnotation.showSimilarSearchResult();
-
         });
 
         $("#queryButton").bind("click", function () {
@@ -46,9 +43,7 @@ var scientificAnnotation  = {
                 outputTable.fadeOut(300);
                 displayFileInfoTitle.fadeOut(300);
             }
-
         });
-
     },
 
     /**
@@ -417,10 +412,32 @@ var scientificAnnotation  = {
        var similarPubsList = $("#similarPubsList");
         if (!similarPubsList.is(':visible')) {
             sparql.findSimilarFiles();
-
         } else {
             similarPubsList.fadeOut(300);
         }
+    },
+
+    /**
+     * Display error message
+     *
+     * @param message
+     */
+    showSuccessMessage:function (message) {
+        var selector = '.alert-success';
+        $(selector).html(message);
+        $(selector).fadeIn(1000);
+        $(selector).delay(1500).fadeOut()
+    },
+
+    /**
+     * Display error message
+     * @param message
+     */
+    showErrorMessage:function (message) {
+        var selector = '.alert-danger';
+        $(selector).html(message);
+        $(selector).fadeIn(1000);
+        $(selector).delay(1500).fadeOut()
     },
 
     /**
