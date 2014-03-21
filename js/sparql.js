@@ -21,7 +21,6 @@ var sparql  = {
     PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/owl#",
     PREFIX_SEMANNP : "http://eis.iai.uni-bonn.de/semann/property#",
 
-
     /**
      *Read data form sparql table and display
      *
@@ -72,24 +71,7 @@ var sparql  = {
                 }
             },
             error: function(jqXHR, exception){
-                var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
-                        //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                if (jqXHR.status === 0) {
-                    errorTxt=errorTxt + '\nNot connected. Verify network.';
-                } else if (jqXHR.status == 404) {
-                    errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
-                } else if (jqXHR.status == 500) {
-                    errorTxt=errorTxt + '\nInternal server error [500].';
-                } else if (exception === 'parsererror') {
-                    errorTxt=errorTxt + '\nRequested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    errorTxt=errorTxt + '\nTimeout error.';
-                } else if (exception === 'abort') {
-                    errorTxt=errorTxt + '\nAjax request aborted.';
-                } else {
-                    errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
-                }
-
+                var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -174,23 +156,7 @@ var sparql  = {
                 scientificAnnotation.showSuccessMessage('Annotation successfully added');
             },
             error: function(jqXHR, exception){
-                var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
-                        //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                if (jqXHR.status === 0) {
-                    errorTxt=errorTxt + '\nNot connected. Verify network.';
-                } else if (jqXHR.status == 404) {
-                    errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
-                } else if (jqXHR.status == 500) {
-                    errorTxt=errorTxt + '\nInternal server error [500].';
-                } else if (exception === 'parsererror') {
-                    errorTxt=errorTxt + '\nRequested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    errorTxt=errorTxt + '\nTimeout error.';
-                } else if (exception === 'abort') {
-                    errorTxt=errorTxt + '\nAjax request aborted.';
-                } else {
-                    errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
-                }
+                var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -239,23 +205,7 @@ var sparql  = {
                 scientificAnnotation.setAutoComputeDataForPropertyField(source);
             },
             error: function(jqXHR, exception){
-                var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
-                        //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                if (jqXHR.status === 0) {
-                    errorTxt=errorTxt + '\nNot connected. Verify network.';
-                } else if (jqXHR.status == 404) {
-                    errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
-                } else if (jqXHR.status == 500) {
-                    errorTxt=errorTxt + '\nInternal server error [500].';
-                } else if (exception === 'parsererror') {
-                    errorTxt=errorTxt + '\nRequested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    errorTxt=errorTxt + '\nTimeout error.';
-                } else if (exception === 'abort') {
-                    errorTxt=errorTxt + '\nAjax request aborted.';
-                } else {
-                    errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
-                }
+                var errorTxt= sparql.getStandardErrorMessage(jqXHR,exception);
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -307,23 +257,7 @@ var sparql  = {
                 scientificAnnotation.setAutoComputeDataForObjectField(source);
             },
             error: function(jqXHR, exception){
-                var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
-                        //alert("Error occur while insert data using Sparql :"+ textStatus + "," + ex + "," + jqXHR.responseText);
-                if (jqXHR.status === 0) {
-                    errorTxt=errorTxt + '\nNot connected. Verify network.';
-                } else if (jqXHR.status == 404) {
-                    errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
-                } else if (jqXHR.status == 500) {
-                    errorTxt=errorTxt + '\nInternal server error [500].';
-                } else if (exception === 'parsererror') {
-                    errorTxt=errorTxt + '\nRequested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    errorTxt=errorTxt + '\nTimeout error.';
-                } else if (exception === 'abort') {
-                    errorTxt=errorTxt + '\nAjax request aborted.';
-                } else {
-                    errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
-                }
+                var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -404,22 +338,7 @@ var sparql  = {
                 scientificAnnotation.setSimilarSearchResult(source);
             },
             error: function(jqXHR, exception){
-                var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
-                if (jqXHR.status === 0) {
-                    errorTxt=errorTxt + '\nNot connected. Verify network.';
-                } else if (jqXHR.status == 404) {
-                    errorTxt=errorTxt + '\nRequest cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
-                } else if (jqXHR.status == 500) {
-                    errorTxt=errorTxt + '\nInternal server error [500].';
-                } else if (exception === 'parsererror') {
-                    errorTxt=errorTxt + '\nRequested JSON parse failed.';
-                } else if (exception === 'timeout') {
-                    errorTxt=errorTxt + '\nTimeout error.';
-                } else if (exception === 'abort') {
-                    errorTxt=errorTxt + '\nAjax request aborted.';
-                } else {
-                    errorTxt=errorTxt + '\nUncaught Error.\n' + jqXHR.responseText;
-                }
+                var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -455,5 +374,32 @@ var sparql  = {
             Publication:		'<'+sparql.PREFIX_PUB+'Publication>',
             Excerpt:		'<'+excerptURI+'>'
         }
+    },
+
+    /**
+     * Return the standard error message if the server communication is failed
+     * @param exception
+     * @param jqXHR
+     */
+    getStandardErrorMessage:function(jqXHR, exception){
+        var errorTxt = "Error occurred when sending data to the server: "+ sparql.SERVER_ADDRESS;
+
+        if (jqXHR.status === 0) {
+            errorTxt = errorTxt + '<br>Not connected. Verify network.';
+        } else if (jqXHR.status == 404) {
+            errorTxt = errorTxt + '<br>Request cannot be fulfilled by the server. Check whether the \n(a) sparql endpoint is available at the above address \n(b) query contains bad syntax.';
+        } else if (jqXHR.status == 500) {
+            errorTxt = errorTxt + '<br>Internal server error [500].';
+        } else if (exception === 'parsererror') {
+            errorTxt = errorTxt + '<br>Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            errorTxt = errorTxt + '<br>Timeout error.';
+        } else if (exception === 'abort') {
+            errorTxt = errorTxt + '<br>Ajax request aborted.';
+        } else {
+            errorTxt = errorTxt + '<br>Uncaught Error.\n' + jqXHR.responseText;
+        }
+
+        return errorTxt;
     }
 };
