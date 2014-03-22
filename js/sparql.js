@@ -62,6 +62,7 @@ var sparql  = {
             success: function(response){
 
                 if( response!= null && response.results.bindings.length >0) {
+                    scientificAnnotation.hideProgressBar();
                     scientificAnnotation.displayAvailableAnnotationFromSparql();
                     var fragments = sparqlResponseParser.parseResponse(response);
 //                    console.log("total fragments:" +fragments.length);
@@ -72,6 +73,7 @@ var sparql  = {
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
+                scientificAnnotation.hideProgressBar();
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -153,10 +155,12 @@ var sparql  = {
                 sparql.bindAutoCompleteProperty();
                 sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
+                scientificAnnotation.hideProgressBar();
                 scientificAnnotation.showSuccessMessage('Annotation successfully added');
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
+                scientificAnnotation.hideProgressBar();
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });
@@ -335,10 +339,12 @@ var sparql  = {
             cache: false,
             success: function(response){
                 source = sparqlResponseParser.parseSimilarSearch(response);
+                scientificAnnotation.hideProgressBar();
                 scientificAnnotation.setSimilarSearchResult(source);
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
+                scientificAnnotation.hideProgressBar();
                 scientificAnnotation.showErrorMessage(errorTxt);
             }
         });

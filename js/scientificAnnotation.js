@@ -6,9 +6,7 @@ This file is the main entry point for this tools for all the event
 
  sparql.js
  highlight.js
-
  */
-
 
 var scientificAnnotation  = {
 
@@ -19,6 +17,7 @@ var scientificAnnotation  = {
 
     /**
      * bind the click event for add annotation
+     * @return void
      */
     bindClickEventForAddAnnotationButton: function () {
 
@@ -36,6 +35,7 @@ var scientificAnnotation  = {
             var similarPubsList = $("#similarPubsList");
             similarPubsList.hide();
             if (!outputTable.is(':visible')) {
+                scientificAnnotation.showProgressBar('Processing....');
                 sparql.showDataFromSparql();
                 outputTable.fadeIn(500);
                 displayFileInfoTitle.fadeIn(500);
@@ -49,6 +49,8 @@ var scientificAnnotation  = {
     /**
      * Set auto compute data for property field
      * @param properties
+     * @return void
+     *
      */
     setAutoComputeDataForPropertyField :function(properties){
 
@@ -59,12 +61,12 @@ var scientificAnnotation  = {
                 local: properties
              }
         );
-
     },
 
     /**
      * Set auto compute data for object field
      * @param properties
+     * @return void
      */
     setAutoComputeDataForObjectField :function(properties){
 
@@ -75,13 +77,12 @@ var scientificAnnotation  = {
                 local: properties
              }
         );
-
     },
-
 
     /**
      * Set similar search result
      * @param searchResult
+     * @return void
      */
     setSimilarSearchResult :function(searchResult){
 
@@ -212,6 +213,7 @@ var scientificAnnotation  = {
 
     /**
      * bind mouse event for click in the page for select the document
+     * @return void
      */
     bindMouseUpEventForPDFViewer: function () {
 
@@ -229,6 +231,7 @@ var scientificAnnotation  = {
     /**
      * bind the mouse click event in the displayed table rows to
      * highlight the subject part in the whole document
+     * @return void
      */
     bindAnnotationTableSubjectClickEvent: function () {
 
@@ -247,6 +250,7 @@ var scientificAnnotation  = {
 
     /**
      * clear the values of input text field
+     * @return void
      */
     clearInputField:function (){
         $('#propertyValueInput').val('');
@@ -257,9 +261,9 @@ var scientificAnnotation  = {
     /**
      * set the input
      * @param selectedText
+     * @return void
      */
     setTextValue:function(selectedText) {
-
         selectedText =selectedText.replace(/(\r\n|\n|\r)/gm,"");
         $('#subjectValueInput').val(selectedText);
     },
@@ -279,6 +283,7 @@ var scientificAnnotation  = {
 
     /**
      * perform the adding of  annotation
+     * @return void
      */
     addAnnotation:function(){
         
@@ -304,6 +309,7 @@ var scientificAnnotation  = {
         }
 	
        if(propertyValue != '' && subjectValue!= '' && objectValue!= '') {
+           scientificAnnotation.showProgressBar('Adding annotation...');
            scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,subjectValue, objectValue);
            sparql.addAnnotation(propertyValue,subjectValue, objectValue, startPos, endPos, rangyPage, rangyFragment);
            scientificAnnotation.clearInputField();
@@ -316,6 +322,7 @@ var scientificAnnotation  = {
      * @param propertyValue
      * @param subjectValue
      * @param objectiveValue
+     * @return void
      */
     appendAnnotationInDisplayPanel : function (propertyValue, subjectValue, objectValue){
 
@@ -331,6 +338,7 @@ var scientificAnnotation  = {
 
     /**
      * Reset the annotation display tables
+     * @return void
      */
     resetAnnotationTable:function (){
         $('#displayTableTitle').empty();
@@ -342,6 +350,7 @@ var scientificAnnotation  = {
      * @param propertyValue
      * @param subjectValue
      * @param objectiveValue
+     * @return void
      */
     addDataToSparqlTableView : function (subjectValue ,propertyValue, objectValue){
 
@@ -356,6 +365,7 @@ var scientificAnnotation  = {
 
     /**
      * Create the tables for viewing the available data from the db
+     * @return void
      */
     createSparqlTable:function(){
         $('#displayTableTitle').empty();
@@ -377,6 +387,7 @@ var scientificAnnotation  = {
 
     /**
      * Showing the available annotation tables
+     * @return void
      */
     displayAvailableAnnotationFromSparql:function(){
 
@@ -388,6 +399,7 @@ var scientificAnnotation  = {
 
     /**
      * Showing the available annotation tables
+     * @return void
      */
     noAvailableAnnotationFromSparql:function(){
         $('#displayTableTitle').empty();
@@ -399,6 +411,7 @@ var scientificAnnotation  = {
 
     /**
      * Hide the available annotation table
+     * @return void
      */
     hideAnnotationDisplayTable:function(){
         $('#displayTableTitle').hide();
@@ -408,11 +421,13 @@ var scientificAnnotation  = {
 
     /**
      * Display similar search
+     * @return void
      */
     showSimilarSearchResult:function(){
 
        var similarPubsList = $("#similarPubsList");
         if (!similarPubsList.is(':visible')) {
+            scientificAnnotation.showProgressBar('Finding similar result...');
             sparql.findSimilarFiles();
         } else {
             similarPubsList.fadeOut(300);
@@ -421,8 +436,8 @@ var scientificAnnotation  = {
 
     /**
      * Display success message
-     *
      * @param message
+     * @return void
      */
     showSuccessMessage:function (message) {
         var selector = '.alert-success';
@@ -434,6 +449,7 @@ var scientificAnnotation  = {
     /**
      * Display error message
      * @param message
+     * @return void
      */
     showErrorMessage:function (message, isHide) {
 
@@ -460,8 +476,29 @@ var scientificAnnotation  = {
         $(selector).delay(1500).fadeOut();
     },
 
+
+    /**
+     * Show progress bar
+     * @param message
+     * @return void
+     */
+    showProgressBar: function(message){
+        $('.progress-bar').html(message);
+        $('.progress').fadeIn();
+    },
+
+    /**
+     * Hide progress bar
+     * @return void
+     */
+    hideProgressBar: function(){
+        $('.progress').fadeOut();
+    },
+
     /**
      * Initialize the document
+     *
+     * @return void
      */
     init:function(){
         scientificAnnotation.bindClickEventForAddAnnotationButton();
