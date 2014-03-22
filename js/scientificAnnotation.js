@@ -96,6 +96,8 @@ var scientificAnnotation  = {
                 );
             }
             similarPubsList.fadeIn(500);// show the result
+        } else {
+          scientificAnnotation.showWarningMessage('No similar result found.');
         }
 
     },
@@ -438,7 +440,7 @@ var scientificAnnotation  = {
         var isHide = isHide || false;
         var selector = '.alert-danger';
         $(selector).html(message);
-        $(selector).fadeIn(1000);
+        $(selector).fadeIn(500);
         if(isHide == true) {
             $(selector).delay(1500).fadeOut();
         }else {
@@ -454,7 +456,7 @@ var scientificAnnotation  = {
     showWarningMessage:function (message) {
         var selector = '.alert-warning';
         $(selector).html(message);
-        $(selector).fadeIn(1000);
+        $(selector).fadeIn(500);
         $(selector).delay(1500).fadeOut();
     },
 
