@@ -22,7 +22,7 @@ var sparqlResponseParser  = {
                         item.PROPERTY.value,
                         item.OBJECT.value
                     );
-		            fragments.push(highlight.getURLParameters(item.excerpt.value, "rangyFragment"));
+		            fragments.push(sparqlResponseParser.getURLParameters(item.excerpt.value, "rangyFragment"));
                 });
             }
         });
@@ -87,6 +87,37 @@ var sparqlResponseParser  = {
             }
         });
         return items;
+    },
+    
+    /**
+     * Filters out given URI parameter value from the sURL and returns the values as a string array.
+     *
+     * @param string, string
+     * @returns array
+     */
+    getURLParameters: function (sURL, paramName) { //filters out givenURI parameter value from the sURL
+        if (sURL.indexOf("?") > 0) {
+            var arrParams = sURL.split("?");
+            var arrURLParams = arrParams[1].split("&");
+            var arrParamNames = new Array(arrURLParams.length);
+            var arrParamValues = new Array(arrURLParams.length);
+            var i = 0;
+            for (i=0;i<arrURLParams.length;i++) {
+                var sParam =  arrURLParams[i].split("=");
+                arrParamNames[i] = sParam[0];
+                if (sParam[1] != "")
+                    arrParamValues[i] = unescape(sParam[1]);
+                else
+                    arrParamValues[i] = "No Value";
+            }
+
+            for (i=0;i<arrURLParams.length;i++) {
+                if(arrParamNames[i] == paramName){
+                    return arrParamValues[i];
+                }
+            }
+            return "No Parameters Found";
+        }
     }
 
 };
