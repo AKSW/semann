@@ -44,7 +44,6 @@ var highlight  = {
     },
             
     init: function() { //rangy related objects that need initialisation
-        alert();
         rangy.init();
         cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
         highlightRanges = new Array();
@@ -85,7 +84,7 @@ var highlight  = {
         //remove old highlights
         cssApplier.undoToRanges(highlightRanges);
         try {
-            highlightRanges = this.deserializeArray(rangyFragments);
+            highlightRanges = highlight.deserializeArray(rangyFragments);
             cssApplier.applyToRanges(highlightRanges);
         } catch(err) {
             console.log("There was an error during highlighting. Potentially corrupted data. "+err.message);

@@ -34,15 +34,10 @@ var scientificAnnotation  = {
             var displayFileInfoTitle = $('#displayTableTitle');
             var similarPubsList = $("#similarPubsList");
             similarPubsList.hide();
-            if (!outputTable.is(':visible')) {
-                scientificAnnotation.showProgressBar('Processing....');
-                sparql.showDataFromSparql();
-                outputTable.fadeIn(500);
-                displayFileInfoTitle.fadeIn(500);
-            } else {
-                outputTable.fadeOut(300);
-                displayFileInfoTitle.fadeOut(300);
-            }
+            scientificAnnotation.showProgressBar('Loading data ....');
+            sparql.showDataFromSparql();
+            outputTable.fadeIn(500);
+            displayFileInfoTitle.fadeIn(500);
         });
     },
 
@@ -402,11 +397,8 @@ var scientificAnnotation  = {
      * @return void
      */
     noAvailableAnnotationFromSparql:function(){
-        $('#displayTableTitle').empty();
-        $('#displayTableTitle').append(
-            '<br><p>No available annotation found  of this file.</p><br>'
-        );
-        $('#displayTableTitle').fadeIn(300); // show the table
+        scientificAnnotation.showWarningMessage('No available annotation found  of this file');
+        scientificAnnotation.hideProgressBar();
     },
 
     /**

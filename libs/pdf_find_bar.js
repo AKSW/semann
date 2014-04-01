@@ -179,10 +179,6 @@ var PDFFindBar = {
         console.log(searchItem);
       this.dispatchEvent('');
       this.findField.value = searchItem;
-//      this.findField.value = ['me','world'];
-//      this.findField.value = ['me'];
-//      this.findField.value = ['world'];
-//      this.findField.value = ['Sample'];
       this.highlightAll.checked= true;
       this.findNextButton.click();
   }
