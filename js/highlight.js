@@ -5,6 +5,7 @@
 
 var highlight  = {
 
+    highlightRanges : null,
     /**
      * Serializes active window selection into Rangy format. TODO: add immediately to existing highlights
      *
@@ -46,7 +47,7 @@ var highlight  = {
     init: function() { //rangy related objects that need initialisation
         rangy.init();
         cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
-        highlightRanges = new Array();
+        highlight.highlightRanges = new Array();
     },
 
     /**
@@ -57,7 +58,7 @@ var highlight  = {
      */
     deserializeArray: function (array) { //deserialise "&rangyFragment" parameter value in the URI, return rangy range array
         var rangy_base = document.getElementById('viewer');
-        highlightRanges = new Array();
+        //highlightRanges = new Array();
         for (i=0; i<array.length; i++) {
             console.log("	&rangyFragment="+array[i]);
             if (array[i] != undefined) { //filter out URIs without &rangyFragment parameter value
@@ -65,13 +66,13 @@ var highlight  = {
         if (rangy.canDeserializeRange(array[i], rangy_base)) { //BUG: potential rangy bug as it does not seem to catch deserialisation errors
             r = rangy.deserializeRange(array[i], rangy_base);
             console.log("	isvalid="+r.isValid());
-            highlightRanges.push(r);
+            highlight.highlightRanges.push(r);
         } else {
             console.log("	"+array[i]+" is not serializable!");
         }
             }
         }
-        return highlightRanges;
+        return highlight.highlightRanges;
     },
 
     /**
@@ -82,7 +83,7 @@ var highlight  = {
      */
     rangy_highlight : function(rangyFragments) { //given rangy fragments (eg. ["0/3/3/1:0,0/3/3/1:9","0/1/3/1:17,0/1/3/1:21"]), apply highlights
         //remove old highlights
-        cssApplier.undoToRanges(highlightRanges);
+        cssApplier.undoToRanges(highlight.highlightRanges);
         try {
             highlightRanges = highlight.deserializeArray(rangyFragments);
             cssApplier.applyToRanges(highlightRanges);
