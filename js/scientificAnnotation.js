@@ -137,8 +137,8 @@ var scientificAnnotation  = {
             end = end - previousPagesCharCount;
         }
 
-	    var rangy_result = highlight.rangy_serialize();
-
+	var rangy_result = highlight.rangy_serialize();
+	
         return {
             start: start,
             end: end,
