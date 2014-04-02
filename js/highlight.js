@@ -1,6 +1,9 @@
 /**
  * This code produces highlights in PDF. Uses Rangy API: https://code.google.com/p/rangy/
  * TODO: tooltip or link for extra information
+ *
+ * @authors : A Q M Saiful Islam, Jaana Takis
+ * @dependency: none
  */
 
 var highlight  = {
@@ -125,7 +128,7 @@ var highlight  = {
         } catch(err) {
             console.log("There was an error during highlighting. Potentially corrupted data. "+err.message);
         }
-        console.log(highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
+        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
     }
     
 };
