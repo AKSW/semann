@@ -173,7 +173,6 @@ var scientificAnnotation  = {
      */
     getPageTotalCharLength : function(pageIndex){
         var count = 0;
-        console.log(PDFFindController.pdfPageSource.pages[pageIndex]);
         var textContent = PDFFindController.pdfPageSource.pages[pageIndex].getTextContent();
         if(textContent != null && textContent._value !== null){
             var lines = textContent._value.bidiTexts;
@@ -208,7 +207,6 @@ var scientificAnnotation  = {
         var previousPagesCharCount = 0;
             for(var i=0; i<currentPage -1;i++){
                 previousPagesCharCount += scientificAnnotation.getPageTotalCharLength(i);
-                console.log('previousPagesCharCount:'+previousPagesCharCount);
             }
         return previousPagesCharCount;
     },
@@ -240,7 +238,6 @@ var scientificAnnotation  = {
         $('#sparqlTable').on('click', 'tr', function() {
             var subject = this.cells[0];  // the first <td>
             subject = subject.innerHTML
-            console.log(subject);
             if(subject != ''){
                 subject = $.trim(subject);
                 PDFFindBar.searchAndHighlight(subject);
@@ -328,7 +325,7 @@ var scientificAnnotation  = {
     appendAnnotationInDisplayPanel : function (propertyValue, subjectValue, objectValue){
 
         var previousHtml = $('#displayAnnotationResult').html();
-        $('#displayAnnotationResult').empty();
+        scientificAnnotation.clearAnnotationDisplayPanel();
         $('#displayAnnotationResult').append(
                 '<p><strong>Subject:</strong></br>'+subjectValue+'</p>' +
                 '<p><strong>Property:</strong></br>'+propertyValue+'</p>' +
@@ -336,6 +333,14 @@ var scientificAnnotation  = {
                  previousHtml
         );
     },
+
+    /**
+     * clear available annotations
+     */
+    clearAnnotationDisplayPanel:function (){
+        $('#displayAnnotationResult').empty();
+    },
+
 
     /**
      * Reset the annotation display tables
@@ -392,7 +397,7 @@ var scientificAnnotation  = {
      */
     displayAvailableAnnotationFromSparql:function(){
 
-        $('#displayAnnotationResult').empty();
+        scientificAnnotation.clearAnnotationDisplayPanel();
         $('#displayTableTitle').show();
         scientificAnnotation.createSparqlTable();
         $('#displaySparqlTableRows').show();

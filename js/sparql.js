@@ -125,7 +125,6 @@ var sparql  = {
             crossDomain: true,
             cache: false,
             success: function(response){
-                console.log('added successfully');
                 sparql.bindAutoCompleteProperty();
                 sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
