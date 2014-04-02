@@ -562,6 +562,7 @@ var PDFView = {
                              pdfDataRangeTransport, args) {
 
       scientificAnnotation.clearAnnotationDisplayPanel();
+      scientificAnnotation.clearSimilarSearchResult();
 
     var parameters = {password: password};
     if (typeof url === 'string') { // URL

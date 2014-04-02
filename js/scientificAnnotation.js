@@ -38,8 +38,7 @@ var scientificAnnotation  = {
         $("#queryButton").bind("click", function () {
             var outputTable = $('#displaySparqlTableRows');
             var displayFileInfoTitle = $('#displayTableTitle');
-            var similarPubsList = $("#similarPubsList");
-            similarPubsList.hide();
+            scientificAnnotation.clearSimilarSearchResult();
             scientificAnnotation.showProgressBar('Loading data ....');
             sparql.showDataFromSparql();
             outputTable.fadeIn(500);
@@ -339,6 +338,15 @@ var scientificAnnotation  = {
      */
     clearAnnotationDisplayPanel:function (){
         $('#displayAnnotationResult').empty();
+    },
+
+    /**
+     * clear the similar search window and hide
+     */
+    clearSimilarSearchResult:function(){
+        var similarPubsList = $("#similarPubsList");
+        similarPubsList.empty();
+        similarPubsList.fadeOut(300);
     },
 
 
