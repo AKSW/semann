@@ -2,10 +2,12 @@
 This file is the main entry point for this tools for all the event
  that need to perform.
 
- @dependency
-
- sparql.js
- highlight.js
+@authors : A Q M Saiful Islam, Jaana Takis
+@dependency:
+ {
+    sparql.js
+    highlight.js
+ }
  */
 
 var scientificAnnotation  = {
@@ -16,10 +18,14 @@ var scientificAnnotation  = {
     selectedTextPosition:null,
 
     /**
-     * bind the click event for add annotation
+     * bind the click event for
+     * add annotation,
+     * show similar search and
+     * show available query
+     *
      * @return void
      */
-    bindClickEventForAddAnnotationButton: function () {
+    bindClickEventForButtons: function () {
 
         $("#addAnnotationButton").bind("click", function () {
             scientificAnnotation.addAnnotation();
@@ -43,6 +49,7 @@ var scientificAnnotation  = {
 
     /**
      * Set auto compute data for property field
+     *
      * @param properties
      * @return void
      *
@@ -60,6 +67,7 @@ var scientificAnnotation  = {
 
     /**
      * Set auto compute data for object field
+     *
      * @param properties
      * @return void
      */
@@ -76,6 +84,7 @@ var scientificAnnotation  = {
 
     /**
      * Set similar search result
+     *
      * @param searchResult
      * @return void
      */
@@ -93,7 +102,7 @@ var scientificAnnotation  = {
             }
             similarPubsList.fadeIn(500);// show the result
         } else {
-          scientificAnnotation.showWarningMessage('No similar result found.');
+            scientificAnnotation.showWarningMessage('No similar result found.');
         }
 
     },
@@ -104,8 +113,6 @@ var scientificAnnotation  = {
      * @returns {{start: number, end: number, rangyFragment: (highlight.rangy_serialize.Rangy|*), rangyPage: (highlight.rangy_serialize.Page|*)}}
      */
     getSelectionCharOffsetsWithin: function () {
-
-
         var currentPage =  $('#pageNumber').val();
         var element=document.body;
         var sel, range;
@@ -138,7 +145,7 @@ var scientificAnnotation  = {
             rangyFragment: rangy_result.Rangy,
             rangyPage: rangy_result.Page	
         };
-},
+    },
 
     /**
      * Get selected body text
@@ -208,6 +215,7 @@ var scientificAnnotation  = {
 
     /**
      * bind mouse event for click in the page for select the document
+     *
      * @return void
      */
     bindMouseUpEventForPDFViewer: function () {
@@ -220,7 +228,6 @@ var scientificAnnotation  = {
                 scientificAnnotation.selectedTextPosition = scientificAnnotation.getSelectionCharOffsetsWithin();
             }
         });
-
     },
 
     /**
@@ -239,8 +246,6 @@ var scientificAnnotation  = {
                 PDFFindBar.searchAndHighlight(subject);
             }
         });
-
-
     },
 
     /**
@@ -308,8 +313,9 @@ var scientificAnnotation  = {
            scientificAnnotation.appendAnnotationInDisplayPanel(propertyValue,subjectValue, objectValue);
            sparql.addAnnotation(propertyValue,subjectValue, objectValue, startPos, endPos, rangyPage, rangyFragment);
            scientificAnnotation.clearInputField();
+       } else {
+           scientificAnnotation.showErrorMessage('Empty fields. Please filled up all and try again',true);
        }
-
     },
 
     /**
@@ -410,20 +416,20 @@ var scientificAnnotation  = {
         $('#displaySparqlTableRows').hide();
     },
 
-
     /**
      * Display similar search
      * @return void
      */
     showSimilarSearchResult:function(){
 
-       var similarPubsList = $("#similarPubsList");
-        if (!similarPubsList.is(':visible')) {
-            scientificAnnotation.showProgressBar('Finding similar result...');
-            sparql.findSimilarFiles();
-        } else {
+        var similarPubsList = $("#similarPubsList");
+        if (similarPubsList.is(':visible')) {
             similarPubsList.fadeOut(300);
         }
+
+        scientificAnnotation.showProgressBar('Finding similar result...');
+        sparql.findSimilarFiles();
+
     },
 
     /**
@@ -454,7 +460,6 @@ var scientificAnnotation  = {
         }else {
             $(selector).show();
         }
-
     },
 
     /**
@@ -493,13 +498,12 @@ var scientificAnnotation  = {
      * @return void
      */
     init:function(){
-        scientificAnnotation.bindClickEventForAddAnnotationButton();
+        scientificAnnotation.bindClickEventForButtons();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
         sparql.bindAutoCompleteProperty();
         sparql.bindAutoCompleteObject();
     }
 };
-
 
 /**
  * document on ready method

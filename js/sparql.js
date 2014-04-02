@@ -2,10 +2,12 @@
  This file contain all the necessary sparql related queries,
  that need to perform.
 
+ @authors : A Q M Saiful Islam, Jaana Takis
  @dependency
-
- scientificAnnotation.js
- highlight.js
+ {
+    scientificAnnotation.js
+    highlight.js
+ }
 
  */
 
@@ -21,6 +23,12 @@ var sparql  = {
     PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/owl#",
     PREFIX_SEMANNP : "http://eis.iai.uni-bonn.de/semann/property#",
 
+    // For showing similar search result, the maximum size of the list
+    SIMILAR_RESULT_LIMIT : 10,
+
+    // For auto complete property and object maximum size of the list
+    AUTO_COMPLETE_RESULT_LIMIT : 200,
+
     /**
      *Read data form sparql table and display
      *
@@ -28,18 +36,7 @@ var sparql  = {
      */
     showDataFromSparql:function (){
 
-        // select query
-        /*
-         SELECT distinct ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <scientificAnnotation> WHERE
-         {
-             <http://eis.iai.uni-bonn.de/semann/pdf/test6.pdf> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt .
-             ?excerpt <http://www.w3.org/2000/rdf-schema#label> ?SUBJECT. ?excerpt ?prop ?obj.
-             ?prop <http://www.w3.org/2000/rdf-schema#label> ?PROPERTY.
-             ?obj <http://www.w3.org/2000/rdf-schema#label> ?OBJECT.
-         }
-        * */
-
-        var q = sparql.resource();	
+        var q = sparql.resource();
         var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> WHERE ' +
             '{ ' +
                 q.File + ' '+ q.hasExcerpt + ' ?excerpt . ' +
@@ -65,7 +62,6 @@ var sparql  = {
                     scientificAnnotation.hideProgressBar();
                     scientificAnnotation.displayAvailableAnnotationFromSparql();
                     var fragments = sparqlResponseParser.parseResponse(response);
-//                    console.log("total fragments:" +fragments.length);
                     highlight.rangy_highlight(fragments);
                 } else {
                     scientificAnnotation.noAvailableAnnotationFromSparql();
@@ -93,28 +89,6 @@ var sparql  = {
      * @return void
      */
     addAnnotation:function(property, subject, object, textStartPos, textEndPos, rangyPage, rangyFragment){
-        // insert query
-        /*
-         prefix semann: <http://eis.iai.uni-bonn.de/semann/owl#>
-         prefix semannp: <http://eis.iai.uni-bonn.de/semann/property#>
-         prefix semannpub: <http://eis.iai.uni-bonn.de/semann/publication/>
-         prefix semannpdf: <http://eis.iai.uni-bonn.de/semann/pdf/>
-         prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns>
-         prefix rdfs: <http://www.w3.org/2000/rdf-schema#>
-
-         INSERT DATA
-         {
-         GRAPH <scientificAnnotation>
-         {
-         semannpdf:test6.pdf rdf:type semannpub:Publication.
-         semannpdf:test6.pdf semannpub:hasExcerpt <http://eis.iai.uni-bonn.de/semann/pdf/test6.pdf#page=2&char=100,20;length=10,UTF-8> .
-         <http://eis.iai.uni-bonn.de/semann/pdf/test6.pdf#page=2&char=100,20;length=10,UTF-8> rdfs:label "santa."@en;
-         semannp:isAbstact4 semann:Abstract4.
-         semannp:isAbstact4 rdfs:label "is busy na"@en.
-         semann:Abstract4 rdfs:label "sleeping na"@en.
-         }
-         }
-         */
 
         var currentPage = $('#pageNumber').val();
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
@@ -168,20 +142,11 @@ var sparql  = {
 
     /**
      * Provide the data for the auto complete in the property field
+     *
      * @param searchItem
      * @returns {Array}
      */
     bindAutoCompleteProperty :function(){
-
-        /**
-         SELECT distinct  str(?label) as ?PROPERTY FROM <scientificAnnotation>
-         WHERE
-         {
-           ?p <http://www.w3.org/2000/rdf-schema#label> ?label
-           FILTER(STRSTARTS(STR(?p), "http://eis.iai.uni-bonn.de/semann/property#"))
-         }
-         ORDER BY fn:lower-case(?PROPERTY) LIMIT 200
-         */
 
 	    var q = sparql.resource();
         var selectQuery = 'SELECT distinct  str(?label) as ?PROPERTY FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
@@ -189,7 +154,7 @@ var sparql  = {
             '{ ' +'\n'+
                 '?p ' + q.label + ' ?label ' +'\n'+
                 'FILTER(STRSTARTS(STR(?p), "'+sparql.PREFIX_SEMANNP+'"))' +'\n'+
-            '} ORDER BY fn:lower-case(?PROPERTY) LIMIT 200';
+            '} ORDER BY fn:lower-case(?PROPERTY) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
 
         var source = null;
 
@@ -220,20 +185,11 @@ var sparql  = {
 
     /**
      * Provide the data for the auto complete in the  object field
+     *
      * @param searchItem
      * @returns {Array}
      */
     bindAutoCompleteObject :function(){
-
-        /**
-         SELECT distinct  str(?label) as ?OBJECT FROM <scientificAnnotation>
-         WHERE
-         {
-           ?o <http://www.w3.org/2000/rdf-schema#label> ?label
-           FILTER(STRSTARTS(STR(?o), "http://eis.iai.uni-bonn.de/semann/owl#"))
-         }
-         ORDER BY fn:lower-case(?OBJECT) LIMIT 200
-         */
 
 	    var q = sparql.resource();
         var selectQuery = 'SELECT distinct  str(?label) as ?OBJECT FROM  <'+scientificAnnotation.GRAPH_NAME+'> ' +'\n'+
@@ -241,7 +197,7 @@ var sparql  = {
             '{ ' +'\n'+
                 '?o ' + q.label + ' ?label ' +'\n'+
                 'FILTER(STRSTARTS(STR(?o), "'+sparql.PREFIX_SEMANN+'"))' +'\n'+
-            '} ORDER BY fn:lower-case(?OBJECT) LIMIT 200';
+            '} ORDER BY fn:lower-case(?OBJECT) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
 
         var source = null;
 
@@ -271,33 +227,12 @@ var sparql  = {
 
     /**
      * Provide the data for the auto complete in the property field
+     *
      * @param searchItem
      * @returns {Array}
      */
     findSimilarFiles :function(){
 
-        /**
-         SELECT ?file WHERE
-         {
-            SELECT ?file ?s ?p ?o ?curr_o FROM <scientificAnnotation> WHERE
-            {
-              { #returns objects of currently open file
-                <http://eis.iai.uni-bonn.de/semann/pdf/sample.pdf> <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?curr_excerpt .
-                ?curr_excerpt ?curr_prop ?curr_obj.
-                ?curr_obj <http://www.w3.org/2000/rdf-schema#label> ?curr_o.
-              }
-              { #returns files with the same objects
-                ?file <http://eis.iai.uni-bonn.de/semann/publication/hasExcerpt> ?excerpt .
-                ?excerpt <http://www.w3.org/2000/rdf-schema#label> ?s. ?excerpt ?prop ?obj.
-                ?prop <http://www.w3.org/2000/rdf-schema#label> ?p.
-                ?obj <http://www.w3.org/2000/rdf-schema#label> ?o.
-              }
-              FILTER (?obj in (?curr_obj) and !sameTerm(<http://eis.iai.uni-bonn.de/semann/pdf/sample.pdf>, ?file)) #match objects in other files only
-            }
-         } GROUP BY ?file
-                     ORDER BY DESC(count(?file)) #file ranking by no. of object hits
-                     LIMIT 10
-         */
 	    var q = sparql.resource();
         var selectQuery =
             ' SELECT ?file ' +'\n'+
@@ -321,9 +256,8 @@ var sparql  = {
                     '}' +'\n'+
                 '}' +'\n'+
                 ' GROUP BY ?file ' +'\n'+
-                ' ORDER BY DESC(count(?file))  LIMIT 10'
-            ;
-//        console.log(selectQuery);
+                ' ORDER BY DESC(count(?file))  LIMIT '+sparql.SIMILAR_RESULT_LIMIT ;
+
         var source = null;
 
         $.ajax({
@@ -354,16 +288,18 @@ var sparql  = {
 
     /**
      * Return the camelCase of a sentences (Hello World --> helloWorld)
+     *
      * @param str
      * @returns {XML|string|void|*}
      */
     camelCase :function (str){
         str     = $.camelCase(str.replace(/[_ ]/g, '-')).replace(/-/g, '');
-        return  str;//.substring(0,1).toUpperCase()+str.substring(1);
+        return  str;
     },
     
     /**
      * Return the URI of resources to be used in sparql queries.
+     *
      * @param optional file fragment location 
      * @returns object with resources you can use in sparql queries.
      */
@@ -384,6 +320,7 @@ var sparql  = {
 
     /**
      * Return the standard error message if the server communication is failed
+     *
      * @param exception
      * @param jqXHR
      */

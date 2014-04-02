@@ -1,18 +1,20 @@
 /**
-Parse the json response form sqarql querey
+Parse the json response from virtuso server
+
+ @authors : A Q M Saiful Islam, Jaana Takis
 
  @dependency
  null
  */
 
-
 var sparqlResponseParser  = {
 
     /**
      * Parse the json response form db and render the tabular view, while display available annotations
+     *
      * @param response
      */
-    parseResponse:function(response){
+    parseResponse:function(response) {
 	var fragments = [];
         $.each(response, function(name, value) {
             if(name == 'results'){
@@ -26,7 +28,7 @@ var sparqlResponseParser  = {
                 });
             }
         });
-	return fragments;
+	    return fragments;
     },
 
     /**
@@ -93,7 +95,7 @@ var sparqlResponseParser  = {
      * Filters out given URI parameter value from the sURL and returns the values as a string array.
      *
      * @param string, string
-     * @returns array
+     * @returns mix
      */
     getURLParameters: function (sURL, paramName) { //filters out givenURI parameter value from the sURL
         if (sURL.indexOf("?") > 0) {
@@ -119,6 +121,5 @@ var sparqlResponseParser  = {
             return "No Parameters Found";
         }
     }
-
 };
 
