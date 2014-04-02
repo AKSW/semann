@@ -25,6 +25,12 @@ var highlight  = {
         }
     },
     
+    /**
+     * Takes the node and offset of the given range and recalculates its serialised position if its parent DIV did not contain existing highlights. This clears given node and offset positions from any potential DOM modification impacts.
+     *
+     * @param node, integer
+     * @returns string
+     */
     originalPosition: function (problemNode, problemOffset) {
         var offset = 0;
         var parentDivNode = $(problemNode).closest('div')[0];  //parent div node of the problem node
@@ -40,7 +46,13 @@ var highlight  = {
         //alert(serialisedPos);
         return serialisedPos;
     },
-            
+    
+    /**
+     * Takes the range of the active win selection and finds its serialised position in respect to a DOM withouth modification occurred during highlighting (<span class="highlight"/> elements). This ensures the position is not corrupted when it is uploaded.
+     *
+     * @param range of the selection
+     * @returns string
+     */
     stripRangeOfDomModifications: function (unstrippedRange) {
         var correctedStartPos = this.originalPosition(unstrippedRange.startContainer, unstrippedRange.startOffset);
         var correctedEndPos = this.originalPosition(unstrippedRange.endContainer, unstrippedRange.endOffset);
