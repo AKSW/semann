@@ -6,6 +6,7 @@
 var highlight  = {
 
     highlightRanges : null,
+
     /**
      * Serializes active window selection into Rangy format. TODO: add immediately to existing highlights
      *
@@ -14,16 +15,38 @@ var highlight  = {
      */
     rangy_serialize: function () {
         var selection = rangy.getSelection();
-        var rangy_base = document.getElementById('viewer');
-        var s = rangy.serializeSelection(selection, true, rangy_base);
-        //console.log('	&rangy=' + s);
-        var obj = rangy.deserializePosition(s, rangy_base);
-        var page = this.currentPageNo(obj.node);
-        //console.log('	&page=' + page );
+        var s = this.stripRangeOfDomModifications(selection.getRangeAt(0));
+        var ds = rangy.deserializePosition(s,  document.getElementById('viewer'));
+        var page = this.currentPageNo(ds.node);
         return {
             Page:	page,
-            Rangy:	s
+            Rangy:	s,
+            Selection: selection
         }
+    },
+    
+    originalPosition: function (problemNode, problemOffset) {
+        var offset = 0;
+        var parentDivNode = $(problemNode).closest('div')[0];  //parent div node of the problem node
+        var parentDivRange = rangy.createRange();
+        parentDivRange.selectNode(parentDivNode); //take node as range
+        console.log("length="+parentDivRange.toString().length+": "+parentDivRange.toString());
+        console.log(parentDivRange.toHtml());
+        var preCaretRange = rangy.createRange();
+        preCaretRange.selectNodeContents(parentDivNode);
+        preCaretRange.setEnd(problemNode, problemOffset); //move end offset till the selection
+        offset = preCaretRange.toString().length;
+        var serialisedPos = rangy.serializePosition(parentDivNode.firstChild, offset, document.getElementById('viewer'));
+        //alert(serialisedPos);
+        return serialisedPos;
+    },
+            
+    stripRangeOfDomModifications: function (unstrippedRange) {
+        var correctedStartPos = this.originalPosition(unstrippedRange.startContainer, unstrippedRange.startOffset);
+        var correctedEndPos = this.originalPosition(unstrippedRange.endContainer, unstrippedRange.endOffset);
+        var correctedPos = correctedStartPos+","+correctedEndPos;
+        console.log("Selected range when stripped of DOM modifications: "+correctedPos);
+        return correctedPos;
     },
 
     /**
