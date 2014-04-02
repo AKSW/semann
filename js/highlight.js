@@ -1,14 +1,12 @@
 /**
  * This code produces highlights in PDF. Uses Rangy API: https://code.google.com/p/rangy/
  * TODO: tooltip or link for extra information
- *
- * @authors : A Q M Saiful Islam, Jaana Takis
- * @dependency : null
  */
 
 var highlight  = {
 
     highlightRanges : null,
+
     /**
      * Serializes active window selection into Rangy format. TODO: add immediately to existing highlights
      *
@@ -26,12 +24,12 @@ var highlight  = {
             Selection: selection
         }
     },
-
+    
     /**
+     * Takes the node and offset of the given range and recalculates its serialised position if its parent DIV did not contain existing highlights. This clears given node and offset positions from any potential DOM modification impacts.
      *
-     * @param problemNode
-     * @param problemOffset
-     * @returns {*}
+     * @param node, integer
+     * @returns string
      */
     originalPosition: function (problemNode, problemOffset) {
         var offset = 0;
@@ -48,11 +46,12 @@ var highlight  = {
         //alert(serialisedPos);
         return serialisedPos;
     },
-
+    
     /**
+     * Takes the range of the active win selection and finds its serialised position in respect to a DOM withouth modification occurred during highlighting (<span class="highlight"/> elements). This ensures the position is not corrupted when it is uploaded.
      *
-      * @param unstrippedRange
-     * @returns {string}
+     * @param range of the selection
+     * @returns string
      */
     stripRangeOfDomModifications: function (unstrippedRange) {
         var correctedStartPos = this.originalPosition(unstrippedRange.startContainer, unstrippedRange.startOffset);
@@ -66,9 +65,9 @@ var highlight  = {
      * Returns current page number with the help of rangy.
      *
      * @param element
-     * @returns integer, the current page number that the given element belongs to
+     * @returns integer
      */
-    currentPageNo: function (element) {
+    currentPageNo: function (element) { //returns the current page number that the given element belongs to
         var classname, index;
         while (element = element.parentNode) {
             classname = element.className;
@@ -79,37 +78,33 @@ var highlight  = {
         }
         return index;
     },
-
-    /**
-     * rangy related objects that need initialisation
-     *
-     * @return void
-     */
-    init: function() {
+            
+    init: function() { //rangy related objects that need initialisation
         rangy.init();
         cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
         highlight.highlightRanges = new Array();
     },
 
     /**
-     * Deserializes strings into rangy ranges
-     * Deserialise "&rangyFragment" parameter value in the URI
+     * Deserializes strings into rangy ranges. 
      *
      * @param array
-     * @returns Range range array
+     * @returns Range 
      */
-    deserializeArray: function (array) {
+    deserializeArray: function (array) { //deserialise "&rangyFragment" parameter value in the URI, return rangy range array
         var rangy_base = document.getElementById('viewer');
+        //highlightRanges = new Array();
         for (i=0; i<array.length; i++) {
+            console.log("	&rangyFragment="+array[i]);
             if (array[i] != undefined) { //filter out URIs without &rangyFragment parameter value
                 var r;
-                if (rangy.canDeserializeRange(array[i], rangy_base)) { //BUG: potential rangy bug as it does not seem to catch deserialisation errors
-                    r = rangy.deserializeRange(array[i], rangy_base);
-                    console.log("	isvalid="+r.isValid());
-                    highlight.highlightRanges.push(r);
-                } else {
-                    console.log("	"+array[i]+" is not serializable!");
-                }
+        if (rangy.canDeserializeRange(array[i], rangy_base)) { //BUG: potential rangy bug as it does not seem to catch deserialisation errors
+            r = rangy.deserializeRange(array[i], rangy_base);
+            console.log("	isvalid="+r.isValid());
+            highlight.highlightRanges.push(r);
+        } else {
+            console.log("	"+array[i]+" is not serializable!");
+        }
             }
         }
         return highlight.highlightRanges;
@@ -117,12 +112,11 @@ var highlight  = {
 
     /**
      * Highlights given rangy positions with rangy. 
-     * given rangy fragments (eg. ["0/3/3/1:0,0/3/3/1:9","0/1/3/1:17,0/1/3/1:21"]), apply highlights
      *
      * @param array
      * @returns void
      */
-    rangy_highlight : function(rangyFragments) {
+    rangy_highlight : function(rangyFragments) { //given rangy fragments (eg. ["0/3/3/1:0,0/3/3/1:9","0/1/3/1:17,0/1/3/1:21"]), apply highlights
         //remove old highlights
         cssApplier.undoToRanges(highlight.highlightRanges);
         try {
@@ -131,7 +125,7 @@ var highlight  = {
         } catch(err) {
             console.log("There was an error during highlighting. Potentially corrupted data. "+err.message);
         }
-        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
+        console.log(highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
     }
     
 };
