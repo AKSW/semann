@@ -123,6 +123,7 @@ var PDFFindController = {
       matches.push(matchIdx);
     }
     this.pageMatches[pageIndex] = matches;
+
     this.updatePage(pageIndex);
     if (this.resumePageIdx === pageIndex) {
       var callback = this.resumeCallback;
@@ -332,6 +333,7 @@ var PDFFindController = {
     if (found) {
       var previousPage = this.selected.pageIdx;
       this.selected.pageIdx = this.offset.pageIdx;
+        console.log('page:'+this.selected.pageIdx);
       this.selected.matchIdx = this.offset.matchIdx;
       state = wrapped ? FindStates.FIND_WRAPPED : FindStates.FIND_FOUND;
       // Update the currently selected page to wipe out any selected matches.

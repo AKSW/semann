@@ -22,7 +22,7 @@
 
 'use strict';
 
-var DEFAULT_URL = 'pdf/test.pdf';
+var DEFAULT_URL = 'pdf/sample4.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -193,6 +193,8 @@ var PDFView = {
 
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
+
+    scientificAnnotation.resetAnnotationTable();
     var self = this;
     var container = this.container = document.getElementById('viewerContainer');
     this.pageViewScroll = {};
@@ -558,6 +560,10 @@ var PDFView = {
   // TODO(mack): This function signature should really be pdfViewOpen(url, args)
   open: function pdfViewOpen(url, scale, password,
                              pdfDataRangeTransport, args) {
+
+      scientificAnnotation.clearAnnotationDisplayPanel();
+      scientificAnnotation.clearSimilarSearchResult();
+
     var parameters = {password: password};
     if (typeof url === 'string') { // URL
       this.setTitleUsingUrl(url);
@@ -845,6 +851,10 @@ var PDFView = {
   },
 
   load: function pdfViewLoad(pdfDocument, scale) {
+
+    scientificAnnotation.resetAnnotationTable();
+
+
     function bindOnAfterDraw(pageView, thumbnailView) {
       // when page is painted, using the image as thumbnail base
       pageView.onAfterDraw = function pdfViewLoadOnAfterDraw() {
@@ -1652,6 +1662,7 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
     document.getElementById('openFile').setAttribute('hidden', 'true');
     document.getElementById('secondaryOpenFile').setAttribute('hidden', 'true');
+
   } else {
     document.getElementById('fileInput').value = null;
   }
@@ -2021,6 +2032,8 @@ window.addEventListener('scalechange', function scalechange(evt) {
 }, true);
 
 window.addEventListener('pagechange', function pagechange(evt) {
+
+  highlight.init();
   var page = evt.pageNumber;
   if (PDFView.previousPageNumber !== page) {
     document.getElementById('pageNumber').value = page;

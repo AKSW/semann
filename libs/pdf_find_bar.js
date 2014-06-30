@@ -169,6 +169,19 @@ var PDFFindBar = {
     } else {
       this.open();
     }
+  },
+
+    /**
+     *
+     * @param searchItem
+     */
+  searchAndHighlight:function(searchItem){
+        console.log(searchItem);
+      this.dispatchEvent('');
+      this.findField.value = searchItem;
+      this.highlightAll.checked= true;
+      this.findNextButton.click();
   }
+
 };
 
