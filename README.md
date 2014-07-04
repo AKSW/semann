@@ -1,22 +1,25 @@
 # Semantic Annotation Tool for PDF documents
 
-Semann is a web-based semantic annotation tool for pdf documents. 
+Semann is a web-based semantic annotation tool for PDF files.<br>
+This tool allows you to semantically annotate (as RDF triples) text in PDFs which is then used for recommending similar PDF documents that the end user might find relevant. 
 
-## Current state
+## Project Current state
+This project is a prototype.
 
-Currently project is in very early development stage.  
-You can call available code a prototype.  
+### Currently working features:
+- Load and render a PDF file within half-page and render other half with custom GUI.
+- [Add annotation](https://github.com/AKSW/semann/wiki/Documentation#how-to-add-annotations)
+- [View available annotation of currently loaded documents](https://github.com/AKSW/semann/wiki/Documentation#how-to-fetch-existing-annotations)
+- [Find similar publications](https://github.com/saifulnipo/eis-semantic-annotation/wiki/Documentation#find-similar-publications)
 
-Curretly working features:  
-- Load and render a PDF file within half-page and render other half with custom GUI
-- Detect selected text on the page using window.getSelection() method and add a new annotation for snippet
-- Store annotations as json, as pseudo-triples ( {s: {p: [o1, o2]}} )
+### Work in progress:
+This project is concurrently further developed on the following forks:
+- https://github.com/saifulnipo/eis-semantic-annotation concentrates on annotating tables in PDF
+- https://github.com/jaanatak/eis-semantic-annotation concentrates on the further development of the [find similar publications](https://github.com/AKSW/semann/wiki/Documentation#find-similar-publications) functionality. 
+Eventually the two parallel forks will be merged into here.
 
-What needs to be done
-- Triples need to be saved and loaded from some sort of server, [Storing and loading of triples](https://github.com/AKSW/semann/issues/1)
-- Created annotation snippets should be highlighted in the PDF display, [Highlight annotation snippets in PDF](https://github.com/AKSW/semann/issues/2)
-- Better UI for creating / managin annotations, [UI improvements](https://github.com/AKSW/semann/issues/3).
-- [Find similar publications functionality] (https://github.com/AKSW/semann/issues/4).
+## Documentation
+- [Documentation](https://github.com/AKSW/semann/wiki/Documentation)
 
 ## Used libraries
 
@@ -24,3 +27,7 @@ What needs to be done
 [Twitter bootstrap](http://getbootstrap.com/) - used for UI  
 [jQuery](http://jquery.com/) - used for DOM manipulations, required by Twitter bootstrap  
 [Typeahead.js](https://github.com/twitter/typeahead.js) - used for autosuggestion in input boxes  
+[Rangy](https://code.google.com/p/rangy/) - A cross-browser JavaScript range and selection library.
+
+## Backend Database Used
+- [virtuoso](http://virtuoso.openlinksw.com/)
