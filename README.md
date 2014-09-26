@@ -13,8 +13,8 @@ This project is a prototype.
 - [Find similar publications](https://github.com/saifulnipo/eis-semantic-annotation/wiki/Documentation#find-similar-publications)
 
 ### Work in progress:
-This project is concurrently further developed on the following forks:
-- Annotating tables via data cubes.
+This branch is concurrently further developed on the following features:
+- [Annotating tables via datacube vocabulary](https://github.com/saifulnipo/eis-semantic-annotation/wiki).
 - [Find similar publications](https://github.com/AKSW/semann/wiki/Documentation#find-similar-publications) functionality. 
 
 ## Documentation
