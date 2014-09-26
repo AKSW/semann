@@ -1,310 +1,238 @@
 <!DOCTYPE html>
 <html dir="ltr" mozdisallowselectionprint moznomarginboxes>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="google" content="notranslate">
-    <title>SciPRA Demo</title>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta name="google" content="notranslate"/>
+        <title>EIS Semantic Annotation Tool</title>
 
-    <link rel="stylesheet" href="./css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./css/viewer.css"/>
-    <link rel="stylesheet" href="./css/annotation.css"/>
-    <!-- highlighting related -->
-    <link rel="stylesheet" href="./css/highlight.css"/>
+        <link rel="stylesheet" href="./css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./css/viewer.css"/>
+        <link rel="stylesheet" href="./css/annotation.css"/>
+        <!-- highlighting related -->
+        <link rel="stylesheet" href="./css/highlight.css"/>
 
-    <script type="text/javascript" src="./libs/jquery.min.js"></script>
-      <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
-      <script type="text/javascript" src="./libs/typeahead.min.js"></script>
+        <script type="text/javascript" src="./libs/jquery.min.js"></script>
+        <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
+        <script type="text/javascript" src="./libs/typeahead.min.js"></script>
 
-    <script type="text/javascript" src="./external/webL10n/l10n.js"></script>
+        <script type="text/javascript" src="./external/webL10n/l10n.js"></script>
+        <script type="text/javascript" src="./libs/shared/util.js"></script>
+        <script type="text/javascript" src="./libs/shared/colorspace.js"></script>
+        <script type="text/javascript" src="./libs/shared/pattern.js"></script>
+        <script type="text/javascript" src="./libs/shared/function.js"></script>
+        <script type="text/javascript" src="./libs/shared/annotation.js"></script>
+        <script type="text/javascript" src="./libs/display/api.js"></script>
+        <script type="text/javascript" src="./libs/display/metadata.js"></script>
+        <script type="text/javascript" src="./libs/display/canvas.js"></script>
+        <script type="text/javascript" src="./libs/display/font_loader.js"></script>
+        <script type="text/javascript">PDFJS.workerSrc = './libs/worker_loader.js';</script>
 
-    <script type="text/javascript" src="./libs/shared/util.js"></script>
-    <script type="text/javascript" src="./libs/shared/colorspace.js"></script>
-    <script type="text/javascript" src="./libs/shared/pattern.js"></script>
-    <script type="text/javascript" src="./libs/shared/function.js"></script>
-    <script type="text/javascript" src="./libs/shared/annotation.js"></script>
-    <script type="text/javascript" src="./libs/display/api.js"></script>
-    <script type="text/javascript" src="./libs/display/metadata.js"></script>
-    <script type="text/javascript" src="./libs/display/canvas.js"></script>
-    <script type="text/javascript" src="./libs/display/font_loader.js"></script>
-    <script type="text/javascript">PDFJS.workerSrc = './libs/worker_loader.js';</script>
+        <script type="text/javascript" src="./libs/ui_utils.js"></script>
+        <script type="text/javascript" src="./libs/download_manager.js"></script>
+        <script type="text/javascript" src="./libs/page_view.js"></script>
+        <script type="text/javascript" src="./libs/thumbnail_view.js"></script>
+        <script type="text/javascript" src="./libs/text_layer_builder.js"></script>
+        <script type="text/javascript" src="./libs/pdf_find_bar.js"></script>
+        <script type="text/javascript" src="./libs/pdf_find_controller.js"></script>
+        <script type="text/javascript" src="./libs/pdf_history.js"></script>
+        <script type="text/javascript" src="./libs/secondary_toolbar.js"></script>
+        <script type="text/javascript" src="./libs/debugger.js"></script>
+        <script type="text/javascript" src="./libs/viewer.js"></script>
+        <!-- highlighting related -->
+        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-core.js"></script>
+        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-serializer.js"></script>
+        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-cssclassapplier.js"></script>
 
-    <script type="text/javascript" src="./libs/ui_utils.js"></script>
-    <script type="text/javascript" src="./libs/download_manager.js"></script>
-    <script type="text/javascript" src="./libs/page_view.js"></script>
-    <script type="text/javascript" src="./libs/thumbnail_view.js"></script>
-    <script type="text/javascript" src="./libs/text_layer_builder.js"></script>
-    <script type="text/javascript" src="./libs/pdf_find_bar.js"></script>
-    <script type="text/javascript" src="./libs/pdf_find_controller.js"></script>
-    <script type="text/javascript" src="./libs/pdf_history.js"></script>
-    <script type="text/javascript" src="./libs/secondary_toolbar.js"></script>
-    <script type="text/javascript" src="./libs/debugger.js"></script>
-    <script type="text/javascript" src="./libs/viewer.js"></script>
-    <!-- highlighting related -->
-    <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-core.js"></script>
-    <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-serializer.js"></script>
-    <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-cssclassapplier.js"></script>
-    <script type="text/javascript" src="./js/highlight.js"></script>
+        <!-- Custom library to maintain the main functionality -->
+        <script type="text/javascript" src="./js/test.js"></script>
+        <script type="text/javascript" src="./js/dbLookup.js"></script>
+        <script type="text/javascript" src="./js/highlight.js"></script>
+        <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
+        <script type="text/javascript" src="./js/sparql.js"></script>
+        <script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
+        <script type="text/javascript" src="./js/tableAnnotator.js"></script>
+    </head>
 
-    <script type="text/javascript" src="./js/annotation.js"></script>
-    <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
-    <script type="text/javascript" src="./js/sparql.js"></script>
-    <script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
-  </head>
-
-  <body tabindex="1">
-    <div id="outerContainer" class="loadingInProgress">
-
-      <div id="sidebarContainer">
-        <div id="toolbarSidebar">
-          <div class="splitToolbarButton toggled">
-            <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2">
-               <span>Thumbnails</span>
-            </button>
-            <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3">
-               <span>Document Outline</span>
-            </button>
-          </div>
-        </div>
-        <div id="sidebarContent">
-          <div id="thumbnailView">
-          </div>
-          <div id="outlineView" class="hidden">
-          </div>
-        </div>
-      </div>  <!-- sidebarContainer -->
-
-      <div id="mainContainer">
-        <div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
-          <label for="findInput" class="toolbarLabel">Find:</label>
-          <input id="findInput" class="toolbarField" tabindex="41">
-          <div class="splitToolbarButton">
-            <button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="42">
-              <span>Previous</span>
-            </button>
-            <div class="splitToolbarButtonSeparator"></div>
-            <button class="toolbarButton findNext" title="" id="findNext" tabindex="43">
-              <span>Next</span>
-            </button>
-          </div>
-          <input type="checkbox" id="findHighlightAll" class="toolbarField">
-          <label for="findHighlightAll" class="toolbarLabel" tabindex="44">Highlight all</label>
-          <input type="checkbox" id="findMatchCase" class="toolbarField">
-          <label for="findMatchCase" class="toolbarLabel" tabindex="45">Match case</label>
-          <span id="findMsg" class="toolbarLabel"></span>
-        </div>  <!-- findbar -->
-
-        <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
-          <div id="secondaryToolbarButtonContainer">
-            <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="18">
-              <span>Presentation Mode</span>
-            </button>
-
-            <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="19">
-              <span>Open</span>
-            </button>
-
-            <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="20">
-              <span>Print</span>
-            </button>
-
-            <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="21">
-              <span>Download</span>
-            </button>
-
-            <div class="horizontalToolbarSeparator visibleLargeView"></div>
-
-            <button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="22">
-              <span>Go to First Page</span>
-            </button>
-            <button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="23">
-              <span>Go to Last Page</span>
-            </button>
-
-            <div class="horizontalToolbarSeparator"></div>
-
-            <button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="24">
-              <span>Rotate Clockwise</span>
-            </button>
-            <button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="25">
-              <span>Rotate Counterclockwise</span>
-            </button>
-          </div>
-        </div>  <!-- secondaryToolbar -->
-
-        <div class="toolbar">
-          <div id="toolbarContainer">
-            <div id="toolbarViewer">
-              <div id="toolbarViewerLeft">
-                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="4">
-                  <span>Toggle Sidebar</span>
-                </button>
-                <div class="toolbarButtonSpacer"></div>
-                <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="5">
-                   <span>Find</span>
-                </button>
-                <div class="splitToolbarButton">
-                  <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="6">
-                    <span>Previous</span>
-                  </button>
-                  <div class="splitToolbarButtonSeparator"></div>
-                  <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="7">
-                    <span>Next</span>
-                  </button>
+    <body tabindex="1">
+        <div id="outerContainer" class="loadingInProgress">
+            <div id="sidebarContainer">
+                <div id="toolbarSidebar">
+                    <div class="splitToolbarButton toggled">
+                        <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2"><span>Thumbnails</span></button>
+                        <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3"><span>Document Outline</span></button>
+                    </div>
                 </div>
-                <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber">Page: </label>
-                <input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="8">
-                </input>
-                <span id="numPages" class="toolbarLabel"></span>
-              </div>
-              <div id="toolbarViewerRight">
-                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="12">
-                  <span>Presentation Mode</span>
-                </button>
-
-                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="13">
-                  <span>Open</span>
-                </button>
-
-                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="14">
-                  <span>Print</span>
-                </button>
-
-                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="15">
-                  <span>Download</span>
-                </button>
-                <!-- <div class="toolbarButtonSpacer"></div> -->
-                <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="16"><span>Current View</span></a>
-
-                <div class="verticalToolbarSeparator hiddenSmallView"></div>
-
-                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="17">
-                  <span>Tools</span>
-                </button>
-              </div>
-              <div class="outerCenter">
-                <div class="innerCenter" id="toolbarViewerMiddle">
-                  <div class="splitToolbarButton">
-                    <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="9">
-                      <span>Zoom Out</span>
-                    </button>
-                    <div class="splitToolbarButtonSeparator"></div>
-                    <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="10">
-                      <span>Zoom In</span>
-                     </button>
-                  </div>
-                  <span id="scaleSelectContainer" class="dropdownToolbarButton">
-                     <select id="scaleSelect" title="Zoom" tabindex="11">
-                      <option id="pageAutoOption" value="auto" selected="selected">Automatic Zoom</option>
-                      <option id="pageActualOption" value="page-actual">Actual Size</option>
-                      <option id="pageFitOption" value="page-fit">Fit Page</option>
-                      <option id="pageWidthOption" value="page-width">Full Width</option>
-                      <option id="customScaleOption" value="custom"></option>
-                      <option value="0.5">50%</option>
-                      <option value="0.75">75%</option>
-                      <option value="1">100%</option>
-                      <option value="1.25">125%</option>
-                      <option value="1.5">150%</option>
-                      <option value="2">200%</option>
-                    </select>
-                  </span>
+                <div id="sidebarContent">
+                    <div id="thumbnailView"></div>
+                    <div id="outlineView" class="hidden"></div>
                 </div>
-              </div>
-            </div>
-            <div id="loadingBar">
-              <div class="progress">
-                <div class="glimmer">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </div>  <!-- sidebarContainer -->
 
-        <menu type="context" id="viewerContextMenu">
-          <menuitem id="contextFirstPage" label="First Page"
-                   ></menuitem>
-          <menuitem id="contextLastPage" label="Last Page"
-                   ></menuitem>
-          <menuitem id="contextPageRotateCw" label="Rotate Clockwise"
-                   ></menuitem>
-          <menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise"
-                   ></menuitem>
-        </menu>
-
-        <div id="viewerContainer" tabindex="0" >
-          <div id="viewer"></div>
-        </div>
-
-        <div id="errorWrapper" hidden='true'>
-          <div id="errorMessageLeft">
-            <span id="errorMessage"></span>
-            <button id="errorShowMore">
-              More Information
-            </button>
-            <button id="errorShowLess" hidden='true'>
-              Less Information
-            </button>
-          </div>
-          <div id="errorMessageRight">
-            <button id="errorClose">
-              Close
-            </button>
-          </div>
-          <div class="clearBoth"></div>
-          <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
-        </div>
-      </div> <!-- mainContainer -->
-
-    </div> <!-- outerContainer -->
-    <div id="printContainer"></div>
-
-
-
-    <div id="annotationToolbar" class="annotationToolbar" >
-        </br>
-        <div id="annotationInputArea" >
-
-            <div class="form-inline" role="form" id="newValueForm">
-                <div class="form-group">
-                    <textarea class="form-control" id="subjectValueInput" rows="4" cols="50" placeholder="Subject" ></textarea></br></br>
-                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" ></br></br>
-                    <input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px"></br></br>
+            <div id="mainContainer">
+                <div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
+                    <label for="findInput" class="toolbarLabel">Find:</label>
+                    <input id="findInput" class="toolbarField" tabindex="41"/>
+                    <div class="splitToolbarButton">
+                        <button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="42"><span>Previous</span></button>
+                        <div class="splitToolbarButtonSeparator"></div>
+                        <button class="toolbarButton findNext" title="" id="findNext" tabindex="43"><span>Next</span></button>
+                    </div>
+                    <input type="checkbox" id="findHighlightAll" class="toolbarField"/>
+                    <label for="findHighlightAll" class="toolbarLabel" tabindex="44">Highlight all</label>
+                    <input type="checkbox" id="findMatchCase" class="toolbarField"/>
+                    <label for="findMatchCase" class="toolbarLabel" tabindex="45">Match case</label>
+                    <span id="findMsg" class="toolbarLabel"></span>
+                </div>  <!-- findbar -->
+                <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+                    <div id="secondaryToolbarButtonContainer">
+                        <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="18"><span>Presentation Mode</span></button>
+                        <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="19"><span>Open</span></button>
+                        <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="20"><span>Print</span></button>
+                        <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="21"><span>Download</span></button>
+                        <div class="horizontalToolbarSeparator visibleLargeView"></div>
+                        <button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="22"><span>Go to First Page</span></button>
+                        <button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="23"><span>Go to Last Page</span></button>
+                        <div class="horizontalToolbarSeparator"></div>
+                        <button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="24"><span>Rotate Clockwise</span></button>
+                        <button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="25"><span>Rotate Counterclockwise</span></button>
+                    </div>
+                </div>  <!-- secondaryToolbar -->
+                <div class="toolbar">
+                    <div id="toolbarContainer">
+                        <div id="toolbarViewer">
+                            <div id="toolbarViewerLeft">
+                                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="4"><span>Toggle Sidebar</span></button>
+                                <div class="toolbarButtonSpacer"></div>
+                                <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="5"><span>Find</span></button>
+                                <div class="splitToolbarButton">
+                                    <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="6"><span>Previous</span></button>
+                                    <div class="splitToolbarButtonSeparator"></div>
+                                    <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="7"><span>Next</span></button>
+                                </div>
+                                <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber">Page: </label>
+                                <input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="8"/>
+                                <span id="numPages" class="toolbarLabel"></span>
+                            </div>
+                            <div id="toolbarViewerRight">
+                                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="12"><span>Presentation Mode</span></button>
+                                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="13"><span>Open</span></button>
+                                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="14"><span>Print</span></button>
+                                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="15"><span>Download</span></button>
+                                <!-- <div class="toolbarButtonSpacer"></div> -->
+                                <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="16"><span>Current View</span></a>
+                                <div class="verticalToolbarSeparator hiddenSmallView"></div>
+                                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="17"><span>Tools</span></button>
+                            </div>
+                            <div class="outerCenter">
+                                <div class="innerCenter" id="toolbarViewerMiddle">
+                                    <div class="splitToolbarButton">
+                                        <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="9"><span>Zoom Out</span></button>
+                                        <div class="splitToolbarButtonSeparator"></div>
+                                        <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="10"><span>Zoom In</span></button>
+                                    </div>
+                                    <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                                        <select id="scaleSelect" title="Zoom" tabindex="11">
+                                            <option id="pageAutoOption" value="auto" selected="selected">Automatic Zoom</option>
+                                            <option id="pageActualOption" value="page-actual">Actual Size</option>
+                                            <option id="pageFitOption" value="page-fit">Fit Page</option>
+                                            <option id="pageWidthOption" value="page-width">Full Width</option>
+                                            <option id="customScaleOption" value="custom"></option>
+                                            <option value="0.5">50%</option>
+                                            <option value="0.75">75%</option>
+                                            <option value="1">100%</option>
+                                            <option value="1.25">125%</option>
+                                            <option value="1.5">150%</option>
+                                            <option value="2">200%</option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="loadingBar">
+                            <div class="progress">
+                                <div class="glimmer"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <menu type="context" id="viewerContextMenu">
+                    <menuitem id="contextFirstPage" label="First Page"></menuitem>
+                    <menuitem id="contextLastPage" label="Last Page"></menuitem>
+                    <menuitem id="contextPageRotateCw" label="Rotate Clockwise"></menuitem>
+                    <menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise"></menuitem>
+                </menu>
+
+                <div id="viewerContainer" tabindex="0">
+                    <div id="viewer"></div>
+                </div>
+
+                <div id="errorWrapper" hidden='true'>
+                    <div id="errorMessageLeft">
+                        <span id="errorMessage"></span>
+                        <button id="errorShowMore">More Information</button>
+                        <button id="errorShowLess" hidden='true'>Less Information</button>
+                    </div>
+                    <div id="errorMessageRight">
+                        <button id="errorClose">Close</button>
+                    </div>
+                    <div class="clearBoth"></div>
+                    <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
+                </div>
+            </div> <!-- mainContainer -->
+        </div> <!-- outerContainer -->
+        <div id="printContainer"></div>
+        <!-- SEMANN code below -->
+        <div id="annotationToolbar" class="annotationToolbar"><br/>
+            <button id="simpleAnnotateButton" class="btn btn-default">Show Simple Annotate Panel</button>
+            <button id="tripleView" class="btn btn-info">View triple</button>
+            <button id="test" class="btn btn-info">Test</button></br>
+            
+            <!--Start: Simple Annotation panel div-->
+            <div id="simpleAnnotatePanel" style="display: none">
+                <div id="annotationInputArea" >
+                    <div class="form-inline" role="form" id="newValueForm">
+                        <div class="form-group">
+                            <textarea class="form-control" id="subjectValueInput" rows="2" cols="50" placeholder="Subject"></textarea><br/><br/>
+                            <div id="displaySubjectURI" style="display: none"></div><br/>
+                            <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" />
+                            <span id="propertyCount" style="display: none"></span><br/><br/>
+                            <input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px"/>
+                            <button id="objectTextSelection" class="btn btn-info"><span class="glyphicon glyphicon-text-height"></span> Select text</button><br/><br/>
+                            <div id="displayObjectURI" style="display: none"></div><br/>
+                        </div>
+                    </div><br/>
+                </div>
+                <!-- message boxes start -->
+                <div class="alert alert-success" style="display: none"></div>
+                <div class="alert alert-danger" style="display: none"></div>
+                <div class="alert alert-warning" style="display: none"></div>
+                <!-- message boxes end -->
+
+                <!--All the functional buttons -->
+                <button id="addAnnotationButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>
+                <button id="queryButton" class="btn btn-info"><span class="glyphicon "></span>Fetch annotations</button>
+                <button id="showSimilarSearchButton" class="btn btn-default">Find Similar</button>
+                <br/><br/>
             </div>
-            </br>
-        </div>
+            <!--End : Simple Annotation panel div -->
 
-        <!-- message boxes start -->
-        <div class="alert alert-success" style="display: none"></div>
-        <div class="alert alert-danger" style="display: none"></div>
-        <div class="alert alert-warning" style="display: none"></div>
-        <!-- message boxes end -->
+            <button id="annotateTableButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
 
-
-
-        <button id="addAnnotationButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>
-        <button id="queryButton" class="btn btn-info"><span class="glyphicon "></span> Fetch annotations</button>
-        <button id="showSimilarSearchButton" class="btn btn-default"> Find Similar</button>
-
-        <!-- progress bar start -->
-        <div class="progress progress-striped active" style="width: 55%; display: none">
-            <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                Processing....
+            <!-- progress bar start -->
+            <div class="progress progress-striped active" style="width: 55%; display: none">
+                <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing....</div>
             </div>
-        </div>
-        <!-- progress bar end -->
+            <!-- progress bar end -->
+
+            <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;"></div>
+            <div id="displayAnnotationResult" style='overflow:auto; width:600px;'></div>
+
+            <!-- view results tables -->
+            <div id="displayTriples"></div>
+        </div> <!-- outerContainer -->
 
 
-        <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;"> </div>
-
-        <div id="displayAnnotationResult" style='overflow:auto; width:600px;'> </div>
-
-        <!-- view results tables -->
-        <div id="displayTableTitle"> </div>
-        <div id="displaySparqlTableRows" style='overflow:auto; display:none ; width:800px; height:300px;'> </div>
-
-    </div>
-
-  </body>
+    </body>
 </html>

@@ -6,13 +6,13 @@ Parse the json response from virtuso server
  @dependency
  null
  */
-
+"use strict";
 var sparqlResponseParser  = {
 
     /**
-     * Parse the json response form db and render the tabular view, while display available annotations
+     * Parse the json response form db and render a tabular view of the results
      *
-     * @param response
+     * @param JSON response
      */
     parseResponse:function(response) {
 	var fragments = [];
@@ -32,30 +32,45 @@ var sparqlResponseParser  = {
     },
 
     /**
-     * Parse the json response and return as array
+     * Parse the json response and return as an array of objects
      *
      * @param response
-     * @returns {Array}
+     * @returns {Array of objects}
      */
-    parseProperty:function(response) {
-
-        var items = [];
-
+    parseResource:function(response) {
+        var map = []; //maps labels to properties (URIs), eg  
+        /*
+            [
+              {
+                    "value": "long distance piste kilometre (?)",
+                    "uri": "http://dbpedia.org/ontology/longDistancePisteKilometre"
+                },
+                {
+                    "value": "long distance piste number",
+                    "uri": "http://dbpedia.org/ontology/longDistancePisteNumber"
+                }
+            ]
+            */
+        var resource = 'PROPERTY'; //by default we check for properties
         $.each(response, function(name, value) {
             if(name == 'results'){
                 $.each(value.bindings, function(index,item) {
-                    items.push(item.PROPERTY.value);
+                    if (item.OBJECT && index == 0) resource = 'OBJECT'; //response contains "OBJECT", not "PROPERTY"
+                    map.push({
+                        "value": item.LABEL.value, "uri": item[resource].value
+                    });
                 });
             }
         });
-        return items;
+        if (scientificAnnotation.DEBUG) console.log("Returned " +map.length+ " "+resource+ "s. " /*+JSON.stringify(map, null, 4)*/ );
+        return map;
     },
-
+    
     /**
      * Parse the json response and return as array
      *
-     * @param response
-     * @returns {Array}
+     * @param JSON response
+     * @returns {Array} of results
      */
     parseSimilarSearch:function(response) {
 
@@ -71,26 +86,6 @@ var sparqlResponseParser  = {
         return items;
     },
 
-    /**
-     * Parse the json response and return as array
-     *
-     * @param response
-     * @returns {Array}
-     */
-    parseObject:function(response) {
-
-        var items = [];
-
-        $.each(response, function(name, value) {
-            if(name == 'results'){
-                $.each(value.bindings, function(index,item) {
-                    items.push(item.OBJECT.value);
-                });
-            }
-        });
-        return items;
-    },
-    
     /**
      * Filters out given URI parameter value from the sURL and returns the values as a string array.
      *

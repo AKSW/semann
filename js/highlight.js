@@ -29,6 +29,59 @@ var highlight  = {
     },
     
     /**
+     * Return active window selection with correct whitespace. 
+     *
+     * @param void
+     * @returns {String} text representation of the selection
+     */
+    fixWhitespace: function () {
+        var sel = rangy.getSelection();
+        var startOffset = sel.anchorOffset;
+        var endOffset = sel.focusOffset;
+        var ranges = sel.getAllRanges();
+        var textNodes, textNode, i, len, j, jLen, textFragment;
+        var text = '';
+        for (i = 0, len = ranges.length; i < len; ++i) {
+            var range = ranges[i];
+            // The first parameter below is an array of valid nodeTypes (text nodes)
+            textNodes = range.getNodes([3]);
+            for (j = 0, jLen = textNodes.length; j < jLen; ++j) {
+                textNode = textNodes[j];
+                var isHypenated = false;
+                if (/\S/.test(textNode.nodeValue)) { //we exclude nodes with only whitespace
+                    var nodeValueLength = textNode.nodeValue.length;
+                    var lastChar = textNode.nodeValue.substring(nodeValueLength-1, nodeValueLength);
+                    var isLastNode = (j == jLen-1) ? true: false;
+                    var isFirstNode = (j == 0) ? true: false;
+                    if (isFirstNode && isLastNode) {
+                        textFragment = textNode.nodeValue.substring(startOffset, endOffset); //selection within the same node
+                    } else if (isFirstNode) {
+                        textFragment = textNode.nodeValue.substring(startOffset); //start of partial selection within first node
+                        if (lastChar == '-') isHypenated = true;
+                    } else if (isLastNode) {
+                        textFragment = textNode.nodeValue.substring(0, endOffset); //end of partial selection within last node
+                    } else {
+                        textFragment = textNode.nodeValue;
+                        if (lastChar == '-') isHypenated = true;
+                    }
+                    textFragment = textFragment.replace(/\s{2,}/g, ' '); //remove extra spaces
+                    textFragment = textFragment.replace(/\t/g, ' '); //remove tabs
+                    textFragment = textFragment.toString().trim().replace(/(\r\n|\n|\r)/g,""); //remove line breaks
+                    //if (scientificAnnotation.DEBUG) console.log(j + ': ('+isHypenated+') - ' +textFragment);
+                    if (isHypenated) {
+                        text = text + textFragment.substring(0, textFragment.length-1); //exclude hyphenation
+                    } else {
+                        text = text + textFragment;
+                        if (!isLastNode) text = text + ' '; //replace newlines with space
+                    }
+                }
+            }
+        }
+        if (scientificAnnotation.DEBUG) console.log("Cleaned up user selection: '" + text + "'");
+        return text;
+    },
+    
+    /**
      * Takes the node and offset of the given range and recalculates its serialised position if its parent DIV did not contain existing highlights. This clears given node and offset positions from any potential DOM modification impacts.
      *
      * @param node, integer
@@ -39,8 +92,8 @@ var highlight  = {
         var parentDivNode = $(problemNode).closest('div')[0];  //parent div node of the problem node
         var parentDivRange = rangy.createRange();
         parentDivRange.selectNode(parentDivNode); //take node as range
-        console.log("length="+parentDivRange.toString().length+": "+parentDivRange.toString());
-        console.log(parentDivRange.toHtml());
+        //if (scientificAnnotation.DEBUG) console.log("length="+parentDivRange.toString().length+": "+parentDivRange.toString());
+        //if (scientificAnnotation.DEBUG) console.log(parentDivRange.toHtml());
         var preCaretRange = rangy.createRange();
         preCaretRange.selectNodeContents(parentDivNode);
         preCaretRange.setEnd(problemNode, problemOffset); //move end offset till the selection
@@ -60,7 +113,7 @@ var highlight  = {
         var correctedStartPos = this.originalPosition(unstrippedRange.startContainer, unstrippedRange.startOffset);
         var correctedEndPos = this.originalPosition(unstrippedRange.endContainer, unstrippedRange.endOffset);
         var correctedPos = correctedStartPos+","+correctedEndPos;
-        console.log("Selected range when stripped of DOM modifications: "+correctedPos);
+        //if (scientificAnnotation.DEBUG) console.log("Selected range when stripped of DOM modifications: "+correctedPos);
         return correctedPos;
     },
 
@@ -98,15 +151,15 @@ var highlight  = {
         var rangy_base = document.getElementById('viewer');
         //highlightRanges = new Array();
         for (i=0; i<array.length; i++) {
-            console.log("	&rangyFragment="+array[i]);
+//            console.log("	&rangyFragment="+array[i]);
             if (array[i] != undefined) { //filter out URIs without &rangyFragment parameter value
                 var r;
         if (rangy.canDeserializeRange(array[i], rangy_base)) { //BUG: potential rangy bug as it does not seem to catch deserialisation errors
             r = rangy.deserializeRange(array[i], rangy_base);
-            console.log("	isvalid="+r.isValid());
+//            console.log("	isvalid="+r.isValid());
             highlight.highlightRanges.push(r);
         } else {
-            console.log("	"+array[i]+" is not serializable!");
+//            console.log("	"+array[i]+" is not serializable!");
         }
             }
         }
@@ -126,9 +179,9 @@ var highlight  = {
             highlightRanges = highlight.deserializeArray(rangyFragments);
             cssApplier.applyToRanges(highlightRanges);
         } catch(err) {
-            console.log("There was an error during highlighting. Potentially corrupted data. "+err.message);
+            if (scientificAnnotation.DEBUG) console.error("There was an error during highlighting. Potentially corrupted data in '"+rangyFragments+"'. "+err.message);
         }
-        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
+//        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
     }
     
 };

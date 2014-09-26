@@ -1,0 +1,372 @@
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+# TODO please change the URI below to something reasonable.  Resources in this namespace don't have to be generated for each table.
+@prefix semann: <http://whatever-you-would-like-to-call.it/#> .
+# TODO you may want to keep the URI below, or change it to something more reasonable; maybe similar to the URIs you have used before
+# TODO anything that starts with this prefix needs to be generated
+@prefix ex: <http://example.org/ns#> .
+
+# each annotated table is a data set
+ex:table1 a qb:DataSet ;
+  # the table is part of the whole document that we annotate
+  dct:isPartOf <.../TheDocument> ;
+  # the dataset in the table has a certain structure (see below)
+  qb:structure ex:dsdTable1 ;
+  # we have a slice (of the data cube) for each column.  Once we know more about what real-world concepts the rows represent (here, each row represents a concrete football team), we will also have a slice for each row.
+  qb:slice ex:sliceA, ex:sliceB, ex:sliceC .
+
+# definition of the data structure of this table
+# (very simple for now: first we have rows, then we have columns)
+ex:dsdTable1 a qb:DataStructureDefinition ;
+  qb:component
+    [ qb:dimension ex:row ;
+      qb:order 1 ] ,
+    [ qb:dimension ex:column ;
+      qb:order 2 ] ,
+  # TODO Christoph to figure out whether we need qb:componentAttachment qb:Slice here (as in the example from http://www.w3.org/TR/vocab-data-cube/) – a minor issue we can address later
+    # semann:value is part of the _general_ vocabulary of your annotation application; it doesn't change when a different table is annotated
+    # the value of a table cell; TODO rename it to "entry" here and below, if you prefer that
+    [ qb:measure semann:value ] .
+
+# TODO the following semann:* resources would, in the end, not go into the RDF generated from annotating one table, but they would be stored in some central vocabulary and merely _referenced_ from the annotation output for a specific table.
+semann:row a rdf:Property, qb:DimensionProperty ;
+  rdfs:label "row"@en ;
+  rdfs:comment "a row of a table"@en ;
+  rdfs:range xsd:nonNegativeInteger .
+
+semann:column a rdf:Property, qb:DimensionProperty ;
+  rdfs:label "column"@en ;
+  rdfs:comment "a column of a table"@en ;
+  rdfs:range xsd:nonNegativeInteger .
+
+semann:value a rdf:Property, qb:MeasureProperty ;
+  rdfs:label "value"@en ;
+  rdfs:comment "the value of a table cell"@en ;
+  rdfs:range rdfs:Literal .
+
+# now come the _specific_ row and column types for _this_ table.  I.e. a row is not just a "row", but it has a more specific meaning.  Right now we don't know that in our example table a row corresponds to the real-world concept of a "football team", as this will require further input from the user – but in future we will know it.  These specific properties are therefore placeholders to which this "further information" from the user will eventually be attached.
+ex:row a rdf:Property, qb:DimensionProperty ;
+  rdfs:subPropertyOf semann:row .
+
+ex:column a rdf:Property, qb:DimensionProperty ;
+  rdfs:subPropertyOf semann:column .
+
+# Let's use spreadsheet-style names for table cells for now.  Row 1 does not contain values, but column headers, so we start from row 2.
+ex:table1A2 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:row 2 ;
+  ex:column 1;
+  semann:value "1" .
+
+ex:table1B2 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:row 2 ;
+  ex:column 2 ;
+  semann:value "Spain" .
+
+ex:table1C2 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:row 2 ;
+  ex:column 3 ;
+  semann:value "UEFA" .
+
+# ID, Country, Confederation
+# 1, Spain, UEFA
+
+# @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+# @prefix owl:      <http://www.w3.org/2002/07/owl#> .
+# @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+# @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+# @prefix void:     <http://rdfs.org/ns/void#> .
+# @prefix dct:      <http://purl.org/dc/terms/> .
+# @prefix foaf:     <http://xmlns.com/foaf/0.1/> .
+# @prefix org:      <http://www.w3.org/ns/org#> .
+# @prefix admingeo: <http://data.ordnancesurvey.co.uk/ontology/admingeo/> .
+# @prefix interval: <http://reference.data.gov.uk/def/intervals/> .
+
+# @prefix qb:       <http://purl.org/linked-data/cube#> .
+
+# @prefix sdmx-concept:    <http://purl.org/linked-data/sdmx/2009/concept#> .
+# @prefix sdmx-dimension:  <http://purl.org/linked-data/sdmx/2009/dimension#> .
+# @prefix sdmx-attribute:  <http://purl.org/linked-data/sdmx/2009/attribute#> .
+# @prefix sdmx-measure:    <http://purl.org/linked-data/sdmx/2009/measure#> .
+# @prefix sdmx-metadata:   <http://purl.org/linked-data/sdmx/2009/metadata#> .
+# @prefix sdmx-code:       <http://purl.org/linked-data/sdmx/2009/code#> .
+# @prefix sdmx-subject:    <http://purl.org/linked-data/sdmx/2009/subject#> .
+
+# @prefix ex-geo:   <http://example.org/geo#> .
+# @prefix eg:       <http://example.org/ns#> .
+
+# -- Data Set --------------------------------------------
+
+eg:dataset-le3 a qb:DataSet;
+    dct:title       "Life expectancy"@en;
+    rdfs:label      "Life expectancy"@en;
+    rdfs:comment    "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:description "Life expectancy within Welsh Unitary authorities - extracted from Stats Wales"@en;
+    dct:publisher   eg:organization ;
+    dct:issued      "2010-08-11"^^xsd:date;
+    dct:subject
+        sdmx-subject:3.2 ,      # regional and small area statistics
+        sdmx-subject:1.4 ,      # Health
+        ex-geo:wales;           # Wales
+    qb:structure eg:dsd-le3 ;  
+    sdmx-attribute:unitMeasure <http://dbpedia.org/resource/Year> ;
+    qb:slice eg:slice1, eg:slice2, eg:slice3, eg:slice4, eg:slice5, eg:slice6 ;
+    .
+
+eg:organization a org:Organization, foaf:Agent;
+    rdfs:label "Example org"@en .    
+        
+# -- Data structure definition ----------------------------
+
+eg:dsd-le3 a qb:DataStructureDefinition;
+    qb:component 
+    # The dimensions
+        [ qb:dimension eg:refArea;         qb:order 1 ],
+        [ qb:dimension eg:refPeriod;       qb:order 2; qb:componentAttachment qb:Slice ],
+        [ qb:dimension sdmx-dimension:sex; qb:order 3; qb:componentAttachment qb:Slice ];
+        
+    # The measure(s)
+    qb:component [ qb:measure eg:lifeExpectancy];
+    
+    # The attributes
+    qb:component [ qb:attribute sdmx-attribute:unitMeasure; 
+                   qb:componentRequired "true"^^xsd:boolean;
+                   qb:componentAttachment qb:DataSet; ] ;
+    
+    # slices
+    qb:sliceKey eg:sliceByRegion ;
+    .
+    
+eg:sliceByRegion a qb:SliceKey;
+    rdfs:label "slice by region"@en;
+    rdfs:comment "Slice by grouping regions together, fixing sex and time values"@en;
+    qb:componentProperty eg:refPeriod, sdmx-dimension:sex ;
+    .
+                   
+# -- Dimensions and measures  ----------------------------
+
+eg:refPeriod  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference period"@en;
+    rdfs:subPropertyOf sdmx-dimension:refPeriod;
+    rdfs:range interval:Interval;
+    qb:concept sdmx-concept:refPeriod ;
+    .
+
+
+eg:refArea  a rdf:Property, qb:DimensionProperty;
+    rdfs:label "reference area"@en;
+    rdfs:subPropertyOf sdmx-dimension:refArea;
+    rdfs:range admingeo:UnitaryAuthority;
+    qb:concept sdmx-concept:refArea ;
+    .
+
+eg:lifeExpectancy  a rdf:Property, qb:MeasureProperty;
+    rdfs:label "life expectancy"@en;
+    rdfs:subPropertyOf sdmx-measure:obsValue;
+    rdfs:range xsd:decimal ;
+    .
+    
+# -- Observations -----------------------------------------
+
+# Column 1
+    
+eg:slice1 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o11, eg:o12, eg:o13, eg:o14 ;
+    .
+
+eg:o11 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          76.7 ;
+    .
+    
+eg:o12 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o13 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.6 ;
+    .
+
+eg:o14 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          75.5 ;
+    .
+
+# Column 2
+    
+eg:slice2 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2004-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o21, eg:o22, eg:o23, eg:o24 ;
+    .
+
+eg:o21 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          80.7 ;
+    .
+    
+eg:o22 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.3 ;
+    .
+
+eg:o23 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.3 ;
+    .
+
+eg:o24 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.1 ;
+    .
+
+# Column 3
+    
+eg:slice3 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o31, eg:o32, eg:o33, eg:o34 ;
+    .
+
+eg:o31 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          77.1 ;
+    .
+    
+eg:o32 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.6 ;
+    .
+
+eg:o33 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.5 ;
+    .
+
+eg:o34 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          75.5 ;
+    .
+
+# Column 4
+    
+eg:slice4 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2005-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o41, eg:o42, eg:o43, eg:o44 ;
+    .
+
+eg:o41 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          80.9 ;
+    .
+    
+eg:o42 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.7 ;
+    .
+
+eg:o43 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.5 ;
+    .
+
+eg:o44 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.4 ;
+    .
+
+# Column 5
+    
+eg:slice5 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-M ;
+    qb:observation eg:o51, eg:o52, eg:o53, eg:o54 ;
+    .
+
+eg:o51 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          77.0 ;
+    .
+    
+eg:o52 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          78.7 ;
+    .
+
+eg:o53 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          76.6 ;
+    .
+
+eg:o54 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          74.9 ;
+    .
+
+# Column 6
+    
+eg:slice6 a qb:Slice;
+    qb:sliceStructure  eg:sliceByRegion ;
+    eg:refPeriod               <http://reference.data.gov.uk/id/gregorian-interval/2006-01-01T00:00:00/P3Y> ;
+    sdmx-dimension:sex         sdmx-code:sex-F ;
+    qb:observation eg:o61, eg:o62, eg:o63, eg:o64 ;
+    .
+
+eg:o61 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:newport_00pr ;                  
+    eg:lifeExpectancy          81.5 ;
+    .
+    
+eg:o62 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:cardiff_00pt ;                  
+    eg:lifeExpectancy          83.4 ;
+    .
+
+eg:o63 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:monmouthshire_00pp ;                  
+    eg:lifeExpectancy          81.7 ;
+    .
+
+eg:o64 a qb:Observation;
+    qb:dataSet  eg:dataset-le3 ;
+    eg:refArea                 ex-geo:merthyr_tdfil_00ph ;
+    eg:lifeExpectancy          79.6 ;
+    .

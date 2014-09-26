@@ -22,7 +22,7 @@
 
 'use strict';
 
-var DEFAULT_URL = 'pdf/sample4.pdf';
+var DEFAULT_URL = 'pdf/sampleTable1.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -194,7 +194,6 @@ var PDFView = {
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
 
-    scientificAnnotation.resetAnnotationTable();
     var self = this;
     var container = this.container = document.getElementById('viewerContainer');
     this.pageViewScroll = {};
@@ -561,9 +560,6 @@ var PDFView = {
   open: function pdfViewOpen(url, scale, password,
                              pdfDataRangeTransport, args) {
 
-      scientificAnnotation.clearAnnotationDisplayPanel();
-      scientificAnnotation.clearSimilarSearchResult();
-
     var parameters = {password: password};
     if (typeof url === 'string') { // URL
       this.setTitleUsingUrl(url);
@@ -851,8 +847,6 @@ var PDFView = {
   },
 
   load: function pdfViewLoad(pdfDocument, scale) {
-
-    scientificAnnotation.resetAnnotationTable();
 
 
     function bindOnAfterDraw(pageView, thumbnailView) {
@@ -2032,8 +2026,6 @@ window.addEventListener('scalechange', function scalechange(evt) {
 }, true);
 
 window.addEventListener('pagechange', function pagechange(evt) {
-
-  highlight.init();
   var page = evt.pageNumber;
   if (PDFView.previousPageNumber !== page) {
     document.getElementById('pageNumber').value = page;
