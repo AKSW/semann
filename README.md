@@ -27,6 +27,7 @@ This branch is concurrently further developed on the following features:
 [jQuery](http://jquery.com/) - used for DOM manipulations, required by Twitter bootstrap  
 [Typeahead.js](https://github.com/twitter/typeahead.js) - used for autosuggestion in input boxes  
 [Rangy](https://code.google.com/p/rangy/) - A cross-browser JavaScript range and selection library.
+[DBpedia Lookup](https://github.com/dbpedia/lookup) - looks up DBpedia URIs by related keywords.
 
 ## Backend Database Used
 - [virtuoso](http://virtuoso.openlinksw.com/)
