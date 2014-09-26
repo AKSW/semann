@@ -14,9 +14,8 @@ This project is a prototype.
 
 ### Work in progress:
 This project is concurrently further developed on the following forks:
-- https://github.com/saifulnipo/eis-semantic-annotation concentrates on annotating tables in PDF
-- https://github.com/jaanatak/eis-semantic-annotation concentrates on the further development of the [find similar publications](https://github.com/AKSW/semann/wiki/Documentation#find-similar-publications) functionality. 
-Eventually the two parallel forks will be merged into here.
+- Annotating tables via data cubes.
+- [Find similar publications](https://github.com/AKSW/semann/wiki/Documentation#find-similar-publications) functionality. 
 
 ## Documentation
 - [Documentation](https://github.com/AKSW/semann/wiki/Documentation)
