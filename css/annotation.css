@@ -82,3 +82,17 @@
 .highlight { 
 	background-color:#FFFF00; 
 }
+
+table.showResult, td.showResult, th.showResult {
+    border: 1px solid black;
+    background-color: white;
+    font-size:13px;
+    overflow:auto;
+
+}
+
+th.showResult {
+    background-color: black;
+    font-weight: bold;
+    color: white;
+}

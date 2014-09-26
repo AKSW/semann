@@ -30,11 +30,7 @@ var scientificAnnotation  = {
     DIV_OBJECTS: null,
     DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
-    DIV_PROGRESS: null,
-    DIV_SUCCESS: null,
-    DIV_ERROR: null,
-    DIV_WARN: null,
-    BAR_PROGRESS: null,
+    DIV_DATACUBES: null,
     // selected text position info
     selectedTextPosition:null,
     isObjectSelection:false,
@@ -63,7 +59,11 @@ var scientificAnnotation  = {
         });
 
         scientificAnnotation.BTN_TABLE.bind("click", function () {
-            scientificAnnotation.annotateTable();
+            scientificAnnotation.annotateTable($(this));
+        });
+        
+        scientificAnnotation.BTN_RESET.bind("click", function () {
+            scientificAnnotation.resetAnnotation($(this));
         });
         
         scientificAnnotation.BTN_SELECT_TEXT.bind("click", function () {
@@ -104,6 +104,7 @@ var scientificAnnotation  = {
             panel.fadeIn(500);
             button.text('Hide Simple Annotate Panel');
         }
+        scientificAnnotation.resetAnnotationTable();
     },
 
     /**
@@ -143,7 +144,7 @@ var scientificAnnotation  = {
             }
             targetObject.fadeIn(500);// show the result
         } else {
-            scientificAnnotation.showWarningMessage('No similar publications found.');
+            messageHandler.showWarningMessage('No similar publications found.');
         }
     },
 
@@ -328,7 +329,7 @@ var scientificAnnotation  = {
         sparql.triple.set(scientificAnnotation.INPUT_OBJECT, sparql.triple.object.uri);
         var hasMissingValues = (!scientificAnnotation.INPUT_SUBJECT.val() || !scientificAnnotation.INPUT_PROPERTY.val() || !scientificAnnotation.INPUT_OBJECT.val()) ? true : false;
         if(hasMissingValues) {
-            scientificAnnotation.showErrorMessage('Empty fields. Please provide values and try again',true);
+            messageHandler.showErrorMessage('Empty fields. Please provide values and try again',true);
             if (scientificAnnotation.DEBUG) console.error('Empty fields. Please provide values and try again');
         } else {
             var rangyFragment = null;
@@ -341,7 +342,7 @@ var scientificAnnotation  = {
                 rangyFragment = textPosition.rangyFragment;
                 rangyPage = textPosition.rangyPage;
             }
-            scientificAnnotation.showProgressBar('Adding annotation...');
+            progressbar.showProgressBar('Adding annotation...');
             scientificAnnotation.appendAnnotationInDisplayPanel();
             var success = sparql.addAnnotation(startPos, endPos, rangyPage, rangyFragment);
             if (success) scientificAnnotation.clearInputField();
@@ -374,6 +375,20 @@ var scientificAnnotation  = {
         );
     },
 
+    /**
+     *  Reset and refresh necessary parameter and variable once new pdf file has been laoded
+     */
+    refreshOnNewPdfFileLoad : function () {
+        tableAnnotator.TABLE_ANNOTATION_COUNT = 1;
+        scientificAnnotation.clearAnnotationDisplayPanel();
+        scientificAnnotation.clearSimilarSearchResult();
+        highlight.init();
+        sparql.triple.emptyAll();
+        scientificAnnotation.resetAnnotationTable();
+        scientificAnnotation.DIV_SUBJECTS.hide();
+        scientificAnnotation.DIV_OBJECTS.hide();
+    },
+    
     /**
      * Reset the annotation display tables, used by viewer.js
      * @return void
@@ -442,8 +457,8 @@ var scientificAnnotation  = {
      * @return void
      */
     noAvailableAnnotationFromSparql:function(){
-        scientificAnnotation.showWarningMessage('No available annotations found for this file.');
-        scientificAnnotation.hideProgressBar();
+        messageHandler.showWarningMessage('No available annotations found for this file.');
+        progressbar.hideProgressBar();
     },
 
     /**
@@ -461,7 +476,7 @@ var scientificAnnotation  = {
     fetchDataFromDatabase : function () {
         scientificAnnotation.DIV_TRIPLES.fadeIn(500);
         scientificAnnotation.clearSimilarSearchResult();
-        scientificAnnotation.showProgressBar('Loading data ....');
+        progressbar.showProgressBar('Loading data ....');
         sparql.showDataFromSparql();
     },
 
@@ -469,14 +484,27 @@ var scientificAnnotation  = {
      *  Annotate tabular structure in pdf file
      *  @return void
      */
-    annotateTable : function() {
-        if(tableAnnotator.isTableSelectionValid()) {
-            var selectedTableCellTexts = tableAnnotator.getSelectedTableCellTexts();
-            if (scientificAnnotation.DEBUG) console.log(selectedTableCellTexts);
-            alert(selectedTableCellTexts);
+    annotateTable : function(button) {
+
+        if (!scientificAnnotation.DIV_DATACUBES.is(':visible')) {
+            tableAnnotator.annotateSelectedTable();
         } else {
-            alert('Table selection is not proper :-(');
+            button.text('Annotate table');
+            scientificAnnotation.BTN_RESET.hide();
+            scientificAnnotation.DIV_DATACUBES.hide();
+
+            if (tableAnnotator.storedData !== null) {
+                dataCubeSparql.addAnnotation(tableAnnotator.storedData);
+            }
         }
+    },
+    
+    resetAnnotation : function(button) {
+        scientificAnnotation.DIV_DATACUBES.empty();
+        scientificAnnotation.DIV_DATACUBES.hide();
+        scientificAnnotation.BTN_TABLE.text('Annotate table');
+        tableAnnotator.storedData = null;
+        button.hide();
     },
     
     /**
@@ -487,74 +515,10 @@ var scientificAnnotation  = {
         if (scientificAnnotation.DIV_RECOMMENDER.is(':visible')) {
             scientificAnnotation.DIV_RECOMMENDER.fadeOut(300);
         }
-        scientificAnnotation.showProgressBar('Finding similar publications...');
+        progressbar.showProgressBar('Finding similar publications...');
         sparql.findSimilarFiles();
     },
     
-    /**
-     * Display message in given element
-     * @param {String} message
-     * @param {Object} element where to display the message
-     * @param optional boolean value to define whether to show message temporarily only.
-     * @return void
-     */
-    displayInfo:function(message, displayInElement, isHide) {
-        var isHide = isHide || false; //optional parameter
-        displayInElement.html(message);
-        if (!displayInElement.is(':visible')) displayInElement.fadeIn(1000);
-        if(isHide == true) {
-            displayInElement.delay(1500).fadeOut();
-        }
-    },
-
-    /**
-     * Display success message
-     * @param message
-     * @return void
-     */
-    showSuccessMessage:function (message) {
-        scientificAnnotation.displayInfo(message, scientificAnnotation.DIV_SUCCESS, true);
-    },
-
-    /**
-     * Display error message
-     * @param message
-     * @param optional boolean value to define whether to show message temporarily only
-     * @return void
-     */
-    showErrorMessage:function (message, isHide) {
-        var isHide = isHide || false; //optional parameter
-        scientificAnnotation.displayInfo(message, scientificAnnotation.DIV_ERROR, isHide);
-    },
-
-    /**
-     * Display warning message
-     * @param message
-     * @return void
-     */
-    showWarningMessage:function (message) {
-        scientificAnnotation.displayInfo(message, scientificAnnotation.DIV_WARN, true);
-    },
-
-
-    /**
-     * Show progress bar
-     * @param {String} message on progress bar
-     * @return void
-     */
-    showProgressBar: function(message){
-        scientificAnnotation.DIV_PROGRESS.html(message);
-        scientificAnnotation.BAR_PROGRESS.fadeIn();
-    },
-
-    /**
-     * Hide progress bar
-     * @return void
-     */
-    hideProgressBar: function(){
-        scientificAnnotation.BAR_PROGRESS.fadeOut();
-    },
-
     /**
      * Checks if active selection was made in PDF. 
      * @return {Boolean}
@@ -586,13 +550,7 @@ var scientificAnnotation  = {
         //An event that is fired by PDF.js when the pdf loads. 
         window.addEventListener("documentload", function(evt) {
             //alert("PDF.js event - documentload");
-            highlight.init();
-            sparql.triple.emptyAll();
-            scientificAnnotation.clearAnnotationDisplayPanel();
-            scientificAnnotation.clearSimilarSearchResult();
-            scientificAnnotation.resetAnnotationTable();
-            scientificAnnotation.DIV_SUBJECTS.hide();
-            scientificAnnotation.DIV_OBJECTS.hide();
+            scientificAnnotation.refreshOnNewPdfFileLoad();
         }, false);
         
         //An event that is fired by PDF.js when the pdf.js loads
@@ -615,6 +573,7 @@ var scientificAnnotation  = {
         scientificAnnotation.BTN_RECOMMENDER = $("#showSimilarSearchButton");
         scientificAnnotation.BTN_ANNOTATIONS = $("#queryButton");
         scientificAnnotation.BTN_TABLE = $("#annotateTableButton");
+        scientificAnnotation.BTN_RESET = $("#resetAnnotationButton");
         scientificAnnotation.BTN_SELECT_TEXT = $("#objectTextSelection");
         scientificAnnotation.INPUT_SUBJECT = $("#subjectValueInput");
         scientificAnnotation.INPUT_PROPERTY = $("#propertyValueInput");
@@ -627,11 +586,7 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_OBJECTS = $("#displayObjectURI");
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
-        scientificAnnotation.DIV_PROGRESS = $(".progress-bar");
-        scientificAnnotation.DIV_SUCCESS = $(".alert-success");
-        scientificAnnotation.DIV_ERROR = $(".alert-danger");
-        scientificAnnotation.DIV_WARN = $(".alert-warning");
-        scientificAnnotation.BAR_PROGRESS = $(".progress");
+        scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");
 
         scientificAnnotation.bindClickEventForButtons();
         scientificAnnotation.bindEventForInputs();
@@ -647,6 +602,10 @@ var scientificAnnotation  = {
  * document on ready method
  */
 $(function () {
+    applicationSettings.setUp();
+    if (applicationSettings.isUnitTestOngoing) {
+        return;
+    }
     scientificAnnotation.init();
     test.init(); //functionality related to jaana developing. Remove this from production.
 });

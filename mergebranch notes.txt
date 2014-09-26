@@ -1,0 +1,41 @@
+https://github.com/jaanatak/eis-semantic-annotation/pull/new/AKSW/semann:mergebranch...jaanatak:eis-semantic-annotation
+
+https://github.com/jaanatak/eis-semantic-annotation/compare/saifulnipo:master...master
+
+https://github.com/AKSW/semann.git
+
+
+git remote add upstream git:        
+
+*****
+C:\Users\jaana\Documents\GitHub\eis-semantic-annotation [master]> git remote add aksw https://github.com/AKSW/semann.git
+C:\Users\jaana\Documents\GitHub\eis-semantic-annotation [master]> git fetch aksw
+
+warning: no common commits
+remote: Counting objects: 352, done.
+Receiving objects:  68% (240/352), 908.00 KiB | 878.00 KiB/sremote: Total 352 (d
+elta 0), reused 0 (delta 0)
+Receiving objects: 100% (352/352), 1.61 MiB | 878.00 KiB/s, done.
+Resolving deltas: 100% (161/161), done.
+From https://github.com/AKSW/semann
+ * [new branch]      WebSemanticAnnotationPrototype -> aksw/WebSemanticAnnotatio
+nPrototype
+ * [new branch]      master     -> aksw/master
+ * [new branch]      mergebranch -> aksw/mergebranch
+ 
+ 
+ 
+ 
+ vt üle
+ js/scientificAnnotation.js
+    * using documentonload event now for viewer.js based activities
+ js/sparql.js, js/applicationSettings.js, dataCubeSparql.js - I updated it 26.09.14
+    * I did not remove the following as they are needed for CORS requests. I suggest keeping it so.
+            async: true,
+            dataType: "jsonp",
+            crossDomain: true,
+            cache: false,
+ libs/viewer.js 
+    restored to its original state
+ 
+    

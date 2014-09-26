@@ -16,6 +16,7 @@ var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
     GRAPH_NAME : 'scientificAnnotation',
+    GRAPH_NAME_EIS : 'eisAnnotation',
 
     // annotation properties
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
@@ -104,7 +105,7 @@ var sparql  = {
             '}';
         if (scientificAnnotation.DEBUG) console.log(selectQuery);
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: sparql.SERVER_ADDRESS,
             data: {
                 query: selectQuery,
@@ -115,9 +116,8 @@ var sparql  = {
             crossDomain: true,
             cache: false,
             success: function(response){
-
                 if( response!= null && response.results.bindings.length >0) {
-                    scientificAnnotation.hideProgressBar();
+                    progressbar.hideProgressBar();
                     scientificAnnotation.displayAvailableAnnotationFromSparql();
                     var fragments = sparqlResponseParser.parseResponse(response);
                     highlight.rangy_highlight(fragments);
@@ -127,8 +127,8 @@ var sparql  = {
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
-                scientificAnnotation.hideProgressBar();
-                scientificAnnotation.showErrorMessage(errorTxt);
+                progressbar.hideProgressBar();
+                messageHandler.showErrorMessage(errorTxt);
             }
         });
     },
@@ -184,9 +184,7 @@ var sparql  = {
         var insertQuery =
             'prefix semann: <'+sparql.PREFIX_SEMANN+'>' +'\n'+
             'prefix semannp: <'+sparql.PREFIX_SEMANNP+'>'+'\n'+
-            'INSERT DATA ' +'\n'+
-            '{ ' +'\n\t'+
-                'GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n\t'+
+            'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
                 '{ ' +'\n\t\t'+
                     q.File+' a ' +q.Publication+ '. '+'\n\t\t'+
                     q.File+' ' + q.hasExcerpt + ' '+ q.Excerpt +' .'+'\n\t\t';
@@ -199,12 +197,11 @@ var sparql  = {
                     '<'+sparql.triple.property.uri +'> <'+sparql.triple.object.uri+'> .'+'\n\t\t'+
                     '<'+sparql.triple.property.uri+'>  ' + q.label + ' "'+sparql.triple.property.label+'"@en. '+'\n\t\t'+
                     '<'+sparql.triple.object.uri+'> ' + q.label + ' "'+sparql.triple.object.label+'"@en. '+'\n\t'+
-                '} ' +'\n'+
-            '}';
+                '}';
         
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: sparql.SERVER_ADDRESS,
             data: {
                 query: insertQuery,
@@ -218,60 +215,15 @@ var sparql  = {
                 sparql.bindAutoCompleteProperty();
                 //sparql.bindAutoCompleteObject();
                 scientificAnnotation.hideAnnotationDisplayTable();
-                scientificAnnotation.hideProgressBar();
-                scientificAnnotation.showSuccessMessage('Annotation successfully added');
+                progressbar.hideProgressBar();
+                messageHandler.showSuccessMessage('Annotation successfully added');
             },
             error: function(jqXHR, exception){
-                isSuccess = false;
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
-                scientificAnnotation.hideProgressBar();
-                scientificAnnotation.showErrorMessage(errorTxt);
+                progressbar.hideProgressBar();
+                messageHandler.showErrorMessage(errorTxt);
             }
         });
-        return isSuccess;
-    },
-
-    /**
-     * Provide the data for the auto complete in the  object field
-     *
-     * @param searchItem
-     * @returns {Array}
-     */
-    bindAutoCompleteObject :function(){ //not in use
-
-        var q = sparql.resource();
-        var selectQuery = 
-            'SELECT distinct str(?o) as ?OBJECT str(?label) as ?LABEL FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
-            'WHERE ' +'\n'+
-            '{ ' +'\n\t'+
-                '?o ' + q.label + ' ?label ' +'\n\t'+
-                'FILTER(STRSTARTS(STR(?o), "'+sparql.PREFIX_SEMANN+'"))' +'\n'+
-            '} ORDER BY fn:lower-case(?OBJECT) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
-
-        var source = null;
-
-        $.ajax({
-            type: "GET",
-            url: sparql.SERVER_ADDRESS,
-            data: {
-                query: selectQuery,
-                format: "application/json"
-            },
-            async: true,
-            dataType: "jsonp",
-            crossDomain: true,
-            cache: false,
-            success: function(response){
-                source = sparqlResponseParser.parseResource(response);
-                scientificAnnotation.setAutoComputeDataForField(source, 'objectValueInput');
-            },
-            error: function(jqXHR, exception){
-                var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
-                scientificAnnotation.showErrorMessage(errorTxt);
-            }
-        });
-
-        return source;
     },
 
     /**
@@ -293,8 +245,8 @@ var sparql  = {
                                 'WHERE ' +'\n'+
                                 '{ ' +'\n\t'+
                                     '?p ' + q.label + ' ?label ' +'\n\t'+
-                                    'FILTER(STRSTARTS(STR(?p), "'+sparql.PREFIX_SEMANNP+'"))' +'\n'+
-                                '} ORDER BY fn:lower-case(?PROPERTY) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
+                                    'FILTER(regex(STR(?p), "'+sparql.PREFIX_SEMANNP+'","i"))' +'\n'+
+                                '} ORDER BY fn:lower-case(?label) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
         } else { //used when the user defined the subject as a dbpedia class
             selectQuery = 'SELECT distinct ?PROPERTY ?LABEL' +'\n'+
                                 'WHERE ' +'\n'+
@@ -307,12 +259,12 @@ var sparql  = {
             selectQuery = selectQuery + 
                                     '?PROPERTY rdfs:label ?LABEL. FILTER (lang(?LABEL) = "en")' +'\n'+
                                 '}' +'\n'+
-                                'ORDER BY fn:lower-case(?PROPERTY) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
+                                'ORDER BY fn:lower-case(?LABEL) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
         }
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: sparql.SERVER_ADDRESS,
             data: {
                 query: selectQuery,
@@ -327,7 +279,7 @@ var sparql  = {
                 if (getDefaultProperties) {
                     sparql.defaultProperties = source;
                 } else {
-                    scientificAnnotation.displayInfo("Found "+source.length+" related properties.", scientificAnnotation.DIV_PROPERTIES, true);
+                    messageHandler.displayInfo("Found "+source.length+" related properties.", scientificAnnotation.DIV_PROPERTIES, true);
                 }
                 if (source.length > 0) {
                     scientificAnnotation.setAutoComputeDataForField(source, scientificAnnotation.INPUT_PROPERTY);
@@ -337,7 +289,7 @@ var sparql  = {
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
-                scientificAnnotation.showErrorMessage(errorTxt);
+                messageHandler.showErrorMessage(errorTxt);
             }
         });
     },
@@ -378,7 +330,7 @@ var sparql  = {
         var source = null;
 
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: sparql.SERVER_ADDRESS,
             data: {
                 query: selectQuery,
@@ -390,13 +342,13 @@ var sparql  = {
             cache: false,
             success: function(response){
                 source = sparqlResponseParser.parseSimilarSearch(response);
-                scientificAnnotation.hideProgressBar();
+                progressbar.hideProgressBar();
                 scientificAnnotation.setSimilarSearchResult(source, scientificAnnotation.DIV_RECOMMENDER);
             },
             error: function(jqXHR, exception){
                 var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
-                scientificAnnotation.hideProgressBar();
-                scientificAnnotation.showErrorMessage(errorTxt);
+                progressbar.hideProgressBar();
+                messageHandler.showErrorMessage(errorTxt);
             }
         });
 

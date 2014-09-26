@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         <meta name="google" content="notranslate"/>
-        <title>EIS Semantic Annotation Tool</title>
+        <title>Semantic Annotation Tool For EIS documents</title>
 
         <link rel="stylesheet" href="./css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./css/viewer.css"/>
@@ -46,12 +46,16 @@
 
         <!-- Custom library to maintain the main functionality -->
         <script type="text/javascript" src="./js/test.js"></script>
+        <script type="text/javascript" src="./js/applicationSettings.js"></script>
         <script type="text/javascript" src="./js/dbLookup.js"></script>
         <script type="text/javascript" src="./js/highlight.js"></script>
         <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
         <script type="text/javascript" src="./js/sparql.js"></script>
         <script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
+        <script type="text/javascript" src="./js/messageHandler.js"></script>
+        <script type="text/javascript" src="./js/progressbar.js"></script>
         <script type="text/javascript" src="./js/tableAnnotator.js"></script>
+        <script type="text/javascript" src="./js/dataCubeSparql.js"></script>
     </head>
 
     <body tabindex="1">
@@ -186,11 +190,13 @@
         <!-- SEMANN code below -->
         <div id="annotationToolbar" class="annotationToolbar"><br/>
             <button id="simpleAnnotateButton" class="btn btn-default">Show Simple Annotate Panel</button>
-            <button id="tripleView" class="btn btn-info">View triple</button>
-            <button id="test" class="btn btn-info">Test</button></br>
+            <button id="annotateTableButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
+            <button id="resetAnnotationButton" class="btn btn-default" style="display: none"> Reset Selection</button>
             
             <!--Start: Simple Annotation panel div-->
             <div id="simpleAnnotatePanel" style="display: none">
+                <button id="tripleView" class="btn btn-info">View triple</button>
+                <button id="test" class="btn btn-info">Test</button></br>
                 <div id="annotationInputArea" >
                     <div class="form-inline" role="form" id="newValueForm">
                         <div class="form-group">
@@ -204,11 +210,6 @@
                         </div>
                     </div><br/>
                 </div>
-                <!-- message boxes start -->
-                <div class="alert alert-success" style="display: none"></div>
-                <div class="alert alert-danger" style="display: none"></div>
-                <div class="alert alert-warning" style="display: none"></div>
-                <!-- message boxes end -->
 
                 <!--All the functional buttons -->
                 <button id="addAnnotationButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button>
@@ -217,8 +218,12 @@
                 <br/><br/>
             </div>
             <!--End : Simple Annotation panel div -->
-
-            <button id="annotateTableButton" class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
+            
+            <!-- message boxes start -->
+            <div class="alert alert-success" style="display: none"></div>
+            <div class="alert alert-danger" style="display: none"></div>
+            <div class="alert alert-warning" style="display: none"></div>
+            <!-- message boxes end -->
 
             <!-- progress bar start -->
             <div class="progress progress-striped active" style="width: 55%; display: none">
@@ -231,8 +236,7 @@
 
             <!-- view results tables -->
             <div id="displayTriples"></div>
+            <div id="viewSelectedInfoFromPfdTable" style='display:none ; overflow:auto; width:600px; height:400px;'> </div>
         </div> <!-- outerContainer -->
-
-
     </body>
 </html>

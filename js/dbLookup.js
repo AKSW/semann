@@ -26,7 +26,7 @@ var dbLookup  = {
      * @return void
      */
     showDataFromDBlookup:function (keyword, targetInfoElement){
-        scientificAnnotation.showProgressBar('Querying DBpedia Lookup...');
+        progressbar.showProgressBar('Querying DBpedia Lookup...');
         if (test.NO_INTERNET) return test.bypassAjaxCall(targetInfoElement); //remove from production
         var queryParameters = dbLookup.queryParameters(keyword, null, null);
         if (queryParameters) {
@@ -56,17 +56,17 @@ var dbLookup  = {
                     }
                     var message = dbLookup.formatResponse(response, targetInfoElement);
                     if (message) {
-                        scientificAnnotation.displayInfo(message, targetInfoElement);
+                        messageHandler.displayInfo(message, targetInfoElement);
                     } else {
-                        scientificAnnotation.displayInfo("No matches found in DBpedia.org.", targetInfoElement, true);
+                        messageHandler.displayInfo("No matches found in DBpedia.org.", targetInfoElement, true);
                     }
-                    scientificAnnotation.hideProgressBar();
+                    progressbar.hideProgressBar();
                 },
                 error: function(jqXHR, exception){
                     var errorTxt= dbLookup.getStandardErrorMessage(jqXHR ,exception);
                     scientificAnnotation.showErrorMessage(errorTxt);
                     if (scientificAnnotation.DEBUG) console.log(errorTxt);
-                    scientificAnnotation.hideProgressBar();
+                    progressbar.hideProgressBar();
                 }
             });
         }

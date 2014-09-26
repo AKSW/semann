@@ -114,9 +114,9 @@ var test  = {
             if (scientificAnnotation.DEBUG) console.log(JSON.stringify(fakeResponse, null, 4));
             var message = dbLookup.formatResponse(fakeResponse, targetInfoElement);
             if (message) {
-                scientificAnnotation.displayInfo(message, targetInfoElement);
+                messageHandler.displayInfo(message, targetInfoElement);
             } else {
-                scientificAnnotation.displayInfo("No matches found in DBpedia.org.", targetInfoElement, true);
+                messageHandler.displayInfo("No matches found in DBpedia.org.", targetInfoElement, true);
             }
             return; //break
         }
