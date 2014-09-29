@@ -5,6 +5,9 @@
  @dependency
  {
     scientificAnnotation.js
+    sparql.js
+    progressbar.js
+    messageHandler.js
  }
 
  */
@@ -20,56 +23,39 @@ var dbLookup  = {
     dbObjectResponse: null,
     
     /**
-     *Query data from DBpedia Lookup service and display in given element
-     * @param {String} keyword that is queried 
-     * @param {Object} element where to display the results from the query
-     * @return void
+     * prepare an ajax call for contacting DBpedia Lookup service. This allows us to transform literals into classes.
+     *
+     * @param {String} keyword to be passed on as a parameter to the service
+     * @return {jqXHR} 
      */
-    showDataFromDBlookup:function (keyword, targetInfoElement){
-        progressbar.showProgressBar('Querying DBpedia Lookup...');
-        if (test.NO_INTERNET) return test.bypassAjaxCall(targetInfoElement); //remove from production
+    
+    makeAjaxRequest: function(keyword) {
         var queryParameters = dbLookup.queryParameters(keyword, null, null);
-        if (queryParameters) {
-            var url = dbLookup.SERVICE_ADDRESS+"?"+queryParameters;
-            if (scientificAnnotation.DEBUG) console.log("Contacting " + url);
-            $.ajax({
-                type: 'GET',
-                url: url,
-                //below is needed to force JSON requests against DBpedia Lookup service
-                beforeSend: function(xhrObj) {
-                    xhrObj.setRequestHeader("Accept","application/json");
-                },
-                dataType: 'json',
-                xhrFields: {
+        var settings = {
+            type: "GET",
+            url: dbLookup.SERVICE_ADDRESS+"?"+queryParameters,
+            async: true,
+            dataType: "json",
+            xhrFields: {
                     withCredentials: false
-                },
-                headers: {
-                },
-                success: function(response) {
-                    // Here's where you handle a successful response.
-                    //if (scientificAnnotation.DEBUG) console.log("Success. Returned results: "+response.results.length);
-                    //if (scientificAnnotation.DEBUG) console.log(JSON.stringify(response, null, 4));
-                    if (targetInfoElement.is(scientificAnnotation.DIV_SUBJECTS)) {
-                        dbLookup.dbSubjectResponse = response;
-                    } else if (targetInfoElement.is(scientificAnnotation.DIV_OBJECTS)) {
-                        dbLookup.dbObjectResponse = response;
-                    }
-                    var message = dbLookup.formatResponse(response, targetInfoElement);
-                    if (message) {
-                        messageHandler.displayInfo(message, targetInfoElement);
-                    } else {
-                        messageHandler.displayInfo("No matches found in DBpedia.org.", targetInfoElement, true);
-                    }
-                    progressbar.hideProgressBar();
-                },
-                error: function(jqXHR, exception){
-                    var errorTxt= dbLookup.getStandardErrorMessage(jqXHR ,exception);
-                    scientificAnnotation.showErrorMessage(errorTxt);
-                    if (scientificAnnotation.DEBUG) console.log(errorTxt);
-                    progressbar.hideProgressBar();
-                }
-            });
+            },
+            cache: false,
+            beforeSend: function(xhrObj) {
+                xhrObj.setRequestHeader("Accept","application/json");
+                progressbar.showProgressBar('Querying DBpedia Lookup...');
+                return true;
+            }
         }
+        // return deferred object
+        return  $.ajax(settings)
+                    .fail(function(jqXHR, exception) { //what to do in case of error
+                        var errorTxt= dbLookup.getStandardErrorMessage(jqXHR ,exception);
+                        messageHandler.showErrorMessage(errorTxt);
+                        if (scientificAnnotation.DEBUG) console.error(errorTxt);
+                    })
+                    .always(function() {
+                        progressbar.hideProgressBar(); //after the request, hide progress bar
+                    });
     },
     
     /**
@@ -87,7 +73,7 @@ var dbLookup  = {
         } else {
             var error = "Cannot query DBpedia Lookup service - keyword is missing!";
             if (scientificAnnotation.DEBUG) console.error(error);
-            scientificAnnotation.showErrorMessage(error, isHide);
+            messageHandler.showErrorMessage(error, isHide);
             return null;
         }
         if (qClass) {
@@ -116,7 +102,7 @@ var dbLookup  = {
             }
             if (!htmlTemplate) { 
                 console.error('No html template defined for element ID = "'+targetInfoElement.attr("id")+'"');
-                scientificAnnotation.showErrorMessage('There are results from they query but no element with the name "'+targetInfoElement.attr("id")+'" to display it in.',true);
+                messageHandler.showErrorMessage('There are results from they query but no element with the name "'+targetInfoElement.attr("id")+'" to display it in.',true);
                 return null;
             }
             var html = "";
@@ -180,8 +166,18 @@ var dbLookup  = {
         }
         scientificAnnotation.DIV_OBJECTS.hide();
 		var relatedClasses = dbLookup.getUriClasses(selectedResource.classes, "dbpedia.org").URIs;
-		sparql.bindAutoCompleteProperty(selectedResource.uri, relatedClasses);
-		return false;
+        var query = sparql.selectResourcePropertiesQuery(selectedResource.uri, relatedClasses);
+        var myrequest = sparql.makeAjaxRequest(query);
+        myrequest.done( function(response) {
+            var properties = sparqlResponseParser.parseResource(response);
+            messageHandler.displayInfo("Found "+properties.length+" related properties.", scientificAnnotation.DIV_PROPERTIES, true);
+            if (properties.length > 0) {
+                scientificAnnotation.setAutoComputeDataForField(properties, scientificAnnotation.INPUT_PROPERTY);
+            } else { //no results, revert to default ones
+                scientificAnnotation.setAutoComputeDataForField(sparql.defaultProperties, scientificAnnotation.INPUT_PROPERTY);
+            }
+        });
+        return false;
     },
     
     /**

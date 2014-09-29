@@ -6,7 +6,13 @@ This file is the main entry point for this tools for all the event
 @dependency:
  {
     sparql.js
+    sparqlResponseParser.js
     highlight.js
+    dbLookup.js
+    dataCubeSparql.js
+    applicationSettings.js
+    messageHandler.js
+    progressbar.js
  }
  */
 "use strict";
@@ -78,16 +84,35 @@ var scientificAnnotation  = {
      * @return void
      */
     bindEventForInputs: function () {
+        
         scientificAnnotation.INPUT_SUBJECT.bind("change", function () {
+            
             sparql.triple.set($(this));
-            dbLookup.showDataFromDBlookup($(this).val(), scientificAnnotation.DIV_SUBJECTS);
-            if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
+            var myrequest = dbLookup.makeAjaxRequest($(this).val());
+            myrequest.done( function(response) {
+                dbLookup.dbSubjectResponse = response;
+                var message = dbLookup.formatResponse(response, scientificAnnotation.DIV_SUBJECTS);
+                if (message) {
+                    messageHandler.displayInfo(message, scientificAnnotation.DIV_SUBJECTS);
+                } else {
+                    messageHandler.displayInfo("No matches found in DBpedia.org.", scientificAnnotation.DIV_SUBJECTS, true);
+                }
+            });
         });
 
         scientificAnnotation.INPUT_OBJECT.bind("change", function () {
+            
             sparql.triple.set($(this));
-            dbLookup.showDataFromDBlookup($(this).val(), scientificAnnotation.DIV_OBJECTS);
-            if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
+            var myrequest = dbLookup.makeAjaxRequest($(this).val());
+            myrequest.done( function(response) {
+                dbLookup.dbObjectResponse = response;
+                var message = dbLookup.formatResponse(response, scientificAnnotation.DIV_OBJECTS);
+                if (message) {
+                    messageHandler.displayInfo(message, scientificAnnotation.DIV_OBJECTS);
+                } else {
+                    messageHandler.displayInfo("No matches found in DBpedia.org.", scientificAnnotation.DIV_OBJECTS, true);
+                }
+            });
         });
     },
 
@@ -137,14 +162,11 @@ var scientificAnnotation  = {
      */
     setSimilarSearchResult :function(searchResult, targetObject){
         if(searchResult.length > 0) {
-            scientificAnnotation.hideAnnotationDisplayTable();
             targetObject.empty();
             for(var i = 0; i < searchResult.length; i++) {
                 targetObject.append('<a href="'+searchResult[i]+'" class="list-group-item">'+searchResult[i]+'</a>');
             }
             targetObject.fadeIn(500);// show the result
-        } else {
-            messageHandler.showWarningMessage('No similar publications found.');
         }
     },
 
@@ -274,7 +296,7 @@ var scientificAnnotation  = {
                     targetElement.val(text);
                     sparql.triple.set(targetElement);
                     if (!scientificAnnotation.isObjectSelection) scientificAnnotation.selectedTextPosition = scientificAnnotation.getSelectionCharOffsetsWithin();
-                    dbLookup.showDataFromDBlookup(targetElement.val(), targetInfoElement);
+                    targetElement.change(); //trigger change event
                     if (hideElement) hideElement.hide();
                 }
             }
@@ -324,6 +346,7 @@ var scientificAnnotation  = {
      * @return void
      */
     addAnnotation:function(){
+        scientificAnnotation.hideAnnotationDisplayTable();
         sparql.triple.set(scientificAnnotation.INPUT_SUBJECT, sparql.triple.subject.uri);
         sparql.triple.set(scientificAnnotation.INPUT_PROPERTY, sparql.triple.property.uri);
         sparql.triple.set(scientificAnnotation.INPUT_OBJECT, sparql.triple.object.uri);
@@ -342,10 +365,15 @@ var scientificAnnotation  = {
                 rangyFragment = textPosition.rangyFragment;
                 rangyPage = textPosition.rangyPage;
             }
-            progressbar.showProgressBar('Adding annotation...');
-            scientificAnnotation.appendAnnotationInDisplayPanel();
-            var success = sparql.addAnnotation(startPos, endPos, rangyPage, rangyFragment);
-            if (success) scientificAnnotation.clearInputField();
+            var query = sparql.insertTriplesQuery(startPos, endPos, rangyPage, rangyFragment);
+            var myrequest = sparql.makeAjaxRequest(query);
+            myrequest.done( function(response) {
+                messageHandler.showSuccessMessage('Annotation successfully added');
+                scientificAnnotation.appendAnnotationInDisplayPanel();
+                scientificAnnotation.clearInputField();
+                scientificAnnotation.refreshProperties();
+            });
+            
         }
     },
 
@@ -453,15 +481,6 @@ var scientificAnnotation  = {
     },
 
     /**
-     * Showing the available annotation tables
-     * @return void
-     */
-    noAvailableAnnotationFromSparql:function(){
-        messageHandler.showWarningMessage('No available annotations found for this file.');
-        progressbar.hideProgressBar();
-    },
-
-    /**
      * Hide the available annotation table
      * @return void
      */
@@ -474,10 +493,18 @@ var scientificAnnotation  = {
      * @return void
      */
     fetchDataFromDatabase : function () {
-        scientificAnnotation.DIV_TRIPLES.fadeIn(500);
         scientificAnnotation.clearSimilarSearchResult();
-        progressbar.showProgressBar('Loading data ....');
-        sparql.showDataFromSparql();
+        var myrequest = sparql.makeAjaxRequest(sparql.selectTriplesQuery);
+        myrequest.done( function(response) {
+            if( response && response.results.bindings.length >0) {
+                scientificAnnotation.displayAvailableAnnotationFromSparql();
+                scientificAnnotation.DIV_TRIPLES.fadeIn(500);
+                var fragments = sparqlResponseParser.parseResponse(response);
+                highlight.rangy_highlight(fragments);
+            } else {
+                messageHandler.showWarningMessage('No available annotations found for this file.');
+            }
+        });
     },
 
     /**
@@ -512,11 +539,20 @@ var scientificAnnotation  = {
      * @return void
      */
     showSimilarSearchResult:function(){
+        scientificAnnotation.hideAnnotationDisplayTable();
         if (scientificAnnotation.DIV_RECOMMENDER.is(':visible')) {
             scientificAnnotation.DIV_RECOMMENDER.fadeOut(300);
         }
-        progressbar.showProgressBar('Finding similar publications...');
-        sparql.findSimilarFiles();
+        var myrequest = sparql.makeAjaxRequest(sparql.selectRecommendationsQuery);
+        myrequest.done( function(response) {
+            if( response && response.results.bindings.length >0) {
+                var recommendations = sparqlResponseParser.parseSimilarSearch(response);
+                scientificAnnotation.setSimilarSearchResult(recommendations, scientificAnnotation.DIV_RECOMMENDER);
+            } else {
+                messageHandler.showWarningMessage('No recommendations exist for this document.');
+            }
+        });
+        
     },
     
     /**
@@ -561,6 +597,20 @@ var scientificAnnotation  = {
         
     },
     
+    refreshProperties: function() {
+        var refreshPropertiesRequest = sparql.makeAjaxRequest(sparql.selectDefaultPropertiesQuery());
+        refreshPropertiesRequest.done( function(response) {
+            var properties = sparqlResponseParser.parseResource(response);
+            sparql.defaultProperties = properties;
+            if (properties.length > 0) {
+                scientificAnnotation.setAutoComputeDataForField(properties, scientificAnnotation.INPUT_PROPERTY);
+                messageHandler.displayInfo("Refreshed "+properties.length+" properties.", scientificAnnotation.DIV_PROPERTIES, true);
+            } else { 
+                messageHandler.showWarningMessage("No properties were found.")
+            }
+        });
+    },
+    
     /**
      * Initialize the document
      *
@@ -592,8 +642,7 @@ var scientificAnnotation  = {
         scientificAnnotation.bindEventForInputs();
         scientificAnnotation.bindEventListeners();
         scientificAnnotation.bindMouseUpEventForPDFViewer();
-        sparql.bindAutoCompleteProperty();
-        //sparql.bindAutoCompleteObject();
+        scientificAnnotation.refreshProperties();
         
     }
 };

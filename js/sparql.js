@@ -6,7 +6,8 @@
  @dependency
  {
     scientificAnnotation.js
-    highlight.js
+    messageHandler.js
+    progressbar.js
  }
 
  */
@@ -17,17 +18,24 @@ var sparql  = {
     SERVER_ADDRESS : "http://localhost:8890/sparql",
     GRAPH_NAME : 'scientificAnnotation',
     GRAPH_NAME_EIS : 'eisAnnotation',
-
     // annotation properties
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
     PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
     PREFIX_RDFS : "http://www.w3.org/2000/rdf-schema#",
     PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/owl#",
     PREFIX_SEMANNP : "http://eis.iai.uni-bonn.de/semann/property#",
+    defaultProperties: [],
+    // For showing similar search result, the maximum size of the list
+    SIMILAR_RESULT_LIMIT : 10,
+    // For auto complete property and object maximum size of the list
+    AUTO_COMPLETE_RESULT_LIMIT : 200,
+    
     triple: { //holds triple SPO values to be added into the database. Comes with convenience methods
+        
         "subject": {"uri": null, "label": null},
         "property": {"uri": null, "label": null},
         "object": {"uri": null, "label": null},
+        
         empty: function(inputObject) {
             var tripleObject;
             var isSuccess = false;
@@ -45,10 +53,11 @@ var sparql  = {
                 isSuccess = true;
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to empty triple value due to unexpected input. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_PROPERTY.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
-                scientificAnnotation.showWarningMessage('User inputs got corrupted.');
+                messageHandler.showWarningMessage('User inputs got corrupted.');
             }
             return isSuccess; //true if operation was successful
         },
+        
         set: function(inputObject, uriValue) {
             if (!uriValue) uriValue = null; //optional parameter
             var labelValue = $.trim(inputObject.val());
@@ -69,30 +78,61 @@ var sparql  = {
                 isSuccess = true;
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to set triple value due to unexpected input. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_PROPERTY.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
-                scientificAnnotation.showWarningMessage('User inputs got corrupted.');
+                messageHandler.showWarningMessage('User inputs got corrupted.');
             }
             return isSuccess; //true if value got trimmed
         },
+        
         emptyAll: function() {
             this.empty(scientificAnnotation.INPUT_SUBJECT);
             this.empty(scientificAnnotation.INPUT_PROPERTY);
             this.empty(scientificAnnotation.INPUT_OBJECT);
         }
-    }, 
-    defaultProperties: [],
         
-    // For showing similar search result, the maximum size of the list
-    SIMILAR_RESULT_LIMIT : 10,
+    }, 
 
-    // For auto complete property and object maximum size of the list
-    AUTO_COMPLETE_RESULT_LIMIT : 200,
+    
+    /**
+     * prepare an ajax call for contacting our local Virtuoso database. This allows us to make SPARQL queries.
+     *
+     * @param {String} query to be executed against the SPARQL endpoint
+     * @return {jqXHR}
+     */
+    
+    makeAjaxRequest: function(query) {
+        var settings = {
+            type: "POST",
+            url: sparql.SERVER_ADDRESS,
+            data: {
+                query: query,
+                format: "application/json"
+            },
+            async: true,
+            dataType: "jsonp",
+            crossDomain: true,
+            cache: false,
+            beforeSend: function() {
+                progressbar.showProgressBar('Querying database...'); //before making the request, display progress bar
+                return true; //make request
+            }
+        }
+        // return deferred object
+        return  $.ajax(settings)
+                    .fail(function(jqXHR, exception) { //what to do in case of error
+                        var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
+                        messageHandler.showErrorMessage(errorTxt);
+                    })
+                    .always(function() {
+                        progressbar.hideProgressBar(); //after the request, hide progress bar
+                    });
+    },
 
     /**
-     *Read data for sparql table and display
+     * Query for returning a list of user defined annotations.
      *
-     * @return void
+     * @return {String}
      */
-    showDataFromSparql:function (){
+    selectTriplesQuery: function (){
 
         var q = sparql.resource();
         var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
@@ -104,64 +144,36 @@ var sparql  = {
                 '?obj ' + q.label + ' ?OBJECT.' +'\n'+
             '}';
         if (scientificAnnotation.DEBUG) console.log(selectQuery);
-        $.ajax({
-            type: "POST",
-            url: sparql.SERVER_ADDRESS,
-            data: {
-                query: selectQuery,
-                format: "application/json"
-            },
-            async: true,
-            dataType: "jsonp",
-            crossDomain: true,
-            cache: false,
-            success: function(response){
-                if( response!= null && response.results.bindings.length >0) {
-                    progressbar.hideProgressBar();
-                    scientificAnnotation.displayAvailableAnnotationFromSparql();
-                    var fragments = sparqlResponseParser.parseResponse(response);
-                    highlight.rangy_highlight(fragments);
-                } else {
-                    scientificAnnotation.noAvailableAnnotationFromSparql();
-                }
-            },
-            error: function(jqXHR, exception){
-                var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
-                progressbar.hideProgressBar();
-                messageHandler.showErrorMessage(errorTxt);
-            }
-        });
+        return selectQuery;
     },
 
+
     /**
-     * prepare and send the ajax request for add annotation.
+     * Query for inserting user defined annotations.
      *
-     * @param property
-     * @param subject
-     * @param object
      * @param textStartPos
      * @param textEndPos
      * @param rangyPage
      * @param rangyFragment
      *
-     * @return void
+     * @return {String}
      */
-    addAnnotation:function(textStartPos, textEndPos, rangyPage, rangyFragment){
+    insertTriplesQuery:function(textStartPos, textEndPos, rangyPage, rangyFragment){
         var isSuccess = true;
         //check that the triple is not corrupt
         if (scientificAnnotation.INPUT_SUBJECT.val() != sparql.triple.subject.label || scientificAnnotation.INPUT_PROPERTY.val() != sparql.triple.property.label || scientificAnnotation.INPUT_OBJECT.val() != sparql.triple.object.label) {
             var error = "Error! User defined triple values do not match globally stored ones.";
             if (scientificAnnotation.DEBUG) console.error(error);
-            scientificAnnotation.showErrorMessage(error,true);
+            messageHandler.showErrorMessage(error,true);
             isSuccess = false;
-            return isSuccess;
+            return null;
         }
         if (!sparql.triple.subject.label || !sparql.triple.property.label || !sparql.triple.object.label) {
             var error = "Error! Some or all of the user defined triple values are missing in the global variable.";
             if (scientificAnnotation.DEBUG) if (scientificAnnotation.DEBUG) console.error(error);
-            scientificAnnotation.showErrorMessage(error,true);
+            messageHandler.showErrorMessage(error,true);
             isSuccess = false;
-            return isSuccess;
+            return null;
         }
         var defineSubjectType = true;
         if (!sparql.triple.subject.uri) {
@@ -200,107 +212,59 @@ var sparql  = {
                 '}';
         
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
-        $.ajax({
-            type: "POST",
-            url: sparql.SERVER_ADDRESS,
-            data: {
-                query: insertQuery,
-                format: "application/json"
-            },
-            async: true,
-            dataType: "jsonp",
-            crossDomain: true,
-            cache: false,
-            success: function(response){
-                sparql.bindAutoCompleteProperty();
-                //sparql.bindAutoCompleteObject();
-                scientificAnnotation.hideAnnotationDisplayTable();
-                progressbar.hideProgressBar();
-                messageHandler.showSuccessMessage('Annotation successfully added');
-            },
-            error: function(jqXHR, exception){
-                var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
-                progressbar.hideProgressBar();
-                messageHandler.showErrorMessage(errorTxt);
-            }
-        });
+        return insertQuery;
     },
-
+    
     /**
-     * Provide the data for the auto complete in the property field
+     * Query for returning semann properties.
      *
-     * @param dbpedia.org URI as a subject if it was redefined as a class by the user. 'null' if subject is a literal.
-     * @param URIs of superclasses of the subject class. 'null' if subject is a literal.
-     * @returns {Array} an Array of properties and labels.
+     * @return {String}
      */
-    bindAutoCompleteProperty :function(selectedSubject, relatedClasses){
-        if (!selectedSubject) selectedSubject = null; //optional parameter
-        if (!relatedClasses) relatedClasses = null; //optional parameter
+
+    selectDefaultPropertiesQuery: function() {
         var q = sparql.resource();
-        var selectQuery;
-        var getDefaultProperties = false;
-        if (!selectedSubject) getDefaultProperties = true; // local search of non-dpedia properties
-        if (getDefaultProperties) {
-            selectQuery = 'SELECT distinct str(?p) as ?PROPERTY str(?label) as ?LABEL FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
+        var selectQuery = 'SELECT distinct str(?p) as ?PROPERTY str(?label) as ?LABEL FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
                                 'WHERE ' +'\n'+
                                 '{ ' +'\n\t'+
                                     '?p ' + q.label + ' ?label ' +'\n\t'+
                                     'FILTER(regex(STR(?p), "'+sparql.PREFIX_SEMANNP+'","i"))' +'\n'+
                                 '} ORDER BY fn:lower-case(?label) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
-        } else { //used when the user defined the subject as a dbpedia class
-            selectQuery = 'SELECT distinct ?PROPERTY ?LABEL' +'\n'+
-                                'WHERE ' +'\n'+
-                                '{ ' +'\n\t'+
-                                    '{  <' +selectedSubject+ '> ?PROPERTY ?o. } ' +'\n\t';
-            $.each(relatedClasses, function(i, item) {
-                selectQuery = selectQuery + 
-                                    'UNION {  ?PROPERTY rdfs:domain <' +item+ '>. } ' + '\n\t';
-            });
-            selectQuery = selectQuery + 
-                                    '?PROPERTY rdfs:label ?LABEL. FILTER (lang(?LABEL) = "en")' +'\n'+
-                                '}' +'\n'+
-                                'ORDER BY fn:lower-case(?LABEL) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
-        }
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
-        
-        $.ajax({
-            type: "POST",
-            url: sparql.SERVER_ADDRESS,
-            data: {
-                query: selectQuery,
-                format: "application/json"
-            },
-            async: true,
-            dataType: "jsonp",
-            crossDomain: true,
-            cache: false,
-            success: function(response){
-                var source = sparqlResponseParser.parseResource(response);
-                if (getDefaultProperties) {
-                    sparql.defaultProperties = source;
-                } else {
-                    messageHandler.displayInfo("Found "+source.length+" related properties.", scientificAnnotation.DIV_PROPERTIES, true);
-                }
-                if (source.length > 0) {
-                    scientificAnnotation.setAutoComputeDataForField(source, scientificAnnotation.INPUT_PROPERTY);
-                } else { //no results, revert to default ones
-                    scientificAnnotation.setAutoComputeDataForField(sparql.defaultProperties, scientificAnnotation.INPUT_PROPERTY);
-                }
-            },
-            error: function(jqXHR, exception){
-                var errorTxt= sparql.getStandardErrorMessage(jqXHR, exception);
-                messageHandler.showErrorMessage(errorTxt);
-            }
-        });
+        return selectQuery;
     },
-
+    
+    /**
+     * Query for returning dbpedia.org ontology properties.
+     *
+     * @param {String} dbpedia.org URI
+     * @param {Array} of superclass URIs if you would like to include the properties from there as well
+     * @returns {String}
+     */
+    
+    selectResourcePropertiesQuery: function(selectedSubject, relatedClasses) {
+        var q = sparql.resource();
+        var selectQuery = 'SELECT distinct ?PROPERTY ?LABEL' +'\n'+
+                            'WHERE ' +'\n'+
+                            '{ ' +'\n\t'+
+                                '{  <' +selectedSubject+ '> ?PROPERTY ?o. } ' +'\n\t';
+        $.each(relatedClasses, function(i, item) {
+            selectQuery = selectQuery + 
+                                'UNION {  ?PROPERTY rdfs:domain <' +item+ '>. } ' + '\n\t';
+        });
+        selectQuery = selectQuery + 
+                                '?PROPERTY rdfs:label ?LABEL. FILTER (lang(?LABEL) = "en")' +'\n'+
+                            '}' +'\n'+
+                            'ORDER BY fn:lower-case(?LABEL) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
+        return selectQuery;
+    },
+    
 
     /**
-     * Finds similar publications to the currently open pdf.
+     * Query for returning a list of recommendations.
      *
-     * @returns void
+     * @return {String}
      */
-    findSimilarFiles :function(){
+    selectRecommendationsQuery :function(){
 
         var q = sparql.resource();
         var selectQuery =
@@ -326,33 +290,7 @@ var sparql  = {
             '}' +'\n'+
             'GROUP BY ?file ' +'\n'+
             'ORDER BY DESC(count(?file))  LIMIT '+sparql.SIMILAR_RESULT_LIMIT ;
-
-        var source = null;
-
-        $.ajax({
-            type: "POST",
-            url: sparql.SERVER_ADDRESS,
-            data: {
-                query: selectQuery,
-                format: "application/json"
-            },
-            async: true,
-            dataType: "jsonp",
-            crossDomain: true,
-            cache: false,
-            success: function(response){
-                source = sparqlResponseParser.parseSimilarSearch(response);
-                progressbar.hideProgressBar();
-                scientificAnnotation.setSimilarSearchResult(source, scientificAnnotation.DIV_RECOMMENDER);
-            },
-            error: function(jqXHR, exception){
-                var errorTxt= sparql.getStandardErrorMessage(jqXHR ,exception);
-                progressbar.hideProgressBar();
-                messageHandler.showErrorMessage(errorTxt);
-            }
-        });
-
-        return source;
+        return selectQuery;
     },
 
     /**

@@ -133,10 +133,35 @@ var test  = {
             if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
         });
         
-        $("#test").bind("click", function () { //jaana test - delete when done testing userTriple
-            alert();
+        $("#test").bind("click", function () {
+            var myrequest = sparql.makeAjaxRequest(sparql.selectTriplesQuery);
+            myrequest.done( function(response) {
+                if( response && response.results.bindings.length >0) {
+                    scientificAnnotation.displayAvailableAnnotationFromSparql();
+                    var fragments = sparqlResponseParser.parseResponse(response);
+                    highlight.rangy_highlight(fragments);
+                } else {
+                    alert("no data");
+                }
+              });
+            //test.def.resolve();
+            //test.def.done(function() {
+            //    alert("Deferred resolved and will keep resolving because we are always changing the status before that!");
+            //});
         });
     },
+    
+    ajaxHandler: function (response) {
+        if( response!= null && response.results.bindings.length >0) {
+            alert("success: "+response.results.bindings.length);
+            console.log(JSON.stringify(response, null, 4));
+        } else {
+            alert("0 length");
+        }
+    },
+    
+    //def : $.Deferred(),
+    
     
     /**
      * Initialize the document
@@ -146,5 +171,9 @@ var test  = {
     init:function(){
         //alert("Initialising test.init()");
         test.bindEvents();
+        /*
+        test.def.done(function() {
+            alert("Deferred resolved and will stay resolved unless you change status!");
+        });*/
     }
 };
