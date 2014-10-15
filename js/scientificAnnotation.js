@@ -191,7 +191,7 @@ var scientificAnnotation  = {
                 previousPagesCharCount = scientificAnnotation.getPreviousPagesCharacterCount(currentPage);
             }
         }
-
+        //if (scientificAnnotation.DEBUG) console.log("Text position (preprocessing): " +start + ":"+ end + "\tpreviousPagesCharCount="+previousPagesCharCount);
         if(start > previousPagesCharCount) {
             start = start - previousPagesCharCount;
         }
@@ -199,7 +199,7 @@ var scientificAnnotation  = {
         if(end > previousPagesCharCount){
             end = end - previousPagesCharCount;
         }
-
+        //if (scientificAnnotation.DEBUG) console.log("Text position (postprocessing): " +start + ":"+ end);
         var rangy_result = highlight.rangy_serialize();
 	
         return {
@@ -255,6 +255,7 @@ var scientificAnnotation  = {
             }
             count = page_text.length;
         }
+        //if (scientificAnnotation.DEBUG) console.log("Page["+pageIndex+"] char count = " +count);
         return count;
     },
 

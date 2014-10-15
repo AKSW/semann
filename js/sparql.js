@@ -22,8 +22,7 @@ var sparql  = {
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
     PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
     PREFIX_RDFS : "http://www.w3.org/2000/rdf-schema#",
-    PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/owl#",
-    PREFIX_SEMANNP : "http://eis.iai.uni-bonn.de/semann/property#",
+    PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/0.2/owl#",
     defaultProperties: [],
     // For showing similar search result, the maximum size of the list
     SIMILAR_RESULT_LIMIT : 10,
@@ -138,7 +137,7 @@ var sparql  = {
         var selectQuery = 'SELECT distinct str(?excerpt) as ?excerpt str(?SUBJECT) as ?SUBJECT str(?PROPERTY) as ?PROPERTY str(?OBJECT) as ?OBJECT FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
             'WHERE' +'\n'+
             '{ ' +'\n\t'+
-                q.File + ' '+ q.hasExcerpt + ' ?excerpt . ' +'\n\t'+
+                q.Publication + ' '+ q.hasAnnotation + ' ?excerpt . ' +'\n\t'+
                 '?excerpt ' + q.label + ' ?SUBJECT. ?excerpt ?prop ?obj. ' +'\n\t'+
                 '?prop ' + q.label + ' ?PROPERTY. ' +'\n\t'+
                 '?obj ' + q.label + ' ?OBJECT.' +'\n'+
@@ -180,35 +179,37 @@ var sparql  = {
             defineSubjectType = false;
         }
         if (!sparql.triple.property.uri) {
-            var localUri = sparql.PREFIX_SEMANNP + sparql.camelCase(sparql.triple.property.label, true);
+            var localUri = sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true);
             sparql.triple.property.uri = localUri;
         }
         if (!sparql.triple.object.uri) {
-            var localUri = sparql.PREFIX_SEMANN +sparql.camelCase(sparql.triple.object.label, false);
+            var localUri = sparql.PREFIX_PUB +sparql.camelCase(sparql.triple.object.label, false);
             sparql.triple.object.uri = localUri;
         }
         
         var currentPage = $('#pageNumber').val();
         var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
-	    var fileFragment = '#page='+currentPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyPage='+rangyPage+'&rangyFragment='+rangyFragment;
+	    var fileFragment = '#page='+rangyPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyFragment='+rangyFragment;
 	    var q = sparql.resource(fileFragment);
 
         var insertQuery =
-            'prefix semann: <'+sparql.PREFIX_SEMANN+'>' +'\n'+
-            'prefix semannp: <'+sparql.PREFIX_SEMANNP+'>'+'\n'+
             'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
                 '{ ' +'\n\t\t'+
-                    q.File+' a ' +q.Publication+ '. '+'\n\t\t'+
-                    q.File+' ' + q.hasExcerpt + ' '+ q.Excerpt +' .'+'\n\t\t';
+                    q.Publication+' a ' +q.PublicationType+ ' ; '+'\n\t\t\t'+
+                        q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t'+
+                        q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t\t';
         if (defineSubjectType) {
             insertQuery = insertQuery + 
-                    q.Excerpt +' a <' +sparql.triple.subject.uri+ '> .' + '\n\t\t';
+                    q.Annotation +' a <' +sparql.triple.subject.uri+ '> .' + '\n\t\t';
         }
         insertQuery = insertQuery +
-                    q.Excerpt +' ' + q.label + ' "'+sparql.triple.subject.label+'"@en; ' +'\n\t\t'+
-                    '<'+sparql.triple.property.uri +'> <'+sparql.triple.object.uri+'> .'+'\n\t\t'+
-                    '<'+sparql.triple.property.uri+'>  ' + q.label + ' "'+sparql.triple.property.label+'"@en. '+'\n\t\t'+
-                    '<'+sparql.triple.object.uri+'> ' + q.label + ' "'+sparql.triple.object.label+'"@en. '+'\n\t'+
+                    q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t'+
+                        q.label + ' "'+sparql.triple.subject.label+'"@en ; ' +'\n\t\t\t'+
+                        '<'+sparql.triple.property.uri +'> <'+sparql.triple.object.uri+'> .'+'\n\t\t'+
+                    '<'+sparql.triple.property.uri+'>  a ' + q.isAnnotationProperty +' ; \n\t\t\t'+
+                        q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t\t'+
+                    '<'+sparql.triple.object.uri+'> a ' + q.AnnotationObject +' ;\n\t\t\t'+
+                        q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
                 '}';
         
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
@@ -226,8 +227,8 @@ var sparql  = {
         var selectQuery = 'SELECT distinct str(?p) as ?PROPERTY str(?label) as ?LABEL FROM  <'+sparql.GRAPH_NAME+'> ' +'\n'+
                                 'WHERE ' +'\n'+
                                 '{ ' +'\n\t'+
-                                    '?p ' + q.label + ' ?label ' +'\n\t'+
-                                    'FILTER(regex(STR(?p), "'+sparql.PREFIX_SEMANNP+'","i"))' +'\n'+
+                                    '?p a ' + q.isAnnotationProperty +' .\n\t'+
+                                    '?p ' + q.label + ' ?label .' +'\n'+
                                 '} ORDER BY fn:lower-case(?label) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
@@ -255,6 +256,7 @@ var sparql  = {
                                 '?PROPERTY rdfs:label ?LABEL. FILTER (lang(?LABEL) = "en")' +'\n'+
                             '}' +'\n'+
                             'ORDER BY fn:lower-case(?LABEL) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
     },
     
@@ -275,21 +277,22 @@ var sparql  = {
                 'WHERE ' +'\n\t'+
                 '{' +'\n\t\t'+
                     '{' +'\n\t\t\t'+
-                        q.File+' '+q.hasExcerpt+' ?curr_excerpt .' +'\n\t\t\t'+
+                        q.Publication+' '+q.hasAnnotation+' ?curr_excerpt .' +'\n\t\t\t'+
                         '?curr_excerpt ?curr_prop ?curr_obj.' +'\n\t\t\t'+
                         '?curr_obj ' + q.label + ' ?curr_o.' +'\n\t\t'+
                     '}' +'\n\t\t'+
                     '{' +'\n\t\t\t'+
-                        '?file '+q.hasExcerpt+' ?excerpt .' +'\n\t\t\t'+
+                        '?file '+q.hasAnnotation+' ?excerpt .' +'\n\t\t\t'+
                         '?excerpt ' + q.label + ' ?s. ?excerpt ?prop ?obj.' +'\n\t\t\t'+
                         '?prop ' + q.label + ' ?p.' +'\n\t\t\t'+
                         '?obj ' + q.label + ' ?o.' +'\n\t\t'+
                     '}' +'\n\t\t'+
-                    'FILTER (?obj in (?curr_obj) and !sameTerm('+q.File+', ?file))' +'\n\t'+
+                    'FILTER (?obj in (?curr_obj) and !sameTerm('+q.Publication+', ?file))' +'\n\t'+
                 '}' +'\n'+
             '}' +'\n'+
             'GROUP BY ?file ' +'\n'+
             'ORDER BY DESC(count(?file))  LIMIT '+sparql.SIMILAR_RESULT_LIMIT ;
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
     },
 
@@ -318,15 +321,17 @@ var sparql  = {
     resource :function (fragment) {
 
         var fileURI = sparql.PREFIX_FILE + encodeURI(document.title.toString());
-        var excerptURI = fileURI + fragment;
-        var hasExcerptURI = sparql.PREFIX_PUB + 'hasExcerpt';
+        var annotationURI = fileURI + fragment;
 
         return {
-            File:			'<'+fileURI+'>',
-            hasExcerpt:	'<'+hasExcerptURI+'>',
-            label:			'<'+sparql.PREFIX_RDFS+'label>',
-            Publication:		'<'+sparql.PREFIX_PUB+'Publication>',
-            Excerpt:		'<'+excerptURI+'>'
+            Publication:			        '<'+fileURI+'>',
+            PublicationType:		    '<'+sparql.PREFIX_SEMANN+'Publication>',
+            Annotation:		            '<'+annotationURI+'>',
+            AnnotationType:		    '<'+sparql.PREFIX_SEMANN+'Annotation>',
+            AnnotationObject:		'<'+sparql.PREFIX_SEMANN + 'AnnotationObject'+'>',
+            hasAnnotation:	        '<'+sparql.PREFIX_SEMANN + 'hasAnnotation'+'>',
+            isAnnotationProperty:   '<'+sparql.PREFIX_SEMANN + 'isAnnotationProperty'+'>',
+            label:			                '<'+sparql.PREFIX_RDFS+'label>'
         }
     },
 

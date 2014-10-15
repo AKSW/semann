@@ -134,6 +134,37 @@ var test  = {
         });
         
         $("#test").bind("click", function () {
+            var currentPage =  $('#pageNumber').val();
+            var str = "";
+            for (var j = 1; j <= currentPage; j++) {
+                var page = PDFView.getPage(j);
+                var processPageText = function processPageText(pageIndex) {
+                  return function(pageData, content) {
+                    return function(text) {
+                      // bidiTexts has a property identifying whether this
+                      // text is left-to-right or right-to-left
+                      for (var i = 0; i < text.bidiTexts.length; i++) {
+                        str += text.bidiTexts[i].str;
+                      }
+             
+                      //if (pageData.pageInfo.pageIndex === currentPage - 1) {
+                        // later this will insert into an index
+                        //console.log("\n"+str);
+                        console.log("\nCumulative page length = "+str.length);
+                      //}
+                    }
+                  }
+                }(j);
+             
+                var processPage = function processPage(pageData) {
+                  var content = pageData.getTextContent();
+             
+                  content.then(processPageText(pageData, content));
+                }
+                page.then(processPage);
+            }
+            //console.log(PDFView.pages);
+            /*
             var myrequest = sparql.makeAjaxRequest(sparql.selectTriplesQuery);
             myrequest.done( function(response) {
                 if( response && response.results.bindings.length >0) {
@@ -144,6 +175,7 @@ var test  = {
                     alert("no data");
                 }
               });
+            */
             //test.def.resolve();
             //test.def.done(function() {
             //    alert("Deferred resolved and will keep resolving because we are always changing the status before that!");
