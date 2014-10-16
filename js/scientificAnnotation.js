@@ -411,6 +411,7 @@ var scientificAnnotation  = {
         tableAnnotator.TABLE_ANNOTATION_COUNT = 1;
         scientificAnnotation.clearAnnotationDisplayPanel();
         scientificAnnotation.clearSimilarSearchResult();
+        highlight.importedAnnotations.emptyAll(); //reset imported annotations
         highlight.init();
         sparql.triple.emptyAll();
         scientificAnnotation.resetAnnotationTable();
@@ -500,14 +501,57 @@ var scientificAnnotation  = {
             if( response && response.results.bindings.length >0) {
                 scientificAnnotation.displayAvailableAnnotationFromSparql();
                 scientificAnnotation.DIV_TRIPLES.fadeIn(500);
-                var fragments = sparqlResponseParser.parseResponse(response);
-                highlight.rangy_highlight(fragments);
+                sparqlResponseParser.parseResponse(response);
+                scientificAnnotation.renderAnnotatedPage();
             } else {
                 messageHandler.showWarningMessage('No available annotations found for this file.');
             }
         });
     },
 
+    /**
+     * Renders a page with annotations on it.  Picks the first page it finds.
+     * @return void
+     */
+    renderAnnotatedPage : function () {
+        var isLoading = false;
+        var pageHighlights;
+        $.each(PDFView.pages, function(index, page) {
+            pageHighlights = highlight.importedAnnotations.get(page.id);
+            if (pageHighlights) { //annotations exist for this page
+                isLoading = scientificAnnotation.renderPage(page.id); //render page if needed
+                if (isLoading) return false; //break loop, rendering started and multiple asynchronous calls are not allowed here.
+            }
+        });
+        if (!isLoading) { //all pages with annotations are now rendered
+            //apply missing highlights to pages that were already rendered
+            $.each(PDFView.pages, function(index, page) {
+                pageHighlights = highlight.importedAnnotations.get(page.id);
+                if (pageHighlights) { //annotations exist for this page
+                    highlight.rangy_highlight(pageHighlights);
+                    highlight.importedAnnotations.empty(page.id); //now that highlight is applied, we can discard this
+                }
+            });
+        }
+    },
+    
+    /**
+     * Renders a given page's view in PDF.js. When the page is successfully rendered, the 'pagerender' event is thrown.
+     * @param {Integer} page number.
+     * @return {Boolean} true if rendering was necessary, false if page was already rendered.
+     */
+    renderPage: function (pageNum) {  
+        PDFJS.disableWorker = true;
+        var page = PDFView.pages[pageNum-1];
+        if (PDFView.isViewFinished(page)) { //don't do anything if page is already rendered
+            return false;
+        } else {
+            if (scientificAnnotation.DEBUG) console.log("Rendering page["+page.id+"] state: "+page.renderingState);
+            PDFView.renderView(page, "page"); //throws 'pagerender' event when done
+            return true;
+        }
+    },
+    
     /**
      *  Annotate tabular structure in pdf file
      *  @return void
@@ -586,14 +630,17 @@ var scientificAnnotation  = {
     bindEventListeners: function(){
         //An event that is fired by PDF.js when the pdf loads. 
         window.addEventListener("documentload", function(evt) {
-            //alert("PDF.js event - documentload");
             scientificAnnotation.refreshOnNewPdfFileLoad();
         }, false);
         
-        //An event that is fired by PDF.js when the pdf.js loads
-        window.addEventListener("DOMContentLoaded", function(evt) {
-            //alert("PDF.js event - DOMContentLoaded");
-            //console.log(evt);
+        //An event that is fired by PDF.js when the page is rendered (loaded).
+        window.addEventListener("pagerender", function(evt) {
+            var pageHighlights = highlight.importedAnnotations.get(evt.detail.pageNumber);
+            if (pageHighlights) { //apply highlights on the rendered page
+                highlight.rangy_highlight(pageHighlights);
+                highlight.importedAnnotations.empty(evt.detail.pageNumber); //now that highlight is applied, we can discard this
+            }
+            scientificAnnotation.renderAnnotatedPage(); //see if more pages need to be rendered
         }, false);
         
     },

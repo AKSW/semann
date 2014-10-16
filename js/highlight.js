@@ -9,6 +9,24 @@
 var highlight  = {
 
     highlightRanges : null,
+    importedAnnotations: { //keeps track of all annotations per page that still need to be applied
+        fragments: {}, //rangy's serialised selections
+        set: function(pageNum, fragment) {
+            if (!this.fragments[pageNum]) {
+                this.fragments[pageNum] = []; //add new key
+            }
+            this.fragments[pageNum].push(fragment); // append values
+        },
+        get: function(pageNum) { //returns rangy's serialised selections for the given page as an array
+            return this.fragments[pageNum];
+        },
+        empty: function(pageNum) { //delete this entry for the given page
+            delete this.fragments[pageNum];
+        },
+        emptyAll: function() { //reset
+            this.fragments = {};
+        }
+    },
 
     /**
      * Serializes active window selection into Rangy format. TODO: add immediately to existing highlights
@@ -134,12 +152,7 @@ var highlight  = {
         }
         return index;
     },
-            
-    init: function() { //rangy related objects that need initialisation
-        rangy.init();
-        cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
-        highlight.highlightRanges = new Array();
-    },
+
 
     /**
      * Deserializes strings into rangy ranges. 
@@ -182,6 +195,16 @@ var highlight  = {
             if (scientificAnnotation.DEBUG) console.error("There was an error during highlighting. Potentially corrupted data in '"+rangyFragments+"'. "+err.message);
         }
 //        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
+    },
+    
+    rangy_undoHighlights: function() {
+        cssApplier.undoToRanges(highlight.highlightRanges);
+    },
+    
+    init: function() { //rangy related objects that need initialisation
+        rangy.init();
+        cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
+        highlight.highlightRanges = new Array();
     }
     
 };

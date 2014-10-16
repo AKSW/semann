@@ -15,7 +15,7 @@ var sparqlResponseParser  = {
      * @param JSON response
      */
     parseResponse:function(response) {
-	var fragments = [];
+        highlight.importedAnnotations.emptyAll(); //reset imported annotations
         $.each(response, function(name, value) {
             if(name == 'results'){
                 $.each(value.bindings, function(index,item) {
@@ -24,11 +24,12 @@ var sparqlResponseParser  = {
                         item.PROPERTY.value,
                         item.OBJECT.value
                     );
-		            fragments.push(sparqlResponseParser.getURLParameters(item.excerpt.value, "rangyFragment"));
+                    var fragment = sparqlResponseParser.getURLParameters(item.excerpt.value, "rangyFragment");
+                    var pageNum = sparqlResponseParser.getPageParameter(item.excerpt.value);
+                    highlight.importedAnnotations.set(pageNum, fragment);
                 });
             }
         });
-	    return fragments;
     },
 
     /**
@@ -115,6 +116,25 @@ var sparqlResponseParser  = {
             }
             return "No Parameters Found";
         }
+    },
+    
+    /**
+     * Retrieves "page" parameter from the given URL.
+     *
+     * @param {String} URL string
+     * @returns {Integer} page number
+     */
+    getPageParameter: function (sURL) {
+        var start = sURL.indexOf("#") ;
+        var end = sURL.indexOf("?") ;
+        var result;
+        if (start && end && start < end) {
+            start++;
+            result = sURL.substring(start, end); //"page=2" e.g.
+            result = result.split("=")[1]; //2 e.g.
+            result = parseInt(result);
+        }
+        return result;
     }
 };
 

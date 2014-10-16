@@ -134,6 +134,26 @@ var test  = {
         });
         
         $("#test").bind("click", function () {
+            highlight.rangy_undoHighlights();
+        });
+    },
+    
+    ajaxHandler: function (response) {
+        if( response!= null && response.results.bindings.length >0) {
+            alert("success: "+response.results.bindings.length);
+            console.log(JSON.stringify(response, null, 4));
+        } else {
+            alert("0 length");
+        }
+    },
+    
+    /**
+     * Prints the length of the text before and inc. the current page. 
+     *
+     * @return void
+     */
+    
+    pageTextBefore: function () {
             var currentPage =  $('#pageNumber').val();
             var str = "";
             for (var j = 1; j <= currentPage; j++) {
@@ -163,36 +183,72 @@ var test  = {
                 }
                 page.then(processPage);
             }
-            //console.log(PDFView.pages);
-            /*
-            var myrequest = sparql.makeAjaxRequest(sparql.selectTriplesQuery);
-            myrequest.done( function(response) {
-                if( response && response.results.bindings.length >0) {
-                    scientificAnnotation.displayAvailableAnnotationFromSparql();
-                    var fragments = sparqlResponseParser.parseResponse(response);
-                    highlight.rangy_highlight(fragments);
-                } else {
-                    alert("no data");
+    },
+    
+    //not working properly for the whole document, does one page at a time
+    renderPDF: function () {
+        var func,
+            def = $.Deferred(),
+            promise = $.Deferred().resolve().promise(),         
+            makeRunner = function(func, args) {
+                return function() {
+                    return func.call(null, args);
+                };
+            };
+        
+        function renderPage(page) {
+            if (scientificAnnotation.DEBUG) console.log("\tRendering page["+page.id+"] state: "+page.renderingState);
+            var def = $.Deferred();
+            PDFView.renderView(page, "page");
+            if (PDFView.isViewFinished(page)) {
+                if (scientificAnnotation.DEBUG) console.log("\tRendering finished! page["+page.id+"] state: "+page.renderingState);
+                //def.resolve();
+            }
+            def.done(function() {
+                alert("This page done! "+page.id);
+            });
+            return def.promise();
+        }
+        
+        function renderPages(pdfDoc) {
+            //alert("entered renderPages");
+            $.each(PDFView.pages, function(index, page) {
+                if (scientificAnnotation.DEBUG) console.log("Loop page["+page.id+"] state="+page.renderingState);
+                if (!PDFView.isViewFinished(page)) {
+                    func = renderPage;
+                    promise = promise.then(makeRunner(func, page))
+                    
+                    if (scientificAnnotation.DEBUG) console.log("\tPage["+page.id+"] state="+page.renderingState);
                 }
-              });
-            */
-            //test.def.resolve();
-            //test.def.done(function() {
-            //    alert("Deferred resolved and will keep resolving because we are always changing the status before that!");
-            //});
+            });
+        }
+        
+        function test(ms) {
+              var deferred = $.Deferred();
+              setTimeout(deferred.resolve, ms);
+
+             // We just need to return the promise not the whole deferred.
+             return deferred.promise();
+          }
+        
+        PDFJS.disableWorker = true;
+          /*
+        var pagePromise = PDFView.pdfDocument.getPage(1);
+        pagePromise.then(function(page) {
+            alert("**");
+            var output = '';
+            for (property in page) {
+              output += property + ': ' + page[property]+'; ';
+            }
+            console.log(output);
+        });
+        //console.log("\n pagePromise: "+JSON.stringify(pagePromise.state(), null, 4));
+          */
+        renderPages(PDFView.pages);
+        promise.done(function() {
+            alert("All pages done!");
         });
     },
-    
-    ajaxHandler: function (response) {
-        if( response!= null && response.results.bindings.length >0) {
-            alert("success: "+response.results.bindings.length);
-            console.log(JSON.stringify(response, null, 4));
-        } else {
-            alert("0 length");
-        }
-    },
-    
-    //def : $.Deferred(),
     
     
     /**
