@@ -24,7 +24,7 @@ var sparqlResponseParser  = {
                         item.PROPERTY.value,
                         item.OBJECT.value
                     );
-                    var fragment = sparqlResponseParser.getURLParameters(item.excerpt.value, "rangyFragment");
+                    var fragment = sparqlResponseParser.getURLParameters(item.excerpt.value, "id");
                     var pageNum = sparqlResponseParser.getPageParameter(item.excerpt.value);
                     highlight.importedAnnotations.set(pageNum, fragment);
                 });

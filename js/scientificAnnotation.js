@@ -366,7 +366,7 @@ var scientificAnnotation  = {
                 rangyFragment = textPosition.rangyFragment;
                 rangyPage = textPosition.rangyPage;
             }
-            var query = sparql.insertTriplesQuery(startPos, endPos, rangyPage, rangyFragment);
+            var query = sparql.insertQuery(startPos, endPos, rangyPage, rangyFragment);
             var myrequest = sparql.makeAjaxRequest(query);
             myrequest.done( function(response) {
                 messageHandler.showSuccessMessage('Annotation successfully added');

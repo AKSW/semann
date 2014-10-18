@@ -134,7 +134,14 @@ var test  = {
         });
         
         $("#test").bind("click", function () {
-            highlight.rangy_undoHighlights();
+            console.log(sparql.insertMetaQuery(37, 38, 1, "0/1/1/1:0,0/1/1/1:1"));
+            //highlight.rangy_undoHighlights();
+            /*
+            var s = window.getSelection();
+            var oRange = s.getRangeAt(0); //get the text range
+            var oRect = oRange.getBoundingClientRect();
+            console.log(oRect);
+            */
         });
     },
     
@@ -257,7 +264,6 @@ var test  = {
      * @return void
      */
     init:function(){
-        //alert("Initialising test.init()");
         test.bindEvents();
         /*
         test.def.done(function() {

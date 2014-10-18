@@ -16,13 +16,15 @@
 var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
-    GRAPH_NAME : 'scientificAnnotation',
-    GRAPH_NAME_EIS : 'eisAnnotation',
+    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph',
+    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta',
+    GRAPH_NAME_EIS : 'http://eis.iai.uni-bonn.de/semann/graph/cube',
     // annotation properties
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
     PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
     PREFIX_RDFS : "http://www.w3.org/2000/rdf-schema#",
     PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/0.2/owl#",
+    PREFIX_DC : "http://purl.org/dc/terms/",
     defaultProperties: [],
     // For showing similar search result, the maximum size of the list
     SIMILAR_RESULT_LIMIT : 10,
@@ -148,16 +150,31 @@ var sparql  = {
 
 
     /**
-     * Query for inserting user defined annotations.
+     * Query for inserting user defined annotations. This combines multiple insert queries into one transaction.
      *
-     * @param textStartPos
-     * @param textEndPos
-     * @param rangyPage
-     * @param rangyFragment
+     * @param string start position of the annotation within the page
+     * @param string end position of the annotation within the page
+     * @param page number where annotation starts
+     * @param serialised text position (rangy)
      *
      * @return {String}
      */
-    insertTriplesQuery:function(textStartPos, textEndPos, rangyPage, rangyFragment){
+    insertQuery:function(charStart, charEnd, page, id){
+        var length = (charEnd - charStart);
+	    var fileFragment = '#page='+page+'?char='+charStart+'&length='+length+'&id='+id;
+	    var q = sparql.resource(fileFragment);
+        var insertQuery = sparql.insertTriplesQuery(q) + sparql.insertMetaQuery(q, page, charStart, length);
+        return insertQuery;
+    },
+    
+    
+    /**
+     * Query for inserting user defined annotations into the flat graph. 
+     *
+     * @param object of resource URIs
+     * @return {String}
+     */
+    insertTriplesQuery:function(q){
         var isSuccess = true;
         //check that the triple is not corrupt
         if (scientificAnnotation.INPUT_SUBJECT.val() != sparql.triple.subject.label || scientificAnnotation.INPUT_PROPERTY.val() != sparql.triple.property.label || scientificAnnotation.INPUT_OBJECT.val() != sparql.triple.object.label) {
@@ -187,11 +204,6 @@ var sparql  = {
             sparql.triple.object.uri = localUri;
         }
         
-        var currentPage = $('#pageNumber').val();
-        var charStart = textStartPos, charEnd = textEndPos,length = (textEndPos - textStartPos);
-	    var fileFragment = '#page='+rangyPage+'?char='+charStart+','+charEnd+';length='+length+',UTF-8&rangyFragment='+rangyFragment;
-	    var q = sparql.resource(fileFragment);
-
         var insertQuery =
             'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
                 '{ ' +'\n\t\t'+
@@ -210,8 +222,54 @@ var sparql  = {
                         q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t\t'+
                     '<'+sparql.triple.object.uri+'> a ' + q.AnnotationObject +' ;\n\t\t\t'+
                         q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
-                '}';
+                '}' ;
         
+        if (scientificAnnotation.DEBUG) console.log(insertQuery);
+        return insertQuery;
+    },
+    
+    /**
+     * Query for inserting information about annotations into the tree graph.
+     *
+     * @param object of resource URIs
+     * @param page number where annotation starts
+     * @param string start position of the annotation within the page
+     * @param length of the annotation
+     * @return {String}
+     */
+    insertMetaQuery:function(q, page, charStart, length){
+        var insertQuery =
+            'INSERT' +'\n'+
+            '{' + '\n\t'+
+                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?parent ' + q.hasPart + ' ' + q.Annotation + ' . }' + '\n'+
+            '}' + '\n'+
+            'WHERE' + '\n'+
+            '{' + '\n\t'+
+                'SELECT ?parent' + '\n\t'+
+                'FROM <' +sparql.GRAPH_NAME+ '>' + '\n\t'+
+                'WHERE' + '\n\t'+
+                '{' + '\n\t\t'+
+                    '?file a ' + q.PublicationType+ ' .\n\t\t'+
+                    'OPTIONAL {' + '\n\t\t\t'+
+                        '?file ' + q.hasAnnotation+ ' ?f .\n\t\t\t'+
+                        '?f a ' + q.AnnotationType+ ' .\n\t\t\t'+
+                        'FILTER (?charStart <= ?currentStart)' + '\n\t\t\t'+
+                        'FILTER (?length >= ?currentLength)' + '\n\t\t\t'+
+                        'FILTER (?page = ?currentPage)' + '\n\t\t\t'+
+                        'FILTER (?padding > 0)' + '\n\t\t\t'+
+                        'BIND (' +charStart+ ' as ?currentStart)' + '\n\t\t\t'+
+                        'BIND (' +length+ ' as ?currentLength)' + '\n\t\t\t'+
+                        'BIND (' +page+ ' as ?currentPage)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "length="), ","), xsd:integer) as ?length)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "page="), "?"), xsd:integer) as ?page)'+ '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "char="), ","), xsd:integer) as ?charStart)'+ '\n\t\t\t'+
+                        'BIND (?currentStart-?charStart+?length-?currentLength as ?padding)'+ '\n\t\t'+
+                    '}' + '\n\t\t'+
+                    'FILTER (?file = ' + q.Publication + ')' + '\n\t\t'+
+                    'BIND (COALESCE(?f, ?file) as ?parent)' + '\n\t'+
+                '}' + '\n\t'+
+                'ORDER BY ASC(?padding) LIMIT 1' + '\n'+
+            '}';
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
         return insertQuery;
     },
@@ -331,6 +389,7 @@ var sparql  = {
             AnnotationObject:		'<'+sparql.PREFIX_SEMANN + 'AnnotationObject'+'>',
             hasAnnotation:	        '<'+sparql.PREFIX_SEMANN + 'hasAnnotation'+'>',
             isAnnotationProperty:   '<'+sparql.PREFIX_SEMANN + 'isAnnotationProperty'+'>',
+            hasPart:                    '<'+sparql.PREFIX_DC + 'hasPart'+'>',
             label:			                '<'+sparql.PREFIX_RDFS+'label>'
         }
     },
