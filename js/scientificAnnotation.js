@@ -38,9 +38,11 @@ var scientificAnnotation  = {
     DIV_TRIPLES: null,
     DIV_DATACUBES: null,
     // selected text position info
-    selectedTextPosition:null,
-    isObjectSelection:false,
-
+    selectedTextPosition: null,
+    isObjectSelection: false,
+    destroyLastSelection: true,
+    pageLengths: [],
+    
     /**
      * bind the click event for buttons
      *
@@ -49,30 +51,37 @@ var scientificAnnotation  = {
     bindClickEventForButtons: function () {
 
         scientificAnnotation.BTN_PANEL.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.toggleSimpleAnnotatePanel($(this));
         });
 
         scientificAnnotation.BTN_ADD.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.addAnnotation();
         });
 
         scientificAnnotation.BTN_RECOMMENDER.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.showSimilarSearchResult();
         });
 
         scientificAnnotation.BTN_ANNOTATIONS.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.fetchDataFromDatabase();
         });
 
         scientificAnnotation.BTN_TABLE.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.annotateTable($(this));
         });
         
         scientificAnnotation.BTN_RESET.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.resetAnnotation($(this));
         });
         
         scientificAnnotation.BTN_SELECT_TEXT.bind("click", function () {
+            highlight.destroyActiveSelection();
             scientificAnnotation.isObjectSelection = true;
         });
 
@@ -171,114 +180,11 @@ var scientificAnnotation  = {
     },
 
     /**
-     * Return the selected Position details
-     *
-     * @returns {{start: number, end: number, rangyFragment: (highlight.rangy_serialize.Rangy|*), rangyPage: (highlight.rangy_serialize.Page|*)}}
-     */
-    getSelectionCharOffsetsWithin: function () {
-        var currentPage =  $('#pageNumber').val();
-        var element=document.body;
-        var sel, range;
-        var start = 0, end = 0, previousPagesCharCount = 0;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.rangeCount) {
-                range = sel.getRangeAt(sel.rangeCount - 1);
-                start = scientificAnnotation.getBodyTextOffset(range.startContainer, range.startOffset,element);
-                end = scientificAnnotation.getBodyTextOffset(range.endContainer, range.endOffset,element);
-                sel.removeAllRanges();
-                sel.addRange(range);
-                previousPagesCharCount = scientificAnnotation.getPreviousPagesCharacterCount(currentPage);
-            }
-        }
-        //if (scientificAnnotation.DEBUG) console.log("Text position (preprocessing): " +start + ":"+ end + "\tpreviousPagesCharCount="+previousPagesCharCount);
-        if(start > previousPagesCharCount) {
-            start = start - previousPagesCharCount;
-        }
-
-        if(end > previousPagesCharCount){
-            end = end - previousPagesCharCount;
-        }
-        //if (scientificAnnotation.DEBUG) console.log("Text position (postprocessing): " +start + ":"+ end);
-        var rangy_result = highlight.rangy_serialize();
-	
-        return {
-            start: start,
-            end: end,
-            rangyFragment: rangy_result.Rangy,
-            rangyPage: rangy_result.Page	
-        };
-    },
-
-    /**
-     * Get selected body text
-     *
-     * @param node
-     * @param offset
-     * @param element
-     * @returns {Number}
-     */
-    getBodyTextOffset:function(node, offset,element) {
-        var sel = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(element);
-        range.setEnd(node, offset);
-        sel.removeAllRanges();
-        sel.addRange(range);
-        return sel.toString().length;
-    },
-
-    /**
-     * Get the total character size of a single pdf page
-     *
-     * @param pageNumber
-     * @returns {number}
-     */
-    getPageTotalCharLength : function(pageIndex){
-        var count = 0;
-        var textContent = PDFFindController.pdfPageSource.pages[pageIndex].getTextContent();
-        if(textContent != null && textContent._value !== null){
-            var lines = textContent._value.bidiTexts;
-            var page_text = "";
-            var last_block = null;
-            for( var k = 0; k < lines.length; k++ ){
-                var block = lines[k];
-                if( last_block != null && last_block.str[last_block.str.length-1] != ' '){
-                    if( block.x < last_block.x ){
-                        page_text += "\r\n";
-                    }
-                    else if ( last_block.y != block.y && ( last_block.str.match(/^(\s?[a-zA-Z])$|^(.+\s[a-zA-Z])$/) == null ))
-                        page_text += ' ';
-                }
-                page_text += block.str;
-                last_block = block;
-            }
-            count = page_text.length;
-        }
-        //if (scientificAnnotation.DEBUG) console.log("Page["+pageIndex+"] char count = " +count);
-        return count;
-    },
-
-    /**
-     * Get all characters before current page
-     *
-     * @param currentPage
-     * @returns {number}
-     */
-    getPreviousPagesCharacterCount : function(currentPage){
-        var previousPagesCharCount = 0;
-            for(var i=0; i<currentPage -1;i++){
-                previousPagesCharCount += scientificAnnotation.getPageTotalCharLength(i);
-            }
-        return previousPagesCharCount;
-    },
-
-    /**
      * bind mouse event for click in the page for select the document
      *
      * @return void
      */
-    bindMouseUpEventForPDFViewer: function () {
+    bindEventsForPDF: function () {
         scientificAnnotation.DIV_VIEWER.bind("mouseup", function () {
             var targetElement, targetInfoElement;
             var hideElement;
@@ -290,19 +196,33 @@ var scientificAnnotation  = {
                 targetInfoElement = scientificAnnotation.DIV_SUBJECTS;
                 hideElement = scientificAnnotation.DIV_OBJECTS;
             }
-            var proceed = scientificAnnotation.isSelectionInPDF();
+            var proceed = highlight.isSelectionInPDF();
             if (proceed) {
                 var text=scientificAnnotation.getSelectedTextFromPDF();
                 if (text && scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) {
                     targetElement.val(text);
                     sparql.triple.set(targetElement);
-                    if (!scientificAnnotation.isObjectSelection) scientificAnnotation.selectedTextPosition = scientificAnnotation.getSelectionCharOffsetsWithin();
+                    if (!scientificAnnotation.isObjectSelection) scientificAnnotation.selectedTextPosition = highlight.rangy_serialize();
                     targetElement.change(); //trigger change event
                     if (hideElement) hideElement.hide();
                 }
             }
             scientificAnnotation.isObjectSelection = false;
         });
+        
+        scientificAnnotation.DIV_VIEWER.bind("mousedown", function () {
+            if (scientificAnnotation.destroyLastSelection && highlight.userHighlightRanges.length > 0) {
+                var lastSelectedRange = highlight.userHighlightRanges[highlight.userHighlightRanges.length-1];
+                if (lastSelectedRange) {
+                    highlight.undoRangeHighlight(lastSelectedRange);
+                    scientificAnnotation.INPUT_SUBJECT.val('');
+                }
+                highlight.userHighlightRanges.pop();
+            } else {
+                scientificAnnotation.destroyLastSelection = true;
+            }
+        });
+        
     },
 
     /**
@@ -363,13 +283,14 @@ var scientificAnnotation  = {
             if(textPosition){
                 startPos = textPosition.start;
                 endPos = textPosition.end;
-                rangyFragment = textPosition.rangyFragment;
-                rangyPage = textPosition.rangyPage;
+                rangyFragment = textPosition.domPosition;
+                rangyPage = textPosition.page;
             }
             var query = sparql.insertQuery(startPos, endPos, rangyPage, rangyFragment);
             var myrequest = sparql.makeAjaxRequest(query);
             myrequest.done( function(response) {
                 messageHandler.showSuccessMessage('Annotation successfully added');
+                scientificAnnotation.destroyLastSelection = false;
                 scientificAnnotation.appendAnnotationInDisplayPanel();
                 scientificAnnotation.clearInputField();
                 scientificAnnotation.refreshProperties();
@@ -499,6 +420,7 @@ var scientificAnnotation  = {
         var myrequest = sparql.makeAjaxRequest(sparql.selectTriplesQuery);
         myrequest.done( function(response) {
             if( response && response.results.bindings.length >0) {
+                highlight.undoMyHighlights(highlight.userHighlightRanges); //active highlights off so the DOM will not corrupt
                 scientificAnnotation.displayAvailableAnnotationFromSparql();
                 scientificAnnotation.DIV_TRIPLES.fadeIn(500);
                 sparqlResponseParser.parseResponse(response);
@@ -553,6 +475,37 @@ var scientificAnnotation  = {
     },
     
     /**
+     * Finds the length of text per page. Values are cumulative and are assigned to the global array and are assigned asynchronously
+     *
+     * @return void
+     */
+    
+    countPageLengths: function () {
+        var pageTotal = PDFView.pages.length;
+        scientificAnnotation.pageLengths = [];
+        var str = "";
+        for (var j = 1; j <= pageTotal; j++) {
+            var page = PDFView.getPage(j);
+            var processPageText = function processPageText(pageIndex) {
+                return function(pageData, content) {
+                    return function(text) {
+                        for (var i = 0; i < text.bidiTexts.length; i++) {
+                            str += text.bidiTexts[i].str;
+                        }
+                        scientificAnnotation.pageLengths.push(str.length);
+                        //if (scientificAnnotation.DEBUG) console.log("Cumulative page length = "+str.length);
+                    }
+                }
+            }(j);
+            var processPage = function processPage(pageData) {
+                var content = pageData.getTextContent();
+                content.then(processPageText(pageData, content));
+            }
+            page.then(processPage);
+        }
+    },
+    
+    /**
      *  Annotate tabular structure in pdf file
      *  @return void
      */
@@ -601,29 +554,6 @@ var scientificAnnotation  = {
     },
     
     /**
-     * Checks if active selection was made in PDF. 
-     * @return {Boolean}
-     */
-    isSelectionInPDF: function(){
-        var node, selection;
-        if (window.getSelection) {
-            selection = getSelection();
-            node = selection.anchorNode;
-        }
-        if (!node && document.selection) {
-            selection = document.selection;
-            var range = selection.getRangeAt ? selection.getRangeAt(0) : selection.createRange();
-            node = range.commonAncestorContainer ? range.commonAncestorContainer :
-                    range.parentElement ? range.parentElement() : range.item(0);
-        }
-        if ($(node).closest(scientificAnnotation.DIV_VIEWER).length > 0) { //if node exists
-            return true;
-        } else { 
-            return false; //avoids the problem where selection is not made in PDF but mouse released over PDF file. We want to ignore these cases.
-        }
-    },
-
-    /**
      * This sets up event listeners
      * @return void
      */
@@ -631,6 +561,7 @@ var scientificAnnotation  = {
         //An event that is fired by PDF.js when the pdf loads. 
         window.addEventListener("documentload", function(evt) {
             scientificAnnotation.refreshOnNewPdfFileLoad();
+            scientificAnnotation.countPageLengths();
         }, false);
         
         //An event that is fired by PDF.js when the page is rendered (loaded).
@@ -689,7 +620,7 @@ var scientificAnnotation  = {
         scientificAnnotation.bindClickEventForButtons();
         scientificAnnotation.bindEventForInputs();
         scientificAnnotation.bindEventListeners();
-        scientificAnnotation.bindMouseUpEventForPDFViewer();
+        scientificAnnotation.bindEventsForPDF();
         scientificAnnotation.refreshProperties();
         
     }

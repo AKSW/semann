@@ -1,7 +1,9 @@
-.highlight { 
-	background-color:#FFFF00; 
+.myhighlight { 
+	background-color: rgba(0, 0, 255, 0.3); #same as pdf.js pseudo selector colour
+	#background-color: rgba(180, 0, 170, 0.2); 
 }
 
-.myhighlight { 
-	background-color:#BDBDBD; 
+.dbhighlight { 
+	#background-color: rgba(0, 180, 153, 0.2);
+	background-color: rgba(255, 255, 0, 0.3);
 }

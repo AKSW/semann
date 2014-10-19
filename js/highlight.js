@@ -7,8 +7,10 @@
  */
 
 var highlight  = {
-
-    highlightRanges : null,
+    savedSel: null,
+    savedSelActiveElement: null,
+    highlightRanges : null, //imported annotations
+    userHighlightRanges : null, //user's annotations
     importedAnnotations: { //keeps track of all annotations per page that still need to be applied
         fragments: {}, //rangy's serialised selections
         set: function(pageNum, fragment) {
@@ -27,7 +29,7 @@ var highlight  = {
             this.fragments = {};
         }
     },
-
+    
     /**
      * Serializes active window selection into Rangy format. TODO: add immediately to existing highlights
      *
@@ -35,14 +37,23 @@ var highlight  = {
      * @returns object {Page, Rangy} 
      */
     rangy_serialize: function () {
+        
         var selection = rangy.getSelection();
-        var s = this.stripRangeOfDomModifications(selection.getRangeAt(0));
-        var ds = rangy.deserializePosition(s,  document.getElementById('viewer'));
+        if (!selection) return null;
+        var selectionRange = selection.getRangeAt(0);
+        var pos = highlight.selectionPosition(selection);
+        var s = this.stripRangeOfDomModifications(selectionRange);
+        var ds = rangy.deserializePosition(s,  scientificAnnotation.DIV_VIEWER.get(0));
         var page = this.currentPageNo(ds.node);
+        highlight.userHighlightRanges.push(selectionRange);
+        myCssApplier.applyToRange(selectionRange);
+        if (scientificAnnotation.DEBUG) console.log('Serialised position: '+s);
         return {
-            Page:	page,
-            Rangy:	s,
-            Selection: selection
+            page:	           page,
+            domPosition:	       s,
+            Selection:      selection,
+            start:           pos.start,
+            end:             pos.end
         }
     },
     
@@ -100,6 +111,55 @@ var highlight  = {
     },
     
     /**
+     * Checks if active selection was made in PDF. 
+     * @return {Boolean}
+     */
+    isSelectionInPDF: function(){
+        var selection = rangy.getSelection();
+        var node;
+        if (selection) {
+            node = selection.anchorNode;
+        }
+        if ($(node).closest(scientificAnnotation.DIV_VIEWER).length > 0) { //if node exists
+            return true;
+        } else { 
+            return false; //avoids the problem where selection is not made in PDF but mouse released over PDF file. We want to ignore these cases.
+        }
+    },
+    
+    /**
+     * Takes a selection and calculates the start and end positions with respect to the page's text. 
+     * @param {RangySelection} 
+     * @return {Object} object with start and end parameters
+     */
+    selectionPosition: function(selection){
+        var range = selection.getRangeAt(0);
+        var selectionStart = 0;
+        var selectionEnd = 0;
+        var parentDivNode = $(selection.anchorNode).closest('div.textLayer')[0];  //parent div node of the problem node
+        var prevPageNo = highlight.currentPageNo(parentDivNode)-1;
+        var prevPageNoIndex = prevPageNo - 1;
+        var cumulativeChars = scientificAnnotation.pageLengths[prevPageNoIndex];
+        if (!cumulativeChars) cumulativeChars = 0;
+        var preCaretRange = rangy.createRange();
+        preCaretRange.selectNodeContents(parentDivNode);
+        preCaretRange.setEnd(range.startContainer, range.startOffset); //move end offset till the selection
+        selectionStart = preCaretRange.toString().length;
+        selectionEnd = selection.toString().length + selectionStart;
+        var ascArray = [];
+        ascArray.push(selectionStart);
+        ascArray.push(selectionEnd);
+        if (selection.isBackwards()) {
+            ascArray.sort(function(a, b){return a-b}); //sort ascending
+        }
+        return {
+            start:  cumulativeChars+ascArray[0],
+            end:    cumulativeChars+ascArray[1]
+        }
+    },
+    
+    
+    /**
      * Takes the node and offset of the given range and recalculates its serialised position if its parent DIV did not contain existing highlights. This clears given node and offset positions from any potential DOM modification impacts.
      *
      * @param node, integer
@@ -116,7 +176,7 @@ var highlight  = {
         preCaretRange.selectNodeContents(parentDivNode);
         preCaretRange.setEnd(problemNode, problemOffset); //move end offset till the selection
         offset = preCaretRange.toString().length;
-        var serialisedPos = rangy.serializePosition(parentDivNode.firstChild, offset, document.getElementById('viewer'));
+        var serialisedPos = rangy.serializePosition(parentDivNode.firstChild, offset, scientificAnnotation.DIV_VIEWER.get(0));
         //alert(serialisedPos);
         return serialisedPos;
     },
@@ -161,7 +221,7 @@ var highlight  = {
      * @returns Range 
      */
     deserializeArray: function (array) { //deserialise "&rangyFragment" parameter value in the URI, return rangy range array
-        var rangy_base = document.getElementById('viewer');
+        var rangy_base = scientificAnnotation.DIV_VIEWER.get(0);
         //highlightRanges = new Array();
         for (i=0; i<array.length; i++) {
 //            console.log("	&rangyFragment="+array[i]);
@@ -169,7 +229,6 @@ var highlight  = {
                 var r;
         if (rangy.canDeserializeRange(array[i], rangy_base)) { //BUG: potential rangy bug as it does not seem to catch deserialisation errors
             r = rangy.deserializeRange(array[i], rangy_base);
-//            console.log("	isvalid="+r.isValid());
             highlight.highlightRanges.push(r);
         } else {
 //            console.log("	"+array[i]+" is not serializable!");
@@ -186,7 +245,9 @@ var highlight  = {
      * @returns void
      */
     rangy_highlight : function(rangyFragments) { //given rangy fragments (eg. ["0/3/3/1:0,0/3/3/1:9","0/1/3/1:17,0/1/3/1:21"]), apply highlights
-        //remove old highlights
+        //remove all highlights
+        myCssApplier.undoToRanges(highlight.userHighlightRanges);
+        highlight.userHighlightRanges = [];
         cssApplier.undoToRanges(highlight.highlightRanges);
         try {
             highlightRanges = highlight.deserializeArray(rangyFragments);
@@ -197,14 +258,44 @@ var highlight  = {
 //        console.log(highlight.highlightRanges.length+' highlights were applied! If some are missing there might be an overlap in which case they get discarded.');
     },
     
-    rangy_undoHighlights: function() {
-        cssApplier.undoToRanges(highlight.highlightRanges);
+    /**
+     * Highlights off for the range. 
+     *
+     * @param {RangyRange} 
+     * @returns void
+     */
+    undoRangeHighlight: function(range) {
+        myCssApplier.undoToRange(range);
+        cssApplier.undoToRange(range);
+    },
+    
+    /**
+     * User's highlights off for the given array of ranges. 
+     *
+     * @param {Array} of RangyRange
+     * @returns void
+     */
+    undoMyHighlights: function(rangeArray) {
+        myCssApplier.undoToRanges(rangeArray);        
+    },
+    
+    
+    /**
+     * Destroys active selection. This is needed when buttons are pressed, otherwise it interferes with rangy operations. Input fields automatically destroy it.
+     *
+     * @returns void
+     */
+    destroyActiveSelection: function() {
+        var selection = rangy.getSelection();
+        if (selection) selection.removeAllRanges();
     },
     
     init: function() { //rangy related objects that need initialisation
         rangy.init();
-        cssApplier = rangy.createCssClassApplier("highlight", {normalize: true});
+        cssApplier = rangy.createCssClassApplier("dbhighlight", {normalize: true});
+        myCssApplier = rangy.createCssClassApplier("myhighlight", {normalize: true});
         highlight.highlightRanges = new Array();
+        highlight.userHighlightRanges = new Array();
     }
     
 };

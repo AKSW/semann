@@ -93,6 +93,7 @@ var test  = {
             }
         ]
     }, 
+    pageLengths: [],
     
     /**
      * bypasses dbLookup.showDataFromDBlookup ajax 
@@ -134,8 +135,8 @@ var test  = {
         });
         
         $("#test").bind("click", function () {
-            console.log(sparql.insertMetaQuery(37, 38, 1, "0/1/1/1:0,0/1/1/1:1"));
-            //highlight.rangy_undoHighlights();
+            sparql.insertMetaTreeQuery(sparql.resource());
+            //console.log(test.pageLengths);
             /*
             var s = window.getSelection();
             var oRange = s.getRangeAt(0); //get the text range
@@ -155,29 +156,28 @@ var test  = {
     },
     
     /**
-     * Prints the length of the text before and inc. the current page. 
+     * Finds the length of text per page. Values are cumulative and are assigned to the global array and are assigned asynchronously
      *
      * @return void
      */
     
-    pageTextBefore: function () {
-            var currentPage =  $('#pageNumber').val();
+    countPageLengths: function () {
+            var pageTotal = PDFView.pages.length;
+            test.pageLengths = [];
             var str = "";
-            for (var j = 1; j <= currentPage; j++) {
+            for (var j = 1; j <= pageTotal; j++) {
                 var page = PDFView.getPage(j);
                 var processPageText = function processPageText(pageIndex) {
                   return function(pageData, content) {
                     return function(text) {
-                      // bidiTexts has a property identifying whether this
-                      // text is left-to-right or right-to-left
                       for (var i = 0; i < text.bidiTexts.length; i++) {
                         str += text.bidiTexts[i].str;
                       }
-             
+                        test.pageLengths.push(str.length);
                       //if (pageData.pageInfo.pageIndex === currentPage - 1) {
                         // later this will insert into an index
                         //console.log("\n"+str);
-                        console.log("\nCumulative page length = "+str.length);
+                        console.log("Cumulative["+j+"] page length = "+str.length);
                       //}
                     }
                   }
@@ -190,6 +190,7 @@ var test  = {
                 }
                 page.then(processPage);
             }
+            
     },
     
     //not working properly for the whole document, does one page at a time

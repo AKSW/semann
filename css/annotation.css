@@ -1,17 +1,6 @@
-#newPropertyForm {
-    padding-top: 20px;
-}
 
 #newValueForm {
     padding-top: 5px;
-}
-
-#addAnnotationBtn {
-    margin-bottom: 20px;
-}
-
-#findSimilarButton {
-    margin-bottom: 10px;
 }
 
 .annotationToolbar {
@@ -27,10 +16,7 @@
     padding: 10px;
 }
 
-.similarPubs {
-    position: fixed;
-    bottom: 10px;
-}
+
 
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {

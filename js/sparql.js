@@ -150,7 +150,7 @@ var sparql  = {
 
 
     /**
-     * Query for inserting user defined annotations. This combines multiple insert queries into one transaction.
+     * Query for executing a transaction that inserts user defined annotations and does some house cleaning..
      *
      * @param string start position of the annotation within the page
      * @param string end position of the annotation within the page
@@ -160,16 +160,15 @@ var sparql  = {
      * @return {String}
      */
     insertQuery:function(charStart, charEnd, page, id){
-        var length = (charEnd - charStart);
-	    var fileFragment = '#page='+page+'?char='+charStart+'&length='+length+'&id='+id;
+	    var fileFragment = '#page='+page+'?char='+charStart+','+charEnd+'&id='+id;
 	    var q = sparql.resource(fileFragment);
-        var insertQuery = sparql.insertTriplesQuery(q) + sparql.insertMetaQuery(q, page, charStart, length);
-        return insertQuery;
+        var insertTransaction = sparql.insertTriplesQuery(q) + sparql.deleteMetaQuery(q) + sparql.insertMetaFlatQuery(q) + sparql.insertMetaTreeQuery(q);
+        return insertTransaction;
     },
     
     
     /**
-     * Query for inserting user defined annotations into the flat graph. 
+     * Query for inserting user defined annotation details. 
      *
      * @param object of resource URIs
      * @return {String}
@@ -229,49 +228,99 @@ var sparql  = {
     },
     
     /**
-     * Query for inserting information about annotations into the tree graph.
+     * Query for inserting annotations into the tree graph as leaf nodes of root (ie. flat tree diagram)
      *
      * @param object of resource URIs
-     * @param page number where annotation starts
-     * @param string start position of the annotation within the page
-     * @param length of the annotation
      * @return {String}
      */
-    insertMetaQuery:function(q, page, charStart, length){
+    insertMetaFlatQuery:function(q){
         var insertQuery =
             'INSERT' +'\n'+
             '{' + '\n\t'+
-                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?parent ' + q.hasPart + ' ' + q.Annotation + ' . }' + '\n'+
+                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?p_file ' + q.hasPart + ' ?annotation . }' + '\n'+
             '}' + '\n'+
+            'FROM <' +sparql.GRAPH_NAME+ '>' + '\n'+
             'WHERE' + '\n'+
             '{' + '\n\t'+
-                'SELECT ?parent' + '\n\t'+
-                'FROM <' +sparql.GRAPH_NAME+ '>' + '\n\t'+
-                'WHERE' + '\n\t'+
-                '{' + '\n\t\t'+
-                    '?file a ' + q.PublicationType+ ' .\n\t\t'+
-                    'OPTIONAL {' + '\n\t\t\t'+
-                        '?file ' + q.hasAnnotation+ ' ?f .\n\t\t\t'+
-                        '?f a ' + q.AnnotationType+ ' .\n\t\t\t'+
-                        'FILTER (?charStart <= ?currentStart)' + '\n\t\t\t'+
-                        'FILTER (?length >= ?currentLength)' + '\n\t\t\t'+
-                        'FILTER (?page = ?currentPage)' + '\n\t\t\t'+
-                        'FILTER (?padding > 0)' + '\n\t\t\t'+
-                        'BIND (' +charStart+ ' as ?currentStart)' + '\n\t\t\t'+
-                        'BIND (' +length+ ' as ?currentLength)' + '\n\t\t\t'+
-                        'BIND (' +page+ ' as ?currentPage)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "length="), ","), xsd:integer) as ?length)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "page="), "?"), xsd:integer) as ?page)'+ '\n\t\t\t'+
-                        'BIND (STRDT(STRBEFORE(STRAFTER(STR(?f), "char="), ","), xsd:integer) as ?charStart)'+ '\n\t\t\t'+
-                        'BIND (?currentStart-?charStart+?length-?currentLength as ?padding)'+ '\n\t\t'+
-                    '}' + '\n\t\t'+
-                    'FILTER (?file = ' + q.Publication + ')' + '\n\t\t'+
-                    'BIND (COALESCE(?f, ?file) as ?parent)' + '\n\t'+
-                '}' + '\n\t'+
-                'ORDER BY ASC(?padding) LIMIT 1' + '\n'+
+                '?p_file ' +q.hasAnnotation+ ' ?annotation .' + '\n\t'+
+                'FILTER (?p_file = ' +q.Publication+ ')' + '\n'+
             '}';
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
         return insertQuery;
+    },
+    
+    /**
+     * Query for inserting annotations into the tree graph.
+     *
+     * @param object of resource URIs
+     * @return {String}
+     */
+    insertMetaTreeQuery:function(q){
+        var insertQuery =
+            'INSERT' +'\n'+
+            '{' + '\n\t'+
+                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?parent ' +q.hasPart+ ' ?child . }' + '\n'+
+            '}' + '\n'+
+            'FROM <' +sparql.GRAPH_NAME + '>' + '\n'+
+            'WHERE' + '\n'+
+            '{' + '\n\t'+
+                '{' + '\n\t\t'+
+                    'SELECT ?child MIN(?padding) as ?minPadding' + '\n\t\t'+
+                    'WHERE' + '\n\t\t'+
+                    '{' + '\n\t\t\t'+
+                        '?child a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
+                        '?parent a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
+                        '?p_Cfile ' +q.hasAnnotation+ ' ?child .' + '\n\t\t\t'+
+                        '?Pfile ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t\t'+
+                        'FILTER (sameTerm(?p_Cfile, ?Pfile))' + '\n\t\t\t'+
+                        'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t\t'+
+                        'FILTER (?padding > 0)' + '\n\t\t\t'+
+                        'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t\t'+
+                        'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t\t'+
+                        'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t\t\t'+
+                        'FILTER (?p_Cfile = ' +q.Publication+ ')' + '\n\t\t'+
+                    '}' + '\n\t'+
+                '}' + '\n\t'+
+                '{' + '\n\t\t'+
+                    '?parent a <http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation> .' + '\n\t\t'+
+                    '?Cfile ' +q.hasAnnotation+ ' ?child .' + '\n\t\t'+
+                    '?Pfile ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t'+
+                    'FILTER (sameTerm(?Cfile, ?Pfile))' + '\n\t\t'+
+                    'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t'+
+                    'FILTER (?padding = ?minPadding)' + '\n\t\t'+
+                    'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t'+
+                    'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t'+
+                    'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t'+
+                    'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t'+
+                    'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t'+
+                    'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t'+
+                    'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t'+
+                '}' + '\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log(insertQuery);
+        return insertQuery;
+    },
+    
+    /**
+     * Deletes all triples that are referring to the specified file from the meta graph.
+     *
+     * @param object of resource URIs
+     * @return {String}
+     */
+    deleteMetaQuery:function(q){
+        var deleteQuery =   'DELETE { GRAPH <' + sparql.GRAPH_META_NAME + '> { ?s ?p ?annotation .}}' +'\n'+
+                                    'WHERE ' +'\n'+
+                                    '{ ' +'\n\t'+
+                                    'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?s ?p ?annotation . }' +'\n\t'+
+                                    'GRAPH <' + sparql.GRAPH_NAME + '> { ?p_file '+ q.hasAnnotation+' ?annotation . }' +'\n\t'+
+                                    'FILTER (?p_file = ' + q.Publication + ')' +'\n'+
+                                    '} ';
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +deleteQuery);
+        return deleteQuery;
     },
     
     /**
