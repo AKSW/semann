@@ -38,9 +38,15 @@ var scientificAnnotation  = {
     DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
     DIV_DATACUBES: null,
+    DIV_DRAWING: null,
+    DIV_DRAWING_SUBJECT: null,
+    DIV_DRAWING_OBJECT: null,
+    DIV_DRAWING_PROPERTY: null,
+    DIV_DRAWING_ARROW: null,
     isObjectSelection: false,
     destroyLastSelection: true,
     pageLengths: [],
+    
     
     /**
      * bind the click event for buttons
@@ -84,7 +90,11 @@ var scientificAnnotation  = {
             highlight.destroyActiveSelection();
             scientificAnnotation.isObjectSelection = true;
         });
-
+        
+        scientificAnnotation.DIV_DRAWING.bind("click", function () {
+            if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
+        });
+        
     },
 
     /**
@@ -155,7 +165,6 @@ var scientificAnnotation  = {
 		}
         ).on('typeahead:selected', function(event, data) { //triggers when user selects an item from the list
             sparql.triple.set(inputObject, data.uri);
-            if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
             return data.uri; //return resource URI
         });
     },
@@ -609,6 +618,10 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
         scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");
+        scientificAnnotation.DIV_DRAWING = $("#drawing");
+        scientificAnnotation.DIV_DRAWING_SUBJECT = $("#visualSubject");
+        scientificAnnotation.DIV_DRAWING_OBJECT = $("#visualObject");
+        scientificAnnotation.DIV_DRAWING_PROPERTY = $("#visualProperty");
         
         messageHandler.showWarningMessage("Please open a PDF document on the left pane.")
         scientificAnnotation.bindClickEventForButtons();

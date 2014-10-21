@@ -82,3 +82,47 @@ th.showResult {
     font-weight: bold;
     color: white;
 }
+
+#drawing {
+	position:relative;
+	width:700px;
+	margin: 30px;
+	overflow: auto;
+	#border:1px solid;
+}
+
+#drawing div.property {
+	position:absolute;
+	width:700px;
+	top: 50%;
+	text-align: center;
+	font-size: small;
+}
+
+#drawing div.oval {
+	width: 200px;
+	height: 50px;
+	background: rgb(210, 210, 210);
+	-moz-border-radius: 100px / 50px;
+	-webkit-border-radius: 100px / 50px;
+	border-radius: 100px / 50px;
+	vertical-align: middle;
+	text-align: center;
+	display: table-cell;
+	overflow: hidden;
+	z-index:1;
+	border:1px solid;
+	font-size: small;
+}
+
+#drawing div.arrow {
+	vertical-align: middle;
+	text-align: center;
+	display: table-cell;
+	z-index:-1;
+}
+
+#drawing div.arrow span {
+	margin-left:-9px;
+	z-index:-1;
+}

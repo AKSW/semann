@@ -128,11 +128,7 @@ var test  = {
      * @return void
      */
     bindEvents: function () {
-        
-        $("#tripleView").bind("click", function () { //jaana test - delete when done testing userTriple
-            if (scientificAnnotation.DEBUG) console.log("Triple view: \n" +JSON.stringify(sparql.triple, null, 4));
-        });
-        
+                
         $("#test").bind("click", function () {
             alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.object.label, false));
             alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true));

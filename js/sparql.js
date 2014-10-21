@@ -38,20 +38,24 @@ var sparql  = {
         "object": {"uri": null, "label": null, "info":null},
         
         empty: function(inputObject) {
-            var tripleObject;
+            var tripleObject, drawObject;
             var isSuccess = false;
             if (inputObject.is(scientificAnnotation.INPUT_SUBJECT)) {
                 tripleObject = "subject";
+                drawObject = scientificAnnotation.DIV_DRAWING_SUBJECT;
             } else if (inputObject.is(scientificAnnotation.INPUT_PROPERTY)) {
                 tripleObject = "property";
+                drawObject = scientificAnnotation.DIV_DRAWING_PROPERTY;
             } else if (inputObject.is(scientificAnnotation.INPUT_OBJECT)) {
                 tripleObject = "object";
+                drawObject = scientificAnnotation.DIV_DRAWING_OBJECT;
             }
             if (sparql.triple[tripleObject]) {
                 sparql.triple[tripleObject].uri = null;
                 sparql.triple[tripleObject].label = null;
                 if (sparql.triple[tripleObject].info) sparql.triple[tripleObject].info = {};
                 inputObject.val('');
+                drawObject.html('');
                 isSuccess = true;
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to empty triple value due to unexpected input. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_PROPERTY.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
@@ -65,18 +69,22 @@ var sparql  = {
             var labelValue = $.trim(inputObject.val());
             var isSuccess = false;
             var wasTrimmed = (labelValue === inputObject.val())? false : true;
-            var tripleObject;
+            var tripleObject, drawObject;
             if (inputObject.is(scientificAnnotation.INPUT_SUBJECT)) {
                 tripleObject = "subject";
+                drawObject = scientificAnnotation.DIV_DRAWING_SUBJECT;
             } else if (inputObject.is(scientificAnnotation.INPUT_PROPERTY)) {
                 tripleObject = "property";
+                drawObject = scientificAnnotation.DIV_DRAWING_PROPERTY;
             } else if (inputObject.is(scientificAnnotation.INPUT_OBJECT)) {
                 tripleObject = "object";
+                drawObject = scientificAnnotation.DIV_DRAWING_OBJECT;
             }
             if (sparql.triple[tripleObject]) {
                 sparql.triple[tripleObject].uri = uriValue;
                 sparql.triple[tripleObject].label = labelValue;
                 if (wasTrimmed) inputObject.val(labelValue);
+                sparql.updateDrawing(drawObject, uriValue);
                 isSuccess = true;
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to set triple value due to unexpected input. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_PROPERTY.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
@@ -217,8 +225,7 @@ var sparql  = {
         }
         if (objectIsAnnotation && sparql.triple.object.uri) {
             defineObjectType = false;
-        }
-        
+        }        
         
         var insertQuery =
             'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
@@ -430,6 +437,21 @@ var sparql  = {
         return selectQuery;
     },
 
+    /**
+     * Updates the triple drawing in UI to reflect the state of triple values
+     *
+     * @param {Element} to apply updates on
+     * @param {String} sets the URI of the resource
+     * @returns void
+     */
+    updateDrawing :function (drawingElement, uri){
+        if (uri) {
+            var uriArray = uri.split("/");
+            var display = "<a href='" + uri + "' target='_blank'>" + uriArray[uriArray.length-1] + "</a>";
+            drawingElement.html(display);
+        }
+    },
+    
     /**
      * Return the camelCase of a sentences (Hello World --> helloWorld)
      *
