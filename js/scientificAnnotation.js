@@ -31,14 +31,13 @@ var scientificAnnotation  = {
     INPUT_OBJECT: null,
     DIV_VIEWER: null,
     DIV_ANNOTATIONS: null,
+    DIV_ANNOTATION_INPUTS: null,
     DIV_ADDED: null,
     DIV_SUBJECTS: null,
     DIV_OBJECTS: null,
     DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
     DIV_DATACUBES: null,
-    // selected text position info
-    selectedTextPosition: null,
     isObjectSelection: false,
     destroyLastSelection: true,
     pageLengths: [],
@@ -52,7 +51,7 @@ var scientificAnnotation  = {
 
         scientificAnnotation.BTN_PANEL.bind("click", function () {
             highlight.destroyActiveSelection();
-            scientificAnnotation.toggleSimpleAnnotatePanel($(this));
+            scientificAnnotation.resetSimpleAnnotatePanel($(this));
         });
 
         scientificAnnotation.BTN_ADD.bind("click", function () {
@@ -72,6 +71,7 @@ var scientificAnnotation  = {
 
         scientificAnnotation.BTN_TABLE.bind("click", function () {
             highlight.destroyActiveSelection();
+            if (scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) scientificAnnotation.DIV_ANNOTATIONS.hide();
             scientificAnnotation.annotateTable($(this));
         });
         
@@ -95,7 +95,6 @@ var scientificAnnotation  = {
     bindEventForInputs: function () {
         
         scientificAnnotation.INPUT_SUBJECT.bind("change", function () {
-            
             sparql.triple.set($(this));
             var myrequest = dbLookup.makeAjaxRequest($(this).val());
             myrequest.done( function(response) {
@@ -110,7 +109,6 @@ var scientificAnnotation  = {
         });
 
         scientificAnnotation.INPUT_OBJECT.bind("change", function () {
-            
             sparql.triple.set($(this));
             var myrequest = dbLookup.makeAjaxRequest($(this).val());
             myrequest.done( function(response) {
@@ -126,19 +124,19 @@ var scientificAnnotation  = {
     },
 
     /**
-     * show the simple annotate panel
+     * reset the simple annotate panel
      * @param button for which to change text
      */
-    toggleSimpleAnnotatePanel : function (button) {
-        var panel = scientificAnnotation.DIV_ANNOTATIONS;
-        if (panel.is(':visible')) {
-            panel.hide();
-            button.text('Show Simple Annotate Panel');
-        } else {
-            panel.fadeIn(500);
-            button.text('Hide Simple Annotate Panel');
-        }
+    resetSimpleAnnotatePanel : function (button) {
+        sparql.triple.emptyAll();
+        scientificAnnotation.DIV_SUBJECTS.hide();
+        scientificAnnotation.DIV_OBJECTS.hide();
+        scientificAnnotation.clearAnnotationDisplayPanel();
         scientificAnnotation.resetAnnotationTable();
+        var panel = scientificAnnotation.DIV_ANNOTATIONS;
+        if (!panel.is(':visible')) {
+            panel.fadeIn(500);
+        }
     },
 
     /**
@@ -186,14 +184,12 @@ var scientificAnnotation  = {
      */
     bindEventsForPDF: function () {
         scientificAnnotation.DIV_VIEWER.bind("mouseup", function () {
-            var targetElement, targetInfoElement;
+            var targetElement;
             var hideElement;
             if (scientificAnnotation.isObjectSelection) {
                 targetElement = scientificAnnotation.INPUT_OBJECT;
-                targetInfoElement = scientificAnnotation.DIV_OBJECTS;
             } else {
                 targetElement = scientificAnnotation.INPUT_SUBJECT;
-                targetInfoElement = scientificAnnotation.DIV_SUBJECTS;
                 hideElement = scientificAnnotation.DIV_OBJECTS;
             }
             var proceed = highlight.isSelectionInPDF();
@@ -202,7 +198,7 @@ var scientificAnnotation  = {
                 if (text && scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) {
                     targetElement.val(text);
                     sparql.triple.set(targetElement);
-                    if (!scientificAnnotation.isObjectSelection) scientificAnnotation.selectedTextPosition = highlight.rangy_serialize();
+                    sparql.triple.setInfo(targetElement, highlight.rangy_serialize());
                     targetElement.change(); //trigger change event
                     if (hideElement) hideElement.hide();
                 }
@@ -211,11 +207,13 @@ var scientificAnnotation  = {
         });
         
         scientificAnnotation.DIV_VIEWER.bind("mousedown", function () {
+            if (!scientificAnnotation.isObjectSelection) {
+                scientificAnnotation.resetSimpleAnnotatePanel();
+            }
             if (scientificAnnotation.destroyLastSelection && highlight.userHighlightRanges.length > 0) {
                 var lastSelectedRange = highlight.userHighlightRanges[highlight.userHighlightRanges.length-1];
                 if (lastSelectedRange) {
                     highlight.undoRangeHighlight(lastSelectedRange);
-                    scientificAnnotation.INPUT_SUBJECT.val('');
                 }
                 highlight.userHighlightRanges.pop();
             } else {
@@ -259,7 +257,14 @@ var scientificAnnotation  = {
      * @returns {string}
      */
     getSelectedTextFromPDF : function(){
-        return highlight.fixWhitespace();
+        var text = highlight.fixWhitespace();
+        var annotationInputs = $('#'+scientificAnnotation.DIV_ANNOTATION_INPUTS.prop("id")+' :input'); //retrieves all input elements
+        if (text.length == 0 ) { //no text was selected
+            annotationInputs.prop('disabled', true);
+        } else {
+            annotationInputs.prop('disabled', false);
+        }
+        return text;
     },
 
     /**
@@ -276,17 +281,7 @@ var scientificAnnotation  = {
             messageHandler.showErrorMessage('Empty fields. Please provide values and try again',true);
             if (scientificAnnotation.DEBUG) console.error('Empty fields. Please provide values and try again');
         } else {
-            var rangyFragment = null;
-            var rangyPage = null;
-            var textPosition = scientificAnnotation.selectedTextPosition;
-            var startPos = 0, endPos = 0;
-            if(textPosition){
-                startPos = textPosition.start;
-                endPos = textPosition.end;
-                rangyFragment = textPosition.domPosition;
-                rangyPage = textPosition.page;
-            }
-            var query = sparql.insertQuery(startPos, endPos, rangyPage, rangyFragment);
+            var query = sparql.insertQuery();
             var myrequest = sparql.makeAjaxRequest(query);
             myrequest.done( function(response) {
                 messageHandler.showSuccessMessage('Annotation successfully added');
@@ -330,14 +325,10 @@ var scientificAnnotation  = {
      */
     refreshOnNewPdfFileLoad : function () {
         tableAnnotator.TABLE_ANNOTATION_COUNT = 1;
-        scientificAnnotation.clearAnnotationDisplayPanel();
         scientificAnnotation.clearSimilarSearchResult();
         highlight.importedAnnotations.emptyAll(); //reset imported annotations
         highlight.init();
-        sparql.triple.emptyAll();
-        scientificAnnotation.resetAnnotationTable();
-        scientificAnnotation.DIV_SUBJECTS.hide();
-        scientificAnnotation.DIV_OBJECTS.hide();
+        scientificAnnotation.resetSimpleAnnotatePanel();
     },
     
     /**
@@ -561,6 +552,7 @@ var scientificAnnotation  = {
         //An event that is fired by PDF.js when the pdf loads. 
         window.addEventListener("documentload", function(evt) {
             scientificAnnotation.refreshOnNewPdfFileLoad();
+            messageHandler.showWarningMessage("Please select some text in the PDF.")
             scientificAnnotation.countPageLengths();
         }, false);
         
@@ -609,6 +601,7 @@ var scientificAnnotation  = {
         scientificAnnotation.INPUT_OBJECT = $("#objectValueInput");
         scientificAnnotation.DIV_VIEWER = $("#viewer");
         scientificAnnotation.DIV_ANNOTATIONS = $("#simpleAnnotatePanel");
+        scientificAnnotation.DIV_ANNOTATION_INPUTS = $("#annotationInputArea");
         scientificAnnotation.DIV_ADDED = $("#displayAnnotationResult");
         scientificAnnotation.DIV_SUBJECTS = $("#displaySubjectURI");
         scientificAnnotation.DIV_PROPERTIES = $("#propertyCount");
@@ -616,7 +609,8 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
         scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");
-
+        
+        messageHandler.showWarningMessage("Please open a PDF document on the left pane.")
         scientificAnnotation.bindClickEventForButtons();
         scientificAnnotation.bindEventForInputs();
         scientificAnnotation.bindEventListeners();

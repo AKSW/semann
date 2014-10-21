@@ -30,6 +30,7 @@ var dbLookup  = {
      */
     
     makeAjaxRequest: function(keyword) {
+        var keywordTooLong = (keyword.length > 30) ? true: false;
         var queryParameters = dbLookup.queryParameters(keyword, null, null);
         var settings = {
             type: "GET",
@@ -41,17 +42,22 @@ var dbLookup  = {
             },
             cache: false,
             beforeSend: function(xhrObj) {
-                xhrObj.setRequestHeader("Accept","application/json");
-                progressbar.showProgressBar('Querying DBpedia Lookup...');
-                return true;
+                if (!keywordTooLong) {
+                    xhrObj.setRequestHeader("Accept","application/json");
+                    progressbar.showProgressBar('Querying DBpedia Lookup...');
+                    return true;
+                } else {
+                    return false; //cancel if keyword is too long
+                }
             }
         }
         // return deferred object
         return  $.ajax(settings)
                     .fail(function(jqXHR, exception) { //what to do in case of error
-                        var errorTxt= dbLookup.getStandardErrorMessage(jqXHR ,exception);
-                        messageHandler.showErrorMessage(errorTxt);
-                        if (scientificAnnotation.DEBUG) console.error(errorTxt);
+                        if (!keywordTooLong) {
+                            var errorTxt= dbLookup.getStandardErrorMessage(jqXHR ,exception);
+                            messageHandler.showErrorMessage(errorTxt);
+                        }
                     })
                     .always(function() {
                         progressbar.hideProgressBar(); //after the request, hide progress bar

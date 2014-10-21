@@ -51,7 +51,6 @@ var highlight  = {
         return {
             page:	           page,
             domPosition:	       s,
-            Selection:      selection,
             start:           pos.start,
             end:             pos.end
         }

@@ -102,7 +102,6 @@ var test  = {
      */
     bypassAjaxCall: function (targetInfoElement){
         if (test.NO_INTERNET) {
-            alert();
             var fakeResponse;
             if (targetInfoElement.is(scientificAnnotation.DIV_SUBJECTS)) {
                 dbLookup.dbSubjectResponse = test.DB_JSON;
@@ -135,7 +134,9 @@ var test  = {
         });
         
         $("#test").bind("click", function () {
-            sparql.insertMetaTreeQuery(sparql.resource());
+            alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.object.label, false));
+            alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true));
+            
             //console.log(test.pageLengths);
             /*
             var s = window.getSelection();

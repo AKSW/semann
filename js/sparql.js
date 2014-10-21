@@ -33,9 +33,9 @@ var sparql  = {
     
     triple: { //holds triple SPO values to be added into the database. Comes with convenience methods
         
-        "subject": {"uri": null, "label": null},
+        "subject": {"uri": null, "label": null, "info":{}},
         "property": {"uri": null, "label": null},
-        "object": {"uri": null, "label": null},
+        "object": {"uri": null, "label": null, "info":null},
         
         empty: function(inputObject) {
             var tripleObject;
@@ -50,6 +50,7 @@ var sparql  = {
             if (sparql.triple[tripleObject]) {
                 sparql.triple[tripleObject].uri = null;
                 sparql.triple[tripleObject].label = null;
+                if (sparql.triple[tripleObject].info) sparql.triple[tripleObject].info = {};
                 inputObject.val('');
                 isSuccess = true;
             } else {
@@ -82,6 +83,21 @@ var sparql  = {
                 messageHandler.showWarningMessage('User inputs got corrupted.');
             }
             return isSuccess; //true if value got trimmed
+        },
+        
+        setInfo: function(inputObject, rangyObject) {
+            var tripleObject;
+            if (inputObject.is(scientificAnnotation.INPUT_SUBJECT)) {
+                tripleObject = "subject";
+            } else if (inputObject.is(scientificAnnotation.INPUT_OBJECT)) {
+                tripleObject = "object";
+            }
+            if (sparql.triple[tripleObject] && rangyObject) {
+                sparql.triple[tripleObject].info = rangyObject;
+            } else {
+                if (scientificAnnotation.DEBUG) console.warn("Failed to set triple information. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
+                messageHandler.showWarningMessage('User inputs got corrupted.');
+            }
         },
         
         emptyAll: function() {
@@ -150,18 +166,18 @@ var sparql  = {
 
 
     /**
-     * Query for executing a transaction that inserts user defined annotations and does some house cleaning..
+     * Query for executing a transaction that inserts user defined annotations and performs some data cleaning.
      *
-     * @param string start position of the annotation within the page
-     * @param string end position of the annotation within the page
-     * @param page number where annotation starts
      * @param serialised text position (rangy)
-     *
      * @return {String}
      */
-    insertQuery:function(charStart, charEnd, page, id){
-	    var fileFragment = '#page='+page+'?char='+charStart+','+charEnd+'&id='+id;
-	    var q = sparql.resource(fileFragment);
+    insertQuery:function(){
+        var objectFragment;
+        var subject = sparql.triple.subject.info;
+	    var subjectFragment = '#page='+subject.page+'?char='+subject.start+','+subject.end+'&id='+subject.domPosition;
+        var object = sparql.triple.object.info;
+	    if (!jQuery.isEmptyObject(object)) objectFragment = '#page='+object.page+'?char='+object.start+','+object.end+'&id='+object.domPosition;
+	    var q = sparql.resource(subjectFragment, objectFragment);
         var insertTransaction = sparql.insertTriplesQuery(q) + sparql.deleteMetaQuery(q) + sparql.insertMetaFlatQuery(q) + sparql.insertMetaTreeQuery(q);
         return insertTransaction;
     },
@@ -190,37 +206,49 @@ var sparql  = {
             isSuccess = false;
             return null;
         }
-        var defineSubjectType = true;
-        if (!sparql.triple.subject.uri) {
-            defineSubjectType = false;
+        var defineSubjectType = false;
+        var defineObjectType = false;
+        var objectIsAnnotation = false;
+        if (sparql.triple.subject.uri) {
+            defineSubjectType = true;
         }
-        if (!sparql.triple.property.uri) {
-            var localUri = sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true);
-            sparql.triple.property.uri = localUri;
+        if (!jQuery.isEmptyObject(sparql.triple.object.info)) {
+            objectIsAnnotation = true;
         }
-        if (!sparql.triple.object.uri) {
-            var localUri = sparql.PREFIX_PUB +sparql.camelCase(sparql.triple.object.label, false);
-            sparql.triple.object.uri = localUri;
+        if (objectIsAnnotation && sparql.triple.object.uri) {
+            defineObjectType = false;
         }
+        
         
         var insertQuery =
             'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
-                '{ ' +'\n\t\t'+
+                '{ ' +'\n\t'+
                     q.Publication+' a ' +q.PublicationType+ ' ; '+'\n\t\t\t'+
-                        q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t'+
-                        q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t\t';
-        if (defineSubjectType) {
-            insertQuery = insertQuery + 
-                    q.Annotation +' a <' +sparql.triple.subject.uri+ '> .' + '\n\t\t';
+                                            q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t';
+        if (objectIsAnnotation) {
+            insertQuery = insertQuery +
+                                            q.hasAnnotation + ' '+ q.AnnotationObject +' ;'+'\n\t\t\t';
         }
         insertQuery = insertQuery +
-                    q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t'+
-                        q.label + ' "'+sparql.triple.subject.label+'"@en ; ' +'\n\t\t\t'+
-                        '<'+sparql.triple.property.uri +'> <'+sparql.triple.object.uri+'> .'+'\n\t\t'+
+                                            q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t';
+        insertQuery = insertQuery +
+                    q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t';
+        if (defineSubjectType) {
+            insertQuery = insertQuery + 
+                                            ' a <' +sparql.triple.subject.uri+ '> ;' + '\n\t\t\t';
+        }
+        insertQuery = insertQuery +
+                                            q.label + ' "'+sparql.triple.subject.label+'"@en ; ' +'\n\t\t\t' +
+                                            '<'+sparql.triple.property.uri +'> '+q.AnnotationObject+' .'+'\n\t'+
                     '<'+sparql.triple.property.uri+'>  a ' + q.isAnnotationProperty +' ; \n\t\t\t'+
-                        q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t\t'+
-                    '<'+sparql.triple.object.uri+'> a ' + q.AnnotationObject +' ;\n\t\t\t'+
-                        q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
+                                            q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t'+
+                    q.AnnotationObject+' a ' + q.AnnotationObjectType +' ;\n\t\t\t';
+        if (defineObjectType) {
+            insertQuery = insertQuery +
+                                            ' a <' +sparql.triple.object.uri+ '> ;' + '\n\t\t\t';
+        }
+        insertQuery = insertQuery +
+                                            q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
                 '}' ;
         
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
@@ -350,7 +378,6 @@ var sparql  = {
      */
     
     selectResourcePropertiesQuery: function(selectedSubject, relatedClasses) {
-        var q = sparql.resource();
         var selectQuery = 'SELECT distinct ?PROPERTY ?LABEL' +'\n'+
                             'WHERE ' +'\n'+
                             '{ ' +'\n\t'+
@@ -422,20 +449,36 @@ var sparql  = {
     /**
      * Return the URI of resources to be used in sparql queries.
      *
-     * @param optional file fragment location 
+     * @param optional subject annotation id 
+     * @param optional object annotation id 
      * @returns object with resources you can use in sparql queries.
      */
-    resource :function (fragment) {
-
+    resource :function (subjectFragment, objectFragment) {
+        var annotationObjectType = sparql.PREFIX_SEMANN + 'AnnotationObject';
         var fileURI = sparql.PREFIX_FILE + encodeURI(document.title.toString());
-        var annotationURI = fileURI + fragment;
+        var annotationURI, annotationObjectURI;
+        if (!sparql.triple.property.uri && sparql.triple.property.label) {
+            var localUri = sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true);
+            sparql.triple.property.uri = localUri;
+        }
+        if (!sparql.triple.object.uri && sparql.triple.object.label) {
+            var localUri = sparql.PREFIX_PUB +sparql.camelCase(sparql.triple.object.label, false);
+            sparql.triple.object.uri = localUri;
+        }
+        if (sparql.triple.object.uri) annotationObjectURI = sparql.triple.object.uri; //object is not another annotation
+        if (subjectFragment) annotationURI = fileURI + subjectFragment;
+        if (objectFragment) { //object is another annotation
+            annotationObjectURI = fileURI + objectFragment;
+            annotationObjectType = sparql.PREFIX_SEMANN+'Annotation';
+        }
 
         return {
             Publication:			        '<'+fileURI+'>',
             PublicationType:		    '<'+sparql.PREFIX_SEMANN+'Publication>',
             Annotation:		            '<'+annotationURI+'>',
             AnnotationType:		    '<'+sparql.PREFIX_SEMANN+'Annotation>',
-            AnnotationObject:		'<'+sparql.PREFIX_SEMANN + 'AnnotationObject'+'>',
+            AnnotationObject:		'<'+annotationObjectURI+'>',
+            AnnotationObjectType: '<'+annotationObjectType+'>',
             hasAnnotation:	        '<'+sparql.PREFIX_SEMANN + 'hasAnnotation'+'>',
             isAnnotationProperty:   '<'+sparql.PREFIX_SEMANN + 'isAnnotationProperty'+'>',
             hasPart:                    '<'+sparql.PREFIX_DC + 'hasPart'+'>',
