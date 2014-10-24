@@ -66,8 +66,8 @@ var sparql  = {
         
         set: function(inputObject, uriValue) {
             if (!uriValue) uriValue = null; //optional parameter
-            var labelValue = $.trim(inputObject.val());
             var isSuccess = false;
+            var labelValue = $.trim(inputObject.val());
             var wasTrimmed = (labelValue === inputObject.val())? false : true;
             var tripleObject, drawObject;
             if (inputObject.is(scientificAnnotation.INPUT_SUBJECT)) {
@@ -82,7 +82,9 @@ var sparql  = {
             }
             if (sparql.triple[tripleObject]) {
                 sparql.triple[tripleObject].uri = uriValue;
-                sparql.triple[tripleObject].label = labelValue;
+                if (jQuery.isEmptyObject(sparql.triple[tripleObject].info)) {
+                    sparql.triple[tripleObject].label = labelValue;
+                }
                 if (wasTrimmed) inputObject.val(labelValue);
                 sparql.updateDrawing(drawObject, uriValue);
                 isSuccess = true;
@@ -93,15 +95,16 @@ var sparql  = {
             return isSuccess; //true if value got trimmed
         },
         
-        setInfo: function(inputObject, rangyObject) {
+        setInfo: function(inputObject, rangyObject, selectionText) {
             var tripleObject;
             if (inputObject.is(scientificAnnotation.INPUT_SUBJECT)) {
                 tripleObject = "subject";
             } else if (inputObject.is(scientificAnnotation.INPUT_OBJECT)) {
                 tripleObject = "object";
             }
-            if (sparql.triple[tripleObject] && rangyObject) {
-                sparql.triple[tripleObject].info = rangyObject;
+            if (sparql.triple[tripleObject]) {
+                if (!jQuery.isEmptyObject(rangyObject)) sparql.triple[tripleObject].info = rangyObject;
+                if (selectionText)  sparql.triple[tripleObject].label = selectionText;
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to set triple information. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
                 messageHandler.showWarningMessage('User inputs got corrupted.');
@@ -442,13 +445,15 @@ var sparql  = {
      *
      * @param {Element} to apply updates on
      * @param {String} sets the URI of the resource
-     * @returns void
+     * @returns     void
      */
     updateDrawing :function (drawingElement, uri){
         if (uri) {
             var uriArray = uri.split("/");
             var display = "<a href='" + uri + "' target='_blank'>" + uriArray[uriArray.length-1] + "</a>";
             drawingElement.html(display);
+        } else {
+            drawingElement.html("");
         }
     },
     

@@ -47,7 +47,7 @@ var highlight  = {
         var page = this.currentPageNo(ds.node);
         highlight.userHighlightRanges.push(selectionRange);
         myCssApplier.applyToRange(selectionRange);
-        if (scientificAnnotation.DEBUG) console.log('Serialised position: '+s);
+        if (scientificAnnotation.DEBUG) console.log('Serialised and highlighted position: '+s);
         return {
             page:	           page,
             domPosition:	       s,

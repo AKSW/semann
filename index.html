@@ -189,44 +189,71 @@
         <div id="printContainer"></div>
         <!-- SEMANN code below -->
         <div id="annotationToolbar" class="annotationToolbar"><br/>
-            <button id="simpleAnnotateButton" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Annotate text</button>
-            <button id="annotateTableButton" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
-            <button id="resetAnnotationButton" class="btn btn-default" style="display: none"> Reset Selection</button>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#textAnnotations" role="tab" data-toggle="tab">Text Annotations</a></li>
+                <li><a href="#tableAnnotations" role="tab" data-toggle="tab">Table Annotations</a></li>
+                <li><a href="#vocabularies" role="tab" data-toggle="tab">Vocabulary Selection</a></li>
+            </ul>
             
-            <!--Start: Simple Annotation panel div-->
-            <div id="simpleAnnotatePanel" style="display: none">
-                <button id="test" class="btn btn-info">Test</button></br>
-                <div id="annotationInputArea" >
-                    <div class="form-inline" role="form" id="newValueForm">
-                        <div class="form-group">
-                            <textarea class="form-control" id="subjectValueInput" rows="2" cols="50" placeholder="Subject" disabled="true"></textarea><br/><br/>
-                            <div id="displaySubjectURI" style="display: none"></div><br/>
-                            <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
-                            <span id="propertyCount" style="display: none"></span><br/><br/>
-                            <input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
-                            <button id="objectTextSelection" class="btn btn-info" disabled="true"><span class="glyphicon glyphicon-text-height"></span> Select text</button><br/><br/>
-                            <div id="displayObjectURI" style="display: none"></div><br/>
+            <!-- Tab panes -->
+            <div class="tab-content">
+            
+                <div class="tab-pane active" id="textAnnotations">
+                    <!--Start: Simple Annotation panel div-->
+                    <div id="simpleAnnotatePanel" style="display: none">
+                        <div id="annotationInputArea" >
+                            <div class="form-inline" role="form" id="newValueForm">
+                                <div class="form-group">
+                                    <br/><br/>
+                                    <input type="text" class="form-control" id="subjectValueInput" placeholder="Subject" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/><br/>
+                                    <div id="displaySubjectURI" style="display: none"></div><br/>
+                                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+                                    <span id="propertyCount" style="display: none"></span><br/><br/>
+                                    <input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+                                    <button id="objectTextSelection" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Describe information about another annotation in the document"><span class="glyphicon glyphicon-text-height"></span> Select text</button><br/><br/>
+                                    <div id="displayObjectURI" style="display: none"></div><br/>
+                                </div>
+                            </div>
+                            <button id="addAnnotationButton" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Add annotation to database"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button><br/><br/>
                         </div>
+                        <div id="drawing">
+                            <div id="visualProperty" class="property">property</div>
+                            <div id="visualSubject" class="oval">subject</div>
+                            <div id="arrow" class="arrow">
+                                <span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span>
+                                <span style="margin-right:-3px;" class="glyphicon glyphicon-play"></span>
+                            </div>
+                            <div id="visualObject" class="oval">object</div>
+                        </div>
+                        <!--All the functional buttons -->
+                        <button id="queryButton" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="See all annotations that exist for the document"><span class="glyphicon "></span>Fetch annotations</button>
+                        <button id="showSimilarSearchButton" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="See other similar publications based on the annotations that exist for the document">Find Similar</button>
+                        <br/><br/>
                     </div>
-                    <button id="addAnnotationButton" class="btn btn-info" disabled="true"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button><br/><br/>
+                    <!--End : Simple Annotation panel div -->
+                </div>
+        
+                <div class="tab-pane" id="tableAnnotations">
+                    <button id="annotateTableButton" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
+                    <button id="resetAnnotationButton" class="btn btn-default" style="display: none"> Reset Selection</button>
                 </div>
                 
-                <div id="drawing">
-                    <div id="visualProperty" class="property">property</div>
-                    <div id="visualSubject" class="oval">subject</div>
-                    <div id="arrow" class="arrow">
-                        <span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span>
-                        <span style="margin-right:-3px;" class="glyphicon glyphicon-play"></span>
+                <div class="tab-pane" id="vocabularies">
+                    <br/>
+                    <input type="checkbox" checked="true" disabled="true" /> <a href="http://eis.iai.uni-bonn.de/semann/0.2/sdeo" target="_blank">Semann Discourse Elements Ontology</a><br>
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon">http://</span>
+                        <input type="text" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Add vocabulary</button>
+                        </span>
                     </div>
-                    <div id="visualObject" class="oval">object</div>
                 </div>
-                <!--All the functional buttons -->
-                <button id="queryButton" class="btn btn-info"><span class="glyphicon "></span>Fetch annotations</button>
-                <button id="showSimilarSearchButton" class="btn btn-default">Find Similar</button>
-                <br/><br/>
             </div>
-            <!--End : Simple Annotation panel div -->
-            
+                        
+            <button id="test" class="btn btn-info">Test</button></br>
             <!-- message boxes start -->
             <div class="alert alert-success" style="display: none"></div>
             <div class="alert alert-danger" style="display: none"></div>

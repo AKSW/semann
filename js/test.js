@@ -130,8 +130,8 @@ var test  = {
     bindEvents: function () {
                 
         $("#test").bind("click", function () {
-            alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.object.label, false));
-            alert(sparql.PREFIX_PUB + sparql.camelCase(sparql.triple.property.label, true));
+            //alert($('#home.active').prop("id"));
+            alert($('#home').is(".active"));
             
             //console.log(test.pageLengths);
             /*

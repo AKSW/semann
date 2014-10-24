@@ -29,6 +29,7 @@ var scientificAnnotation  = {
     INPUT_SUBJECT: null,
     INPUT_PROPERTY: null,
     INPUT_OBJECT: null,
+    DIV_TAB_ANNOTATIONS: null,
     DIV_VIEWER: null,
     DIV_ANNOTATIONS: null,
     DIV_ANNOTATION_INPUTS: null,
@@ -55,11 +56,6 @@ var scientificAnnotation  = {
      */
     bindClickEventForButtons: function () {
 
-        scientificAnnotation.BTN_PANEL.bind("click", function () {
-            highlight.destroyActiveSelection();
-            scientificAnnotation.resetSimpleAnnotatePanel($(this));
-        });
-
         scientificAnnotation.BTN_ADD.bind("click", function () {
             highlight.destroyActiveSelection();
             scientificAnnotation.addAnnotation();
@@ -76,8 +72,6 @@ var scientificAnnotation  = {
         });
 
         scientificAnnotation.BTN_TABLE.bind("click", function () {
-            highlight.destroyActiveSelection();
-            if (scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) scientificAnnotation.DIV_ANNOTATIONS.hide();
             scientificAnnotation.annotateTable($(this));
         });
         
@@ -106,16 +100,20 @@ var scientificAnnotation  = {
         
         scientificAnnotation.INPUT_SUBJECT.bind("change", function () {
             sparql.triple.set($(this));
-            var myrequest = dbLookup.makeAjaxRequest($(this).val());
-            myrequest.done( function(response) {
-                dbLookup.dbSubjectResponse = response;
-                var message = dbLookup.formatResponse(response, scientificAnnotation.DIV_SUBJECTS);
-                if (message) {
-                    messageHandler.displayInfo(message, scientificAnnotation.DIV_SUBJECTS);
-                } else {
-                    messageHandler.displayInfo("No matches found in DBpedia.org.", scientificAnnotation.DIV_SUBJECTS, true);
-                }
-            });
+            var keyword = ($(this).val()) ? $(this).val() : sparql.triple.subject.label;
+            if (keyword) {
+                var myrequest = dbLookup.makeAjaxRequest(keyword);
+                myrequest.done( function(response) {
+                    dbLookup.dbSubjectResponse = response;
+                    var message = dbLookup.formatResponse(response, scientificAnnotation.DIV_SUBJECTS);
+                    if (message) {
+                        messageHandler.displayInfo(message, scientificAnnotation.DIV_SUBJECTS);
+                    } else {
+                        messageHandler.displayInfo("No matches found in DBpedia.org.", scientificAnnotation.DIV_SUBJECTS, true);
+                    }
+                });
+                scientificAnnotation.BTN_ADD.prop('disabled', false);
+            }
         });
 
         scientificAnnotation.INPUT_OBJECT.bind("change", function () {
@@ -143,9 +141,8 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_OBJECTS.hide();
         scientificAnnotation.clearAnnotationDisplayPanel();
         scientificAnnotation.resetAnnotationTable();
-        var panel = scientificAnnotation.DIV_ANNOTATIONS;
-        if (!panel.is(':visible')) {
-            panel.fadeIn(500);
+        if (!scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) {
+            scientificAnnotation.DIV_ANNOTATIONS.fadeIn(500);
         }
     },
 
@@ -204,10 +201,8 @@ var scientificAnnotation  = {
             var proceed = highlight.isSelectionInPDF();
             if (proceed) {
                 var text=scientificAnnotation.getSelectedTextFromPDF();
-                if (text && scientificAnnotation.DIV_ANNOTATIONS.is(':visible')) {
-                    targetElement.val(text);
-                    sparql.triple.set(targetElement);
-                    sparql.triple.setInfo(targetElement, highlight.rangy_serialize());
+                if (text && scientificAnnotation.DIV_TAB_ANNOTATIONS.is(".active")) {
+                    sparql.triple.setInfo(targetElement, highlight.rangy_serialize(), text);
                     targetElement.change(); //trigger change event
                     if (hideElement) hideElement.hide();
                 }
@@ -285,7 +280,7 @@ var scientificAnnotation  = {
         sparql.triple.set(scientificAnnotation.INPUT_SUBJECT, sparql.triple.subject.uri);
         sparql.triple.set(scientificAnnotation.INPUT_PROPERTY, sparql.triple.property.uri);
         sparql.triple.set(scientificAnnotation.INPUT_OBJECT, sparql.triple.object.uri);
-        var hasMissingValues = (!scientificAnnotation.INPUT_SUBJECT.val() || !scientificAnnotation.INPUT_PROPERTY.val() || !scientificAnnotation.INPUT_OBJECT.val()) ? true : false;
+        var hasMissingValues = (!sparql.triple.subject.label || !sparql.triple.property.label || !sparql.triple.object.label) ? true : false;
         if(hasMissingValues) {
             messageHandler.showErrorMessage('Empty fields. Please provide values and try again',true);
             if (scientificAnnotation.DEBUG) console.error('Empty fields. Please provide values and try again');
@@ -598,7 +593,6 @@ var scientificAnnotation  = {
      */
     init:function(){
         //UI
-        scientificAnnotation.BTN_PANEL = $("#simpleAnnotateButton");
         scientificAnnotation.BTN_ADD = $("#addAnnotationButton");
         scientificAnnotation.BTN_RECOMMENDER = $("#showSimilarSearchButton");
         scientificAnnotation.BTN_ANNOTATIONS = $("#queryButton");
@@ -608,6 +602,7 @@ var scientificAnnotation  = {
         scientificAnnotation.INPUT_SUBJECT = $("#subjectValueInput");
         scientificAnnotation.INPUT_PROPERTY = $("#propertyValueInput");
         scientificAnnotation.INPUT_OBJECT = $("#objectValueInput");
+        scientificAnnotation.DIV_TAB_ANNOTATIONS = $("#textAnnotations");
         scientificAnnotation.DIV_VIEWER = $("#viewer");
         scientificAnnotation.DIV_ANNOTATIONS = $("#simpleAnnotatePanel");
         scientificAnnotation.DIV_ANNOTATION_INPUTS = $("#annotationInputArea");
@@ -629,7 +624,10 @@ var scientificAnnotation  = {
         scientificAnnotation.bindEventListeners();
         scientificAnnotation.bindEventsForPDF();
         scientificAnnotation.refreshProperties();
-        
+        scientificAnnotation.BTN_ADD.tooltip();
+        scientificAnnotation.BTN_SELECT_TEXT.tooltip();
+        scientificAnnotation.BTN_ANNOTATIONS.tooltip();
+        scientificAnnotation.BTN_RECOMMENDER.tooltip();
     }
 };
 
