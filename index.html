@@ -206,7 +206,8 @@
                             <div class="form-inline" role="form" id="newValueForm">
                                 <div class="form-group">
                                     <br/><br/>
-                                    <input type="text" class="form-control" id="subjectValueInput" placeholder="Subject" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/><br/>
+                                    <input type="text" class="form-control" id="subjectValueInput" placeholder="Subject" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+                                    <span id="subjectCount" style="display: none"></span><br/>
                                     <div id="displaySubjectURI" style="display: none"></div><br/>
                                     <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
                                     <span id="propertyCount" style="display: none"></span><br/><br/>
@@ -241,9 +242,10 @@
                 
                 <div class="tab-pane" id="vocabularies">
                     <br/>
-                    <input type="checkbox" checked="true" disabled="true" /> <a href="http://eis.iai.uni-bonn.de/semann/0.2/sdeo" target="_blank">Semann Discourse Elements Ontology</a><br>
+                    <div id="vocabularyList">
+                        <input type="checkbox" checked="true" disabled="true" /> <a href="http://eis.iai.uni-bonn.de/semann/0.2/sdeo" target="_blank">Semann Discourse Elements Ontology</a><br>
+                    </div>
                     <br/>
-                    <div id="vocabularyList"></div>
                     <div class="input-group">
                         <span class="input-group-addon">http://</span>
                         <input id="vocabulary" type="text" class="form-control"/>
@@ -269,6 +271,7 @@
 
             <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;"></div>
             <div id="displayAnnotationResult" style='overflow:auto; width:600px;'></div>
+            
 
             <!-- view results tables -->
             <div id="displayTriples"></div>

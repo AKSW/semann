@@ -130,10 +130,6 @@ var test  = {
     bindEvents: function () {
                 
         $("#test").bind("click", function () {
-            //alert($('#home.active').prop("id"));
-            alert($('#home').is(".active"));
-            
-            //console.log(test.pageLengths);
             /*
             var s = window.getSelection();
             var oRange = s.getRangeAt(0); //get the text range

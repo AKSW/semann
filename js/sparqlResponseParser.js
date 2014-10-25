@@ -108,6 +108,63 @@ var sparqlResponseParser  = {
     },
 
     /**
+     * Parse the json response and return as array. Also initialises the global variable of ontologies.
+     *
+     * @param JSON response
+     * @param {String} Ontology identifier
+     * @returns {Object} of ontology classes 
+     */
+    parseOntologyClasses:function(response, ontologyURL) {
+
+        var items = { classes: {} };
+        var restrictedItems = [];
+
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    var classLabel = (jQuery.isEmptyObject(item.classLabel)) ? null: item.classLabel.value;
+                    var classComment = (jQuery.isEmptyObject(item.classComment)) ? null: item.classComment.value;
+                    items.classes[item.class.value] = { "label" : classLabel, "comment" : classComment };
+                });
+            }
+        });
+        sparql.ontologies[ontologyURL] = items; //assign global var
+        restrictedItems = $.map( sparql.ontologies[ontologyURL].classes, function( value, key ) {
+            return { "value": value.label, "uri": key };
+        });
+        return restrictedItems;
+    },
+    
+    /**
+     * Parse the json response and return as array. Also initialises the global variable of ontologies.
+     *
+     * @param JSON response
+     * @param {String} Ontology identifier
+     * @returns {Object} of ontology properties 
+     */
+    parseOntologyProperties:function(response, ontologyURL) {
+
+        var items = { properties: {} };
+        var restrictedItems = [];
+
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    var propertyLabel = (jQuery.isEmptyObject(item.propertyLabel)) ? null: item.propertyLabel.value;
+                    var propertyComment = (jQuery.isEmptyObject(item.propertyComment)) ? null: item.propertyComment.value;
+                    items.properties[item.property.value] = { "label" : propertyLabel, "comment" : propertyComment };
+                });
+            }
+        });
+        sparql.ontologies[ontologyURL] = items; //assign global var
+        restrictedItems = $.map( sparql.ontologies[ontologyURL].properties, function( value, key ) {
+            return { "value": value.label, "uri": key };
+        });
+        return restrictedItems;
+    },
+    
+    
+    /**
      * Filters out given URI parameter value from the sURL and returns the values as a string array.
      *
      * @param string, string

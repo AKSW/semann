@@ -25,11 +25,13 @@ var sparql  = {
     PREFIX_RDFS : "http://www.w3.org/2000/rdf-schema#",
     PREFIX_SEMANN : "http://eis.iai.uni-bonn.de/semann/0.2/owl#",
     PREFIX_DC : "http://purl.org/dc/terms/",
+    ONTOLOGY_SDEO : "http://eis.iai.uni-bonn.de/semann/0.2/sdeo",
     defaultProperties: [],
     // For showing similar search result, the maximum size of the list
     SIMILAR_RESULT_LIMIT : 10,
     // For auto complete property and object maximum size of the list
     AUTO_COMPLETE_RESULT_LIMIT : 200,
+    ontologies: {}, //holds all ontologies
     
     triple: { //holds triple SPO values to be added into the database. Comes with convenience methods
         
@@ -118,7 +120,6 @@ var sparql  = {
         }
         
     }, 
-
     
     /**
      * prepare an ajax call for contacting our local Virtuoso database. This allows us to make SPARQL queries.
@@ -299,6 +300,72 @@ var sparql  = {
     loadOntology:function(ontologyURL){
         var selectQuery =
             'SELECT COUNT(*) as ?count FROM <' +ontologyURL+ '> WHERE {?s ?p ?o}';
+        if (scientificAnnotation.DEBUG) console.log(selectQuery);
+        return selectQuery;
+    },
+    
+    /**
+     * Query for retrieving a list of ontology classes with their labels and comments.
+     *
+     * @param {String} URL of ontology to load into database
+     * @return {String}
+     */
+    selectOntologyClasses:function(ontologyURL){
+        var selectQuery =
+            'SELECT distinct ?class ?classLabel ?classComment' + '\n'+
+            'FROM <' +ontologyURL+ '>' + '\n'+
+            'WHERE {' + '\n\t'+
+                '{' + '\n\t\t'+
+                    '?class a ?type.' + '\n\t\t'+
+                    'FILTER (?type IN (<http://www.w3.org/2002/07/owl#Class>, <http://www.w3.org/2000/01/rdf-schema#Class> ))' + '\n\t'+
+                '}' + '\n\t'+
+                '{' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?class rdfs:label ?classLabel .' + '\n\t\t\t'+
+                        'FILTER (langMatches(lang(?classLabel),"en") || lang(?classLabel) = "" )' + '\n\t\t'+
+                    '}' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?class rdfs:comment ?classComment .' + '\n\t\t\t'+
+                        'FILTER (langMatches(lang(?classComment),"en") || lang(?classComment) = "" )' + '\n\t\t'+
+                    '}' + '\n\t'+
+                '}' + '\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log(selectQuery);
+        return selectQuery;
+    },
+    
+    /**
+     * Query for retrieving a list of property classes with their labels, comments, ranges, domains.
+     *
+     * @param {String} URL of ontology to load into database
+     * @return {String}
+     */
+    selectOntologyProperties:function(ontologyURL){
+        var selectQuery =
+            'SELECT distinct ?property ?propertyLabel ?propertyComment ?domain ?range' + '\n'+
+            'FROM <' +ontologyURL+ '>' + '\n'+
+            'WHERE {' + '\n\t'+
+                '{' + '\n\t\t'+
+                    '?property a ?type .' + '\n\t\t'+
+                    'FILTER (?type IN (<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>, <http://www.w3.org/2002/07/owl#ObjectProperty>, <http://www.w3.org/2002/07/owl#TransitiveProperty>, <http://www.w3.org/2002/07/owl#SymmetricProperty> ))' + '\n\t'+
+                '}' + '\n\t'+
+                '{' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?property rdfs:label ?propertyLabel .' + '\n\t\t\t'+
+                        'FILTER (langMatches(lang(?propertyLabel),"en") || lang(?propertyLabel) = "" )' + '\n\t\t'+
+                    '}' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?property rdfs:comment ?propertyComment .' + '\n\t\t\t'+
+                        'FILTER (langMatches(lang(?propertyComment),"en") || lang(?propertyComment) = "" )' + '\n\t\t'+
+                    '}' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?property <http://www.w3.org/2000/01/rdf-schema#domain> ?domain .' + '\n\t\t'+
+                    '}' + '\n\t\t'+
+                    'OPTIONAL { ' + '\n\t\t\t'+
+                        '?property <http://www.w3.org/2000/01/rdf-schema#range> ?range .' + '\n\t\t'+
+                    '}' + '\n\t'+
+                '}' + '\n'+
+            '}';
         if (scientificAnnotation.DEBUG) console.log(selectQuery);
         return selectQuery;
     },

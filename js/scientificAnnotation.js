@@ -37,6 +37,8 @@ var scientificAnnotation  = {
     DIV_ANNOTATION_INPUTS: null,
     DIV_ADDED: null,
     DIV_SUBJECTS: null,
+    DIV_PROPERTY_COUNT: null,
+    DIV_SUBJECT_COUNT: null,
     DIV_OBJECTS: null,
     DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
@@ -106,6 +108,7 @@ var scientificAnnotation  = {
                 var newCheckbox = '<input type="checkbox" checked="true" /> <a href="' +vocabularyURL+ '" target="_blank">' +vocabularyURL+ '</a><br>';
                 scientificAnnotation.DIV_VOCABULARIES.append(newCheckbox);
                 scientificAnnotation.INPUT_VOCABULARY.val("");
+                scientificAnnotation.loadOntologyResources(vocabularyURL, true);
             });
             myrequest.fail(function(jqXHR, exception) { //what to do in case of error
                 var errorTxt= "The vocabulary URL you entered is not a valid ontology.";
@@ -600,6 +603,11 @@ var scientificAnnotation  = {
         
     },
     
+    /**
+     * Retrieves default properties from the database to be suggested when there are no properties related to the class chosen
+     *
+     * @return void
+     */
     refreshProperties: function() {
         var refreshPropertiesRequest = sparql.makeAjaxRequest(sparql.selectDefaultPropertiesQuery());
         refreshPropertiesRequest.done( function(response) {
@@ -607,11 +615,44 @@ var scientificAnnotation  = {
             sparql.defaultProperties = properties;
             if (properties.length > 0) {
                 scientificAnnotation.setAutoComputeDataForField(properties, scientificAnnotation.INPUT_PROPERTY);
-                messageHandler.displayInfo("Refreshed "+properties.length+" properties.", scientificAnnotation.DIV_PROPERTIES, true);
+                messageHandler.displayInfo("Refreshed "+properties.length+" properties.", scientificAnnotation.DIV_PROPERTY_COUNT, true);
             } else { 
                 messageHandler.showWarningMessage("No properties were found.")
             }
         });
+    },
+    
+    /**
+     * Retrieves default ontologies
+     * @param {String} ontologly URL
+     * @param {Boolean} if true then retrieves properties from the ontology as well.
+     * @return void
+     */
+    loadOntologyResources: function(ontologyURL, doLoadProperties) {
+        var ontologyClasses = sparql.makeAjaxRequest(sparql.selectOntologyClasses(ontologyURL));
+        var ontologyProperties;
+        ontologyClasses.done( function(response) {
+            //test.ajaxHandler(response);
+            var autoComputeClasses = sparqlResponseParser.parseOntologyClasses(response, ontologyURL);
+            if (autoComputeClasses.length > 0) {
+                scientificAnnotation.setAutoComputeDataForField(autoComputeClasses, scientificAnnotation.INPUT_SUBJECT);
+                messageHandler.displayInfo("Refreshed "+autoComputeClasses.length+" classes.", scientificAnnotation.DIV_SUBJECT_COUNT, true);
+            } else { 
+                messageHandler.showWarningMessage("No classes were extracted from '" +ontologyURL+ "' ontology.")
+            }
+        });
+        if (doLoadProperties) {
+            ontologyProperties = sparql.makeAjaxRequest(sparql.selectOntologyProperties(ontologyURL));
+            ontologyProperties.done( function(response) {
+                var autoComputeProperties = sparqlResponseParser.parseOntologyProperties(response, ontologyURL);
+                if (autoComputeProperties.length > 0) {
+                    scientificAnnotation.setAutoComputeDataForField(autoComputeProperties, scientificAnnotation.INPUT_PROPERTY);
+                    messageHandler.displayInfo("Refreshed "+autoComputeProperties.length+" properties.", scientificAnnotation.DIV_PROPERTY_COUNT, true);
+                } else { 
+                    messageHandler.showWarningMessage("No properties were extracted from '" +ontologyURL+ "' ontology.")
+                }
+            });
+        }
     },
     
     /**
@@ -638,7 +679,8 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_ANNOTATION_INPUTS = $("#annotationInputArea");
         scientificAnnotation.DIV_ADDED = $("#displayAnnotationResult");
         scientificAnnotation.DIV_SUBJECTS = $("#displaySubjectURI");
-        scientificAnnotation.DIV_PROPERTIES = $("#propertyCount");
+        scientificAnnotation.DIV_PROPERTY_COUNT = $("#propertyCount");
+        scientificAnnotation.DIV_SUBJECT_COUNT = $("#subjectCount");
         scientificAnnotation.DIV_OBJECTS = $("#displayObjectURI");
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
@@ -655,10 +697,8 @@ var scientificAnnotation  = {
         scientificAnnotation.bindEventListeners();
         scientificAnnotation.bindEventsForPDF();
         scientificAnnotation.refreshProperties();
-        scientificAnnotation.BTN_ADD.tooltip();
-        scientificAnnotation.BTN_SELECT_TEXT.tooltip();
-        scientificAnnotation.BTN_ANNOTATIONS.tooltip();
-        scientificAnnotation.BTN_RECOMMENDER.tooltip();
+        //$('[data-toggle=tooltip]').tooltip(); //fix div positions first and try again, currently shifts positions when you click outside of inputs
+        scientificAnnotation.loadOntologyResources(sparql.ONTOLOGY_SDEO, false);
     }
 };
 

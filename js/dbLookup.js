@@ -176,7 +176,7 @@ var dbLookup  = {
         var myrequest = sparql.makeAjaxRequest(query);
         myrequest.done( function(response) {
             var properties = sparqlResponseParser.parseResource(response);
-            messageHandler.displayInfo("Found "+properties.length+" related properties.", scientificAnnotation.DIV_PROPERTIES, true);
+            messageHandler.displayInfo("Found "+properties.length+" related properties.", scientificAnnotation.DIV_PROPERTY_COUNT, true);
             if (properties.length > 0) {
                 scientificAnnotation.setAutoComputeDataForField(properties, scientificAnnotation.INPUT_PROPERTY);
             } else { //no results, revert to default ones
