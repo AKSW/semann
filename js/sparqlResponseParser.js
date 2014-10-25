@@ -86,6 +86,26 @@ var sparqlResponseParser  = {
         });
         return items;
     },
+    
+    /**
+     * Parse the json response and return as array
+     *
+     * @param JSON response
+     * @returns {Array} of results
+     */
+    parseLoadOntology:function(response) {
+
+        var items = [];
+
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    items.push(item.count.value);
+                });
+            }
+        });
+        return items;
+    },
 
     /**
      * Filters out given URI parameter value from the sURL and returns the values as a string array.

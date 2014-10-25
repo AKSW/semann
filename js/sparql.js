@@ -124,16 +124,19 @@ var sparql  = {
      * prepare an ajax call for contacting our local Virtuoso database. This allows us to make SPARQL queries.
      *
      * @param {String} query to be executed against the SPARQL endpoint
+     * @param {String} optional sponge parameter of the request. E.g. "soft"
      * @return {jqXHR}
      */
     
-    makeAjaxRequest: function(query) {
+    makeAjaxRequest: function(query, sponge) {
+        if (!sponge) sponge = "";
         var settings = {
             type: "POST",
             url: sparql.SERVER_ADDRESS,
             data: {
                 query: query,
-                format: "application/json"
+                format: "application/json",
+                "should-sponge": sponge
             },
             async: true,
             dataType: "jsonp",
@@ -285,6 +288,19 @@ var sparql  = {
             '}';
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
         return insertQuery;
+    },
+    
+    /**
+     * Query for ontology loading (use with soft sponger requests)
+     *
+     * @param {String} URL of ontology to load into database
+     * @return {String}
+     */
+    loadOntology:function(ontologyURL){
+        var selectQuery =
+            'SELECT COUNT(*) as ?count FROM <' +ontologyURL+ '> WHERE {?s ?p ?o}';
+        if (scientificAnnotation.DEBUG) console.log(selectQuery);
+        return selectQuery;
     },
     
     /**
@@ -455,6 +471,18 @@ var sparql  = {
         } else {
             drawingElement.html("");
         }
+    },
+    
+    /**
+     * Test whether URL is valid.
+     *
+     * @param {String} URL
+     * @returns {Boolean} true if valid
+     */
+    validateURL: function (url) {
+      var urlregex = new RegExp(
+            "^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
+      return urlregex.test(url);
     },
     
     /**

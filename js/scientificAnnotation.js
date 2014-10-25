@@ -26,9 +26,11 @@ var scientificAnnotation  = {
     BTN_ANNOTATIONS: null,
     BTN_TABLE: null,
     BTN_SELECT_TEXT: null,
+    BTN_ADD_VOCABULARY: null,
     INPUT_SUBJECT: null,
     INPUT_PROPERTY: null,
     INPUT_OBJECT: null,
+    INPUT_VOCABULARY: null,
     DIV_TAB_ANNOTATIONS: null,
     DIV_VIEWER: null,
     DIV_ANNOTATIONS: null,
@@ -39,6 +41,7 @@ var scientificAnnotation  = {
     DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
     DIV_DATACUBES: null,
+    DIV_VOCABULARIES: null,
     DIV_DRAWING: null,
     DIV_DRAWING_SUBJECT: null,
     DIV_DRAWING_OBJECT: null,
@@ -83,6 +86,31 @@ var scientificAnnotation  = {
         scientificAnnotation.BTN_SELECT_TEXT.bind("click", function () {
             highlight.destroyActiveSelection();
             scientificAnnotation.isObjectSelection = true;
+        });
+        
+        scientificAnnotation.BTN_ADD_VOCABULARY.bind("click", function () {
+            highlight.destroyActiveSelection();
+            var myrequest;
+            var vocabularyURL = scientificAnnotation.INPUT_VOCABULARY.val().trim();
+            if (vocabularyURL && sparql.validateURL(vocabularyURL)) {
+                var query = sparql.loadOntology(vocabularyURL);
+                myrequest = sparql.makeAjaxRequest(query, "soft");
+            } else {
+                var error = "'" + vocabularyURL + "' is not a valid URL. ";
+                messageHandler.showErrorMessage(error, true);
+                if (scientificAnnotation.DEBUG) console.error(error);
+            }
+            myrequest.done( function(response) {
+                var tripleCount = sparqlResponseParser.parseLoadOntology(response);
+                messageHandler.showSuccessMessage('Ontology successfully loaded with ' +tripleCount+ ' triples!');
+                var newCheckbox = '<input type="checkbox" checked="true" /> <a href="' +vocabularyURL+ '" target="_blank">' +vocabularyURL+ '</a><br>';
+                scientificAnnotation.DIV_VOCABULARIES.append(newCheckbox);
+                scientificAnnotation.INPUT_VOCABULARY.val("");
+            });
+            myrequest.fail(function(jqXHR, exception) { //what to do in case of error
+                var errorTxt= "The vocabulary URL you entered is not a valid ontology.";
+                messageHandler.showErrorMessage(errorTxt, true);
+            })
         });
         
         scientificAnnotation.DIV_DRAWING.bind("click", function () {
@@ -599,9 +627,11 @@ var scientificAnnotation  = {
         scientificAnnotation.BTN_TABLE = $("#annotateTableButton");
         scientificAnnotation.BTN_RESET = $("#resetAnnotationButton");
         scientificAnnotation.BTN_SELECT_TEXT = $("#objectTextSelection");
+        scientificAnnotation.BTN_ADD_VOCABULARY = $("#addVocabulary");
         scientificAnnotation.INPUT_SUBJECT = $("#subjectValueInput");
         scientificAnnotation.INPUT_PROPERTY = $("#propertyValueInput");
         scientificAnnotation.INPUT_OBJECT = $("#objectValueInput");
+        scientificAnnotation.INPUT_VOCABULARY = $("#vocabulary");
         scientificAnnotation.DIV_TAB_ANNOTATIONS = $("#textAnnotations");
         scientificAnnotation.DIV_VIEWER = $("#viewer");
         scientificAnnotation.DIV_ANNOTATIONS = $("#simpleAnnotatePanel");
@@ -613,6 +643,7 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
         scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");
+        scientificAnnotation.DIV_VOCABULARIES = $("#vocabularyList");
         scientificAnnotation.DIV_DRAWING = $("#drawing");
         scientificAnnotation.DIV_DRAWING_SUBJECT = $("#visualSubject");
         scientificAnnotation.DIV_DRAWING_OBJECT = $("#visualObject");
