@@ -162,6 +162,7 @@ var test  = {
                 mySkosRecommendations
             ).then(function(){
                 alert("all done");
+                test.getContext();
                 for (var paper in sparql.recommendations.papers) {
                     var splitArray = paper.split("/");
                     scientificAnnotation.addRecommendation(splitArray[splitArray.length-1]);
@@ -174,6 +175,21 @@ var test  = {
             console.log(oRect);
             */
         });
+    },
+    
+    /**
+     * Retrieves the context of recommendations
+     *
+     * @return void
+     */
+    getContext: function () {
+        var contexts = [];
+        for (var paper in sparql.recommendations.papers) {
+            for (var annotation in sparql.recommendations.papers[paper].annotations) {
+                contexts.push(annotation);
+            }
+        }
+        console.log(contexts);
     },
     
     ajaxHandler: function (response) {

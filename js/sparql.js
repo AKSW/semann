@@ -173,9 +173,12 @@ var sparql  = {
             'WHERE' +'\n'+
             '{ ' +'\n\t'+
                 q.Publication + ' '+ q.hasAnnotation + ' ?excerpt . ' +'\n\t'+
-                '?excerpt ' + q.label + ' ?SUBJECT. ?excerpt ?prop ?obj. ' +'\n\t'+
-                '?prop ' + q.label + ' ?PROPERTY. ' +'\n\t'+
-                '?obj ' + q.label + ' ?OBJECT.' +'\n'+
+                '?excerpt ' + q.label + ' ?SUBJECT. ' +'\n\t'+
+                'OPTIONAL {' +'\n\t\t'+
+                    '?excerpt ?prop ?obj .' +'\n\t\t'+
+                    '?prop ' + q.label + ' ?PROPERTY. ' +'\n\t\t'+
+                    '?obj ' + q.label + ' ?OBJECT.' +'\n\t'+
+                '}' +'\n'+
             '}';
         if (scientificAnnotation.DEBUG) console.log(selectQuery);
         return selectQuery;
@@ -208,16 +211,11 @@ var sparql  = {
      */
     insertTriplesQuery:function(q){
         var isSuccess = true;
-        //check that the triple is not corrupt
-        if (scientificAnnotation.INPUT_SUBJECT.val() != sparql.triple.subject.label || scientificAnnotation.INPUT_PROPERTY.val() != sparql.triple.property.label || scientificAnnotation.INPUT_OBJECT.val() != sparql.triple.object.label) {
-            var error = "Error! User defined triple values do not match globally stored ones.";
-            if (scientificAnnotation.DEBUG) console.error(error);
-            messageHandler.showErrorMessage(error,true);
-            isSuccess = false;
-            return null;
-        }
-        if (!sparql.triple.subject.label || !sparql.triple.property.label || !sparql.triple.object.label) {
-            var error = "Error! Some or all of the user defined triple values are missing in the global variable.";
+        var hasClassificationOnly = (sparql.triple.subject.label && !sparql.triple.property.label && !sparql.triple.object.label) ? true : false;
+        var hasTriple = (sparql.triple.subject.label && sparql.triple.property.label && sparql.triple.object.label) ? true : false;
+        var hasAllowedValues = (hasClassificationOnly || hasTriple) ? true : false;
+        if (!hasAllowedValues) {
+            var error = "Error! This is not an allowed input.";
             if (scientificAnnotation.DEBUG) if (scientificAnnotation.DEBUG) console.error(error);
             messageHandler.showErrorMessage(error,true);
             isSuccess = false;
@@ -236,37 +234,55 @@ var sparql  = {
             defineObjectType = false;
         }        
         
-        var insertQuery =
-            'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
-                '{ ' +'\n\t'+
-                    q.Publication+' a ' +q.PublicationType+ ' ; '+'\n\t\t\t'+
-                                            q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t';
-        if (objectIsAnnotation) {
+        var insertQuery = "";
+        if (hasTriple) {
+            insertQuery =
+                'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
+                    '{ ' +'\n\t'+
+                        q.Publication+' a ' +q.PublicationType+ ' ; '+'\n\t\t\t'+
+                                                q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t';
+            if (objectIsAnnotation) {
+                insertQuery = insertQuery +
+                                                q.hasAnnotation + ' '+ q.AnnotationObject +' ;'+'\n\t\t\t';
+            }
             insertQuery = insertQuery +
-                                            q.hasAnnotation + ' '+ q.AnnotationObject +' ;'+'\n\t\t\t';
-        }
-        insertQuery = insertQuery +
-                                            q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t';
-        insertQuery = insertQuery +
-                    q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t';
-        if (defineSubjectType) {
-            insertQuery = insertQuery + 
-                                            ' a <' +sparql.triple.subject.uri+ '> ;' + '\n\t\t\t';
-        }
-        insertQuery = insertQuery +
-                                            q.label + ' "'+sparql.triple.subject.label+'"@en ; ' +'\n\t\t\t' +
-                                            '<'+sparql.triple.property.uri +'> '+q.AnnotationObject+' .'+'\n\t'+
-                    '<'+sparql.triple.property.uri+'>  a ' + q.isAnnotationProperty +' ; \n\t\t\t'+
-                                            q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t'+
-                    q.AnnotationObject+' a ' + q.AnnotationObjectType +' ;\n\t\t\t';
-        if (defineObjectType) {
+                                                q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t';
             insertQuery = insertQuery +
-                                            ' a <' +sparql.triple.object.uri+ '> ;' + '\n\t\t\t';
+                        q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t';
+            if (defineSubjectType) {
+                insertQuery = insertQuery + 
+                                                ' a <' +sparql.triple.subject.uri+ '> ;' + '\n\t\t\t';
+            }
+            insertQuery = insertQuery +
+                                                q.label + ' "'+sparql.triple.subject.label+'"@en ; ' +'\n\t\t\t' +
+                                                '<'+sparql.triple.property.uri +'> '+q.AnnotationObject+' .'+'\n\t'+
+                        '<'+sparql.triple.property.uri+'>  a ' + q.isAnnotationProperty +' ; \n\t\t\t'+
+                                                q.label + ' "'+sparql.triple.property.label+'"@en . '+'\n\t'+
+                        q.AnnotationObject+' a ' + q.AnnotationObjectType +' ;\n\t\t\t';
+            if (defineObjectType) {
+                insertQuery = insertQuery +
+                                                ' a <' +sparql.triple.object.uri+ '> ;' + '\n\t\t\t';
+            }
+            insertQuery = insertQuery +
+                                                q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
+                    '}' ;
         }
-        insertQuery = insertQuery +
-                                            q.label + ' "'+sparql.triple.object.label+'"@en . '+'\n'+
-                '}' ;
-        
+        if (hasClassificationOnly) {
+             insertQuery =
+                    'INSERT INTO GRAPH <'+sparql.GRAPH_NAME+'> ' +'\n'+
+                    '{ ' +'\n\t'+
+                        q.Publication+' a ' +q.PublicationType+ ' ; '+'\n\t\t\t'+
+                                                q.label + ' "'+document.title.toString()+'"@en ; ' +'\n\t\t\t' +
+                                                q.hasAnnotation + ' '+ q.Annotation +' .'+'\n\t' +
+                        q.Annotation+' a ' +q.AnnotationType+ ' ; '+'\n\t\t\t';
+            if (defineSubjectType) {
+                insertQuery = insertQuery + 
+                                                ' a <' +sparql.triple.subject.uri+ '> ;' + '\n\t\t\t';
+            }
+            insertQuery = insertQuery +
+                                                q.label + ' "'+sparql.triple.subject.label+'"@en . ' + '\n' +
+                    '}';
+        }
         if (scientificAnnotation.DEBUG) console.log(insertQuery);
         return insertQuery;
     },
@@ -379,6 +395,60 @@ var sparql  = {
      * @return {String}
      */
     insertMetaTreeQuery:function(q){
+        var insertQuery =
+            'INSERT' +'\n'+
+            '{' + '\n\t'+
+                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?parent ' +q.hasPart+ ' ?child . }' + '\n'+
+            '}' + '\n'+
+            'FROM <' +sparql.GRAPH_NAME + '>' + '\n'+
+            'WHERE' + '\n'+
+            '{' + '\n\t'+
+                '{' + '\n\t\t'+
+                    'SELECT ?child MIN(?padding) as ?minPadding' + '\n\t\t'+
+                    'WHERE' + '\n\t\t'+
+                    '{' + '\n\t\t\t'+
+                        '?child a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
+                        '?parent a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
+                        '?file ' +q.hasAnnotation+ ' ?child .' + '\n\t\t\t'+
+                        '?file ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t\t'+
+                        'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t\t'+
+                        'FILTER (?padding > 0)' + '\n\t\t\t'+
+                        'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t\t'+
+                        'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t\t'+
+                        'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t\t'+
+                        'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t\t\t'+
+                        'FILTER (?file = ' +q.Publication+ ')' + '\n\t\t'+
+                    '}' + '\n\t'+
+                '}' + '\n\t'+
+                '{' + '\n\t\t'+
+                    '?parent a <http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation> .' + '\n\t\t'+
+                    '?file ' +q.hasAnnotation+ ' ?child .' + '\n\t\t'+
+                    '?file ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t'+
+                    'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t'+
+                    'FILTER (?padding = ?minPadding)' + '\n\t\t'+
+                    'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t'+
+                    'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t'+
+                    'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t'+
+                    'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t'+
+                    'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t'+
+                    'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t'+
+                    'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t'+
+                '}' + '\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log(insertQuery);
+        return insertQuery;
+    },
+    
+    /**
+     * Query for inserting annotations into the tree graph.
+     *
+     * @param object of resource URIs
+     * @return {String}
+     */
+    insertMetaTreeQuery0:function(q){
         var insertQuery =
             'INSERT' +'\n'+
             '{' + '\n\t'+

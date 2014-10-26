@@ -311,8 +311,9 @@ var scientificAnnotation  = {
         sparql.triple.set(scientificAnnotation.INPUT_SUBJECT, sparql.triple.subject.uri);
         sparql.triple.set(scientificAnnotation.INPUT_PROPERTY, sparql.triple.property.uri);
         sparql.triple.set(scientificAnnotation.INPUT_OBJECT, sparql.triple.object.uri);
+        var hasClassificationOnly = (sparql.triple.subject.label && !sparql.triple.property.label && !sparql.triple.object.label) ? true : false;
         var hasMissingValues = (!sparql.triple.subject.label || !sparql.triple.property.label || !sparql.triple.object.label) ? true : false;
-        if(hasMissingValues) {
+        if(hasMissingValues && !hasClassificationOnly) {
             messageHandler.showErrorMessage('Empty fields. Please provide values and try again',true);
             if (scientificAnnotation.DEBUG) console.error('Empty fields. Please provide values and try again');
         } else {

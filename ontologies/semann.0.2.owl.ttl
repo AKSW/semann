@@ -1,0 +1,65 @@
+@prefix semann: <http://eis.iai.uni-bonn.de/semann/0.2/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns> .
+@prefix rdfs: <http://www.w3.org/2000/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<http://eis.iai.uni-bonn.de/semann/0.2/owl> a owl:Ontology ;
+            owl:versionInfo "0.2" ;
+            owl:incompatibleWith <http://eis.iai.uni-bonn.de/semann/0.1/owl> ;
+            dc:creator "Jaana Takis"^^xsd:string ;
+            dc:description "This ontology is used for annotating publications."^^xsd:string ;
+            dc:title "Annotation ontology for the Semann project."^^xsd:string ;
+            rdfs:comment "All annotations made in a publication is described using this ontology. This provides a flat view of all annotations associated with publications."^^xsd:string ;
+            dc:date "2014-10-14"@en ;
+            dc:rights "This work is distributed under a Creative Commons Attribution License (http://creativecommons.org/licenses/by/3.0/)."@en .
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+dc:creator rdf:type owl:AnnotationProperty .
+dc:date rdf:type owl:AnnotationProperty .
+dc:description rdf:type owl:AnnotationProperty .
+dc:rights rdf:type owl:AnnotationProperty .
+dc:title rdf:type owl:AnnotationProperty .
+rdfs:comment rdf:type owl:AnnotationProperty .
+rdfs:label rdf:type owl:AnnotationProperty .
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+semann:Publication a owl:Class ;
+            rdfs:comment "Research publication file in PDF format. Associated label refers to the extracted title of the publication."@en ;
+            rdfs:label "Publication"@en .
+semann:Annotation a owl:Class ;
+            rdfs:comment "Uniquely identifies a text fragment within a file that was annotated by the user. "@en ;
+            rdfs:label "Annotation"@en .
+semann:AnnotationObject a owl:Class ;
+            rdfs:comment "When the user defines the annotation to be part of a relationship, this element identifies the object the relationship is describing. This element cannot be another annotation."@en ;
+            rdfs:label "Object"@en .
+            
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+semann:hasAnnotation a owl:ObjectProperty ;
+            rdfs:comment "Identifies an annotation within a file."@en ;
+            rdfs:label "has annotation"@en ;
+            rdfs:domain semann:Publication ;
+            rdfs:range semann:Annotation .
+semann:isAnnotationProperty a owl:ObjectProperty ;
+            rdfs:comment "When the user defines the annotation to be part of a relationship, this property describes the relationship. Typically describes Annotation-Annotation or Annotation-AnnotationObject relationship."@en ;
+            rdfs:label "is property"@en ;
+            rdfs:domain semann:Annotation .

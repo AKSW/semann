@@ -19,10 +19,12 @@ var sparqlResponseParser  = {
         $.each(response, function(name, value) {
             if(name == 'results'){
                 $.each(value.bindings, function(index,item) {
+                    var property = (jQuery.isEmptyObject(item.PROPERTY)) ? "": item.PROPERTY.value;
+                    var object = (jQuery.isEmptyObject(item.OBJECT)) ? "": item.OBJECT.value;
                     scientificAnnotation.addDataToSparqlTableView(
                         item.SUBJECT.value,
-                        item.PROPERTY.value,
-                        item.OBJECT.value
+                        property,
+                        object
                     );
                     var fragment = sparqlResponseParser.getURLParameters(item.excerpt.value, "id");
                     var pageNum = sparqlResponseParser.getPageParameter(item.excerpt.value);
