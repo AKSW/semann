@@ -40,7 +40,6 @@ var scientificAnnotation  = {
     DIV_PROPERTY_COUNT: null,
     DIV_SUBJECT_COUNT: null,
     DIV_OBJECTS: null,
-    DIV_RECOMMENDER: null,
     DIV_TRIPLES: null,
     DIV_DATACUBES: null,
     DIV_VOCABULARIES: null,
@@ -68,6 +67,7 @@ var scientificAnnotation  = {
 
         scientificAnnotation.BTN_RECOMMENDER.bind("click", function () {
             highlight.destroyActiveSelection();
+            //alert($("#57\\,\\%m\\.pdf").prop("id"));
             scientificAnnotation.showSimilarSearchResult();
         });
 
@@ -197,22 +197,6 @@ var scientificAnnotation  = {
         });
     },
 
-    /**
-     * Set similar search result
-     *
-     * @param searchResult
-     * @param {Object} element where to display the recommendations
-     * @return void
-     */
-    setSimilarSearchResult :function(searchResult, targetObject){
-        if(searchResult.length > 0) {
-            targetObject.empty();
-            for(var i = 0; i < searchResult.length; i++) {
-                targetObject.append('<a href="'+searchResult[i]+'" class="list-group-item">'+searchResult[i]+'</a>');
-            }
-            targetObject.fadeIn(500);// show the result
-        }
-    },
 
     /**
      * bind mouse event for click in the page for select the document
@@ -365,6 +349,8 @@ var scientificAnnotation  = {
         highlight.importedAnnotations.emptyAll(); //reset imported annotations
         highlight.init();
         scientificAnnotation.resetSimpleAnnotatePanel();
+        sparql.recommendations = { papers: {} };
+        scientificAnnotation.DIV_RECOMMENDATIONS.empty();
     },
     
     /**
@@ -386,8 +372,8 @@ var scientificAnnotation  = {
      * clear the similar search window and hide
      */
     clearSimilarSearchResult:function(){
-        scientificAnnotation.DIV_RECOMMENDER.empty();
-        scientificAnnotation.DIV_RECOMMENDER.fadeOut(300);
+        scientificAnnotation.DIV_RECOMMENDATIONS.empty();
+        scientificAnnotation.DIV_RECOMMENDATIONS.fadeOut(300);
     },
 
     /**
@@ -434,22 +420,55 @@ var scientificAnnotation  = {
      * Adds recommendations to the UI. Each recommendation is a collapsible accordion.
      * @return void
      */
-    addRecommendation:function(fileURI){
-        var escapedId = "#" + fileURI.replace( /(:|\.|\[|\])/g, "\\$1" ); //selectors don't work with chars like ".", ":". They should be escaped with "\\"
+    addRecommendation:function(paperKey){
+        scientificAnnotation.DIV_RECOMMENDATIONS.empty();
+        var fileURI = paperKey.split("/");
+        fileURI = fileURI[fileURI.length-1];
+        var escapedId = "#" + fileURI.replace( /(,|%|:|\.|\[|\])/g, "\\$1" ); //selectors don't work with chars like ".", ":". They should be escaped with "\\"
         var selector = $(escapedId);
+        var dbpediaMention = "", skosMention = "", text="";
+        
+        for (var paper in sparql.recommendations.papers) {
+            for (var annotation in sparql.recommendations.papers[paper].annotations) {
+                for (var grouping in sparql.recommendations.papers[paper].annotations[annotation]) {
+                    if (grouping === "skos") {
+                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].skos) {
+                            skosMention = skosMention + "Shares same category <a href='" + match + "' target='_blank'>" +sparql.recommendations.papers[paper].annotations[annotation].skos[match].label+ "</a> (here: "+ sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisSubjectOf +", paper: " +sparql.recommendations.papers[paper].annotations[annotation].skos[match].subjectOf+ ").<br/>";
+                            //alert(skosMention);
+                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation);
+                            //compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation ]);
+                        }
+                    }
+                    if (grouping === "dbpedia") {
+                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].dbpedia) {
+                            var dbpediaLabel = match.split("/");
+                            dbpediaLabel = dbpediaLabel[dbpediaLabel.length-1];
+                            dbpediaMention = dbpediaMention + "Mentions <a href='" + match + "' target='_blank'>" +dbpediaLabel+ "</a>.<br/>";
+                            //alert(dbpediaMention);
+                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation);
+                            //compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation ]);
+                        }
+                    }
+                }
+            }
+        }
+        text = text + dbpediaMention + skosMention;
+        //alert(text);
         var isDuplicate = (selector.length) ? true : false;
         if (!isDuplicate) {
             var htmlTemplate = '<div class="panel panel-default">' +'\n'+
                                             '<div class="panel-heading">' +'\n'+
                                                 '<h4 class="panel-title">' + '\n'+
-                                                    '<a data-toggle="collapse" data-parent="#accordion" href="'+escapedId+'"> ' +fileURI+ ' </a>' + '\n'+
+                                                    '<a data-toggle="collapse" data-parent="#accordion" href="'+escapedId+'"> ' +sparql.recommendations.papers[paperKey].label+ ' </a>' + '\n'+
                                                 '</h4>' + '\n'+
                                             '</div>' + '\n'+
                                             '<div id="' +fileURI+ '" class="panel-collapse collapse in">' + '\n'+
-                                                '<div class="panel-body"> SMHT </div>' + '\n'+
+                                                '<div class="panel-body">' +text+ '</div>' + '\n'+
                                             '</div>' + '\n'+
                                         '</div>' + '\n';
             scientificAnnotation.DIV_RECOMMENDATIONS.append(htmlTemplate);
+        } else {
+            alert("recommendation is duplicate!");
         }
     },
     
@@ -588,19 +607,43 @@ var scientificAnnotation  = {
      */
     showSimilarSearchResult:function(){
         scientificAnnotation.hideAnnotationDisplayTable();
-        if (scientificAnnotation.DIV_RECOMMENDER.is(':visible')) {
-            scientificAnnotation.DIV_RECOMMENDER.fadeOut(300);
+        if (!scientificAnnotation.DIV_RECOMMENDATIONS.is(':visible')) {
+            scientificAnnotation.DIV_RECOMMENDATIONS.show();
         }
-        var myrequest = sparql.makeAjaxRequest(sparql.selectRecommendationsQuery);
-        myrequest.done( function(response) {
+        var myDBpediaRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsByDBpediaQuery());
+        myDBpediaRecommendations.done( function(response) {
             if( response && response.results.bindings.length >0) {
-                var recommendations = sparqlResponseParser.parseSimilarSearch(response);
-                scientificAnnotation.setSimilarSearchResult(recommendations, scientificAnnotation.DIV_RECOMMENDER);
+                console.log(response);
+                var r = sparqlResponseParser.parseRecommendationsByDBpedia(response);
+                console.log(JSON.stringify(r, null, 4));
             } else {
-                messageHandler.showWarningMessage('No recommendations exist for this document.');
+                messageHandler.showWarningMessage('No recommendations found for this file.');
             }
         });
-        
+            
+        var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQuery());
+        mySkosRecommendations.done( function(response) {
+            if( response && response.results.bindings.length >0) {
+                console.log(response);
+                var r = sparqlResponseParser.parseRecommendationsBySKOSCategory(response);
+                console.log(JSON.stringify(r, null, 4));
+            } else {
+                messageHandler.showWarningMessage('No recommendations found for this file.');
+            }
+        });
+                        
+        $.when( //when both ajax calls are done
+            myDBpediaRecommendations,
+            mySkosRecommendations
+        ).then(function(){
+            alert("all done");
+            //var checkContexts = test.checkAnnotationPairForContext();
+            //if (checkContexts.length >  0) test.myContextCheck(checkContexts); //add a looping ajax call here
+                
+            for (var paper in sparql.recommendations.papers) {
+                scientificAnnotation.addRecommendation(paper);
+            }
+        });
     },
     
     /**
@@ -706,7 +749,6 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_PROPERTY_COUNT = $("#propertyCount");
         scientificAnnotation.DIV_SUBJECT_COUNT = $("#subjectCount");
         scientificAnnotation.DIV_OBJECTS = $("#displayObjectURI");
-        scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
         scientificAnnotation.DIV_RECOMMENDATIONS = $("#recommendations");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
         scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");

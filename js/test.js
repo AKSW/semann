@@ -130,44 +130,7 @@ var test  = {
     bindEvents: function () {
                 
         $("#test").bind("click", function () {
-            var myDBpediaRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsByDBpediaQuery());
-            myDBpediaRecommendations.done( function(response) {
-                if( response && response.results.bindings.length >0) {
-                    console.log(response);
-                    var r = sparqlResponseParser.parseRecommendationsByDBpedia(response);
-                    console.log(JSON.stringify(r, null, 4));
-                } else {
-                    messageHandler.showWarningMessage('No recommendations found for this file.');
-                }
-            });
             
-            var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQuery());
-            //var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQuery());
-            //var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQueryNew());
-            mySkosRecommendations.done( function(response) {
-                if( response && response.results.bindings.length >0) {
-                    console.log(response);
-                    var r = sparqlResponseParser.parseRecommendationsBySKOSCategory(response);
-                    console.log(JSON.stringify(r, null, 4));
-                    
-                } else {
-                    messageHandler.showWarningMessage('No recommendations found for this file.');
-                }
-            });
-            
-            var myRecommendationInfo;
-            
-            $.when( //when both ajax calls are done
-                myDBpediaRecommendations,
-                mySkosRecommendations
-            ).then(function(){
-                alert("all done");
-                test.getContext();
-                for (var paper in sparql.recommendations.papers) {
-                    var splitArray = paper.split("/");
-                    scientificAnnotation.addRecommendation(splitArray[splitArray.length-1]);
-                }
-            });
             /*
             var s = window.getSelection();
             var oRange = s.getRangeAt(0); //get the text range
@@ -182,14 +145,53 @@ var test  = {
      *
      * @return void
      */
-    getContext: function () {
-        var contexts = [];
+    myContextCheck: function (annotationPairs) {
+        
+        var pair = annotationPairs[annotationPairs.length-1];
+        console.log(pair);
+        var myRecommendationContext = sparql.makeAjaxRequest(sparql.selectCommonContextQuery(pair));
+        myRecommendationContext.done( function(response) {
+                if( response && response.results.bindings.length >0) {
+                    console.log(response);
+                    var r = sparqlResponseParser.parseCommonContextQuery(response);
+                    console.log(JSON.stringify(r, null, 4));
+                } else {
+                    messageHandler.showWarningMessage('No context found for this annotation pair.');
+                }
+        });
+        //sparql.selectCommonContextQuery( ["http://eis.iai.uni-bonn.de/semann/pdf/sample.pdf#page=4?char=11897,11907&id=0/5/1/7:22,0/5/1/7:32", "http://eis.iai.uni-bonn.de/semann/pdf/sampleTable1.pdf#page=1?char=104,115&id=0/19/1/1:1,0/19/1/1:12" ] );
+        annotationPairs.pop();
+        if (annotationPairs.length > 0) test.myContextCheck(annotationPairs);
+    },
+    
+    /**
+     * Retrieves the context of recommendations
+     *
+     * @return void
+     */
+    checkAnnotationPairForContext: function () {
+        var compareContexts = [];
+            
         for (var paper in sparql.recommendations.papers) {
             for (var annotation in sparql.recommendations.papers[paper].annotations) {
-                contexts.push(annotation);
+                for (var grouping in sparql.recommendations.papers[paper].annotations[annotation]) {
+                    if (grouping === "skos") {
+                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].skos) {
+                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation);
+                            compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation ]);
+                        }
+                    }
+                    if (grouping === "dbpedia") {
+                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].dbpedia) {
+                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation);
+                            compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation ]);
+                        }
+                    }
+                }
             }
         }
-        console.log(contexts);
+        if (scientificAnnotation.DEBUG) console.log("Fetch context for the following annotations: " + console.log(JSON.stringify(compareContexts, null, 4)));
+        return compareContexts;
     },
     
     ajaxHandler: function (response) {

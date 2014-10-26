@@ -92,7 +92,7 @@ terms:hasPart rdf:type owl:TransitiveProperty ;
               rdfs:comment "A related resource that is included either physically or logically in the described resource."@en ;
               
               owl:inverseOf terms:isPartOf ;
-              
+              rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
               rdfs:subPropertyOf terms:relation .
 
 
@@ -104,7 +104,7 @@ terms:isPartOf rdf:type owl:TransitiveProperty ;
                rdfs:label "is part of"@en ;
                
                rdfs:comment "A related resource in which the described resource is physically or logically included."@en ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:subPropertyOf terms:relation .
 
 
@@ -116,7 +116,7 @@ terms:relation rdf:type owl:SymmetricProperty ;
                rdfs:label "has relation"@en ;
                
                rdfs:comment "A related resource."@en ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:subPropertyOf owl:topObjectProperty .
 
 
@@ -141,7 +141,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty .
 <http://eis.iai.uni-bonn.de/semann/0.2/sdeo#Author> rdf:type owl:Class ;
                                                     
                                                     rdfs:label "author"@en ;
-                                                    
+                                                    rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                                     rdfs:comment "Author's name of the publication."@en .
 
 
@@ -151,7 +151,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty .
 <http://eis.iai.uni-bonn.de/semann/0.2/sdeo#Keywords> rdf:type owl:Class ;
                                                       
                                                       rdfs:label "keywords"@en ;
-                                                      
+                                                      rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                                       rdfs:comment "Key words and terms that describe the publication. Usually listed under a separate header in the publication."@en .
 
 
@@ -161,7 +161,7 @@ owl:topObjectProperty rdf:type owl:ObjectProperty .
 <http://eis.iai.uni-bonn.de/semann/0.2/sdeo#Title> rdf:type owl:Class ;
                                                    
                                                    rdfs:label "title"@en ;
-                                                   
+                                                   rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                                    rdfs:comment "Research publication's title."@en .
 
 
@@ -173,7 +173,7 @@ deo:Acknowledgements rdf:type owl:Class ;
                      rdfs:label "acknowledgements"@en ;
                      
                      rdfs:subClassOf deo:DiscourseElement ;
-                     
+                     rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                      rdfs:comment "Usually part of the preface, or a separate section in its own right, often as part of the back matter, it acknowledges those, including funding agencies, who contributed to the undertaking of a research project described in a publication, or to the creation of the work in some way. In scientific articles, the acknowledgements are usually placed as a separated section immediately following the Discussion or Conclusions."@en .
 
 
@@ -185,7 +185,7 @@ deo:AuthorContribution rdf:type owl:Class ;
                        rdfs:label "author contribution"@en ;
                        
                        rdfs:subClassOf deo:DiscourseElement ;
-                       
+                       rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                        rdfs:comment "A description of the roles played by an author in the publication."@en .
 
 
@@ -197,7 +197,7 @@ deo:BibliographicReference rdf:type owl:Class ;
                            rdfs:label "bibliographic reference"@en ;
                            
                            rdfs:subClassOf deo:Reference ;
-                           
+                           rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                            rdfs:comment "A reference, usually contained in a footnote or a bibliographic reference list, that refer to another publication, such as a journal article, a book, a book chapter or a Web site. The inclusion of the bibliographic reference in a publication constitutes the performative act of bibliographic citation."@en .
 
 
@@ -209,7 +209,7 @@ deo:Biography rdf:type owl:Class ;
               rdfs:label "biography"@en ;
               
               rdfs:subClassOf deo:DiscourseElement ;
-              
+              rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
               rdfs:comment "Information describing a person and his or her life history and contributions."@en .
 
 
@@ -221,7 +221,7 @@ deo:Caption rdf:type owl:Class ;
             rdfs:label "caption"@en ;
             
             rdfs:subClassOf deo:DiscourseElement ;
-            
+            rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
             rdfs:comment "Text accompanying another item, such as a picture."@en .
 
 
@@ -233,7 +233,7 @@ deo:Data rdf:type owl:Class ;
          rdfs:label "data"@en ;
          
          rdfs:subClassOf deo:DiscourseElement ;
-         
+         rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
          rdfs:comment "A textual description of data used or produced in the work which the document describes, or the data themselves."@en .
 
 
@@ -245,7 +245,7 @@ deo:DatasetDescription rdf:type owl:Class ;
                        rdfs:label "dataset description"@en ;
                        
                        rdfs:subClassOf deo:ExternalResourceDescription ;
-                       
+                       rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                        rdfs:comment "Information describing a dataset held in an external database or repository and including a reference to it, such as a database ID or an accession number."@en .
 
 
@@ -257,7 +257,7 @@ deo:Dedication rdf:type owl:Class ;
                rdfs:label "dedication"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "Text in which the author names the person or people for whom he/she has written the document, or to whose memory it is dedicated."@en .
 
 
@@ -269,7 +269,7 @@ deo:DiscourseElement rdf:type owl:Class ;
                      rdfs:label "discourse element"@en ;
                      
                      rdfs:subClassOf owl:Thing ;
-                     
+                     rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                      rdfs:comment "An element of a document that carries out a rhetorical function."@en .
 
 
@@ -281,7 +281,7 @@ deo:Epilogue rdf:type owl:Class ;
              rdfs:label "epilogue"@en ;
              
              rdfs:subClassOf deo:DiscourseElement ;
-             
+             rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
              rdfs:comment "A piece of writing at the end of a work of literature or drama, usually used to bring closure to the work."@en .
 
 
@@ -300,7 +300,7 @@ deo:ExternalResourceDescription rdf:type owl:Class ;
                                                                        ]
                                                                      )
                                                 ] ;
-                                
+                                rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                 rdfs:comment "Information describing an external resource and including a reference to that resource."@en .
 
 
@@ -312,7 +312,7 @@ deo:FutureWork rdf:type owl:Class ;
                rdfs:label "future work"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "A proposal for new investigation to be undertaken in order to continue and advance the work described in the publication."@en .
 
 
@@ -324,7 +324,7 @@ deo:Introduction rdf:type owl:Class ;
                  rdfs:label "introduction"@en ;
                  
                  rdfs:subClassOf deo:DiscourseElement ;
-                 
+                 rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                  rdfs:comment "An initial description which states the purpose and goals of the following writing, and, in the case of journal articles, typically includes background information on the research topic and a review of related work in the area."@en .
 
 
@@ -336,7 +336,7 @@ deo:Legend rdf:type owl:Class ;
            rdfs:label "legend"@en ;
            
            rdfs:subClassOf deo:Caption ;
-           
+           rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
            rdfs:comment "Informative text that explicitly explains another item, such as a figure or a table."@en .
 
 
@@ -348,7 +348,7 @@ deo:Materials rdf:type owl:Class ;
               rdfs:label "materials"@en ;
               
               rdfs:subClassOf deo:DiscourseElement ;
-              
+              rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
               rdfs:comment "A description in a research paper documenting the specialized materials used in the work described. This description is often combined with a description of the methods used, in a section entitled 'Methods and Materials', 'Experimental' or a related term."@en .
 
 
@@ -360,7 +360,7 @@ deo:Methods rdf:type owl:Class ;
             rdfs:label "methods"@en ;
             
             rdfs:subClassOf deo:DiscourseElement ;
-            
+            rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
             rdfs:comment "A description in a research paper documenting the specialized methods used in the work described. This description is often combined with a description of the materials used, in a section entitled 'Methods and Materials', 'Experimental' or a related term."@en .
 
 
@@ -372,7 +372,7 @@ deo:Model rdf:type owl:Class ;
           rdfs:label "model"@en ;
           
           rdfs:subClassOf deo:DiscourseElement ;
-          
+          rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
           rdfs:comment "A description of a model used or produced by the work described in the publication."@en .
 
 
@@ -384,7 +384,7 @@ deo:Postscript rdf:type owl:Class ;
                rdfs:label "postscript"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "Text added after the signature of a letter, or sometimes after the main body of an essay or book."@en .
 
 
@@ -396,8 +396,8 @@ deo:ProblemStatement rdf:type owl:Class ;
                      rdfs:label "problem statement"@en ;
                      
                      rdfs:subClassOf deo:DiscourseElement ;
-                     
-                     dc:description "A concise description of the issues that needed to be addressed by a work described in the document."@en .
+                     rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
+                     rdfs:comment "A concise description of the issues that needed to be addressed by a work described in the document."@en .
 
 
 
@@ -408,7 +408,7 @@ deo:Prologue rdf:type owl:Class ;
              rdfs:label "prologue"@en ;
              
              rdfs:subClassOf deo:DiscourseElement ;
-             
+             rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
              rdfs:comment "A piece of writing at the beginning of a work of literature or drama, usually used to set the scene or to introduce the work."@en .
 
 
@@ -420,7 +420,7 @@ deo:Reference rdf:type owl:Class ;
               rdfs:label "reference"@en ;
               
               rdfs:subClassOf deo:DiscourseElement ;
-              
+              rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
               rdfs:comment "A reference to a specific part of the document, or to another publication."@en .
 
 
@@ -432,7 +432,7 @@ deo:RelatedWork rdf:type owl:Class ;
                 rdfs:label "related work"@en ;
                 
                 rdfs:subClassOf deo:DiscourseElement ;
-                
+                rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                 rdfs:comment "The authors' critical review of current knowledge by specific reference to others' work, both in terms of substantive findings and theoretical and methodological contributions to a particular topic. This description is often included within the introduction section."@en .
 
 
@@ -444,7 +444,7 @@ deo:Results rdf:type owl:Class ;
             rdfs:label "results"@en ;
             
             rdfs:subClassOf deo:DiscourseElement ;
-            
+            rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
             rdfs:comment "The report of the specific findings of an investigation, given without discussion or conclusion being drawn."@en .
 
 
@@ -456,7 +456,7 @@ deo:SupplementaryInformationDescription rdf:type owl:Class ;
                                         rdfs:label "supplementary information description"@en ;
                                         
                                         rdfs:subClassOf deo:ExternalResourceDescription ;
-                                        
+                                        rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                         rdfs:comment "Information describing supplementary information relating to the document, including references or links to the relevant supplementary information."@en .
                                         
 
@@ -466,6 +466,7 @@ sro:Abstract rdf:type owl:Class ;
                                                       
                                                       rdfs:label "abstract"@en ;
                                                       rdfs:subClassOf deo:DiscourseElement ;
+                                                      rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                                                       rdfs:comment "A brief summary of a research publication or any in-depth analysis of a particular subject or discipline, the purpose of which is to help the reader quickly ascertain the publication's purpose."@en .
                                                       
 
@@ -476,7 +477,7 @@ sro:Background rdf:type owl:Class ;
                rdfs:label "background"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "Presentation of information that is essential for understanding the situation or problem that is the subject of the publication. In a journal article, the background is usually part of the Introduction, but may be present as separated section."@en .
 
 
@@ -488,7 +489,7 @@ sro:Conclusion rdf:type owl:Class ;
                rdfs:label "conclusion"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "A reflection on the preceding text, summarizing the evidence, arguments or premises presented in the document and their logical outcomes. Conclusions are a fundamental feature in academic research publications, and may be included in the Discussion section."@en .
 
 
@@ -500,7 +501,7 @@ sro:Contribution rdf:type owl:Class ;
                  rdfs:label "contribution"@en ;
                  
                  rdfs:subClassOf deo:DiscourseElement ;
-                 
+                 rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                  rdfs:comment "A description of the part that this publication plays in the overall field."@en .
 
 
@@ -512,7 +513,7 @@ sro:Discussion rdf:type owl:Class ;
                rdfs:label "discussion"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "An interpretation and discussion of the results obtained and an analysis of their significance, in support of conclusions. These conclusions may be part of this discussion or may be included in a separate section of the document."@en .
 
 
@@ -524,7 +525,7 @@ sro:Evaluation rdf:type owl:Class ;
                rdfs:label "evaluation"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "A consideration of the value, meaning and significance of the results obtained."@en .
 
 
@@ -536,7 +537,7 @@ sro:Motivation rdf:type owl:Class ;
                rdfs:label "motivation"@en ;
                
                rdfs:subClassOf deo:DiscourseElement ;
-               
+               rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
                rdfs:comment "A description of the justification for undertaking the work described in the publication."@en .
 
 
@@ -548,7 +549,7 @@ sro:Scenario rdf:type owl:Class ;
              rdfs:label "scenario"@en ;
              
              rdfs:subClassOf deo:DiscourseElement ;
-             
+             rdfs:isDefinedBy <http://eis.iai.uni-bonn.de/semann/0.2/sdeo>;
              rdfs:comment "A presentation of a use case or test, based on a real or hypothetical situation, used to help someone think through a complex problem or system."@en .
 
 

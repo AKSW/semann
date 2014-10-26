@@ -16,10 +16,11 @@
 var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
-    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph',
-    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta',
+    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation',
+    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation',
     GRAPH_NAME_EIS : 'http://eis.iai.uni-bonn.de/semann/graph/cube',
     GRAPH_DBPEDIA : 'http://dbpedia.org',
+    GRAPH_RULES : 'http://eis.iai.uni-bonn.de/semann/0.2/rules',
     // annotation properties
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
     PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
@@ -87,7 +88,7 @@ var sparql  = {
             if (sparql.triple[tripleObject]) {
                 sparql.triple[tripleObject].uri = uriValue;
                 if (jQuery.isEmptyObject(sparql.triple[tripleObject].info)) {
-                    sparql.triple[tripleObject].label = labelValue;
+                    sparql.triple[tripleObject].label = labelValue.replace(/\"/g, '\\"'); //escape quotation marks
                 }
                 if (wasTrimmed) inputObject.val(labelValue);
                 sparql.updateDrawing(drawObject, uriValue);
@@ -108,7 +109,7 @@ var sparql  = {
             }
             if (sparql.triple[tripleObject]) {
                 if (!jQuery.isEmptyObject(rangyObject)) sparql.triple[tripleObject].info = rangyObject;
-                if (selectionText)  sparql.triple[tripleObject].label = selectionText;
+                if (selectionText)  sparql.triple[tripleObject].label = selectionText.replace(/\"/g, '\\"'); //escape quotation marks
             } else {
                 if (scientificAnnotation.DEBUG) console.warn("Failed to set triple information. Only the following input elements are allowed: "+[scientificAnnotation.INPUT_SUBJECT.attr('id'), scientificAnnotation.INPUT_OBJECT.attr('id')].toString());
                 messageHandler.showWarningMessage('User inputs got corrupted.');
@@ -442,61 +443,6 @@ var sparql  = {
         return insertQuery;
     },
     
-    /**
-     * Query for inserting annotations into the tree graph.
-     *
-     * @param object of resource URIs
-     * @return {String}
-     */
-    insertMetaTreeQuery0:function(q){
-        var insertQuery =
-            'INSERT' +'\n'+
-            '{' + '\n\t'+
-                'GRAPH <' + sparql.GRAPH_META_NAME + '> { ?parent ' +q.hasPart+ ' ?child . }' + '\n'+
-            '}' + '\n'+
-            'FROM <' +sparql.GRAPH_NAME + '>' + '\n'+
-            'WHERE' + '\n'+
-            '{' + '\n\t'+
-                '{' + '\n\t\t'+
-                    'SELECT ?child MIN(?padding) as ?minPadding' + '\n\t\t'+
-                    'WHERE' + '\n\t\t'+
-                    '{' + '\n\t\t\t'+
-                        '?child a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
-                        '?parent a ' +q.AnnotationType+ ' .' + '\n\t\t\t'+
-                        '?p_Cfile ' +q.hasAnnotation+ ' ?child .' + '\n\t\t\t'+
-                        '?Pfile ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t\t'+
-                        'FILTER (sameTerm(?p_Cfile, ?Pfile))' + '\n\t\t\t'+
-                        'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t\t'+
-                        'FILTER (?padding > 0)' + '\n\t\t\t'+
-                        'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t\t'+
-                        'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t\t'+
-                        'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t\t'+
-                        'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t\t\t'+
-                        'FILTER (?p_Cfile = ' +q.Publication+ ')' + '\n\t\t'+
-                    '}' + '\n\t'+
-                '}' + '\n\t'+
-                '{' + '\n\t\t'+
-                    '?parent a <http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation> .' + '\n\t\t'+
-                    '?Cfile ' +q.hasAnnotation+ ' ?child .' + '\n\t\t'+
-                    '?Pfile ' +q.hasAnnotation+ ' ?parent .' + '\n\t\t'+
-                    'FILTER (sameTerm(?Cfile, ?Pfile))' + '\n\t\t'+
-                    'FILTER (?PcharStart <= ?CcharStart AND ?PcharEnd >= ?CcharEnd)' + '\n\t\t'+
-                    'FILTER (?padding = ?minPadding)' + '\n\t\t'+
-                    'BIND (STRBEFORE(STRAFTER(STR(?child), "char="), "&") as ?CcharParam)' + '\n\t\t'+
-                    'BIND (STRDT(STRBEFORE(?CcharParam, ","), xsd:integer) as ?CcharStart)' + '\n\t\t'+
-                    'BIND (STRDT(STRAFTER(?CcharParam, ","), xsd:integer) as ?CcharEnd)' + '\n\t\t'+
-                    'BIND (STRBEFORE(STRAFTER(STR(?parent), "char="), "&") as ?PcharParam)' + '\n\t\t'+
-                    'BIND (STRDT(STRBEFORE(?PcharParam, ","), xsd:integer) as ?PcharStart)' + '\n\t\t'+
-                    'BIND (STRDT(STRAFTER(?PcharParam, ","), xsd:integer) as ?PcharEnd)' + '\n\t\t'+
-                    'BIND (?CcharStart-?PcharStart+?PcharEnd-?CcharEnd as ?padding)' + '\n\t'+
-                '}' + '\n'+
-            '}';
-        if (scientificAnnotation.DEBUG) console.log(insertQuery);
-        return insertQuery;
-    },
     
     /**
      * Deletes all triples that are referring to the specified file from the meta graph.
@@ -555,42 +501,6 @@ var sparql  = {
                                 '?PROPERTY rdfs:label ?LABEL. FILTER (lang(?LABEL) = "en")' +'\n'+
                             '}' +'\n'+
                             'ORDER BY fn:lower-case(?LABEL) LIMIT '+sparql.AUTO_COMPLETE_RESULT_LIMIT;
-        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
-        return selectQuery;
-    },
-    
-
-    /**
-     * Query for returning a list of recommendations.
-     *
-     * @return {String}
-     */
-    selectRecommendationsQuery :function(){
-
-        var q = sparql.resource();
-        var selectQuery =
-            'SELECT ?file ' +'\n'+
-            'WHERE ' +'\n'+
-            '{' +'\n\t'+
-                'SELECT ?file ?s ?p ?o ?curr_o FROM <'+sparql.GRAPH_NAME+'> ' +'\n\t'+
-                'WHERE ' +'\n\t'+
-                '{' +'\n\t\t'+
-                    '{' +'\n\t\t\t'+
-                        q.Publication+' '+q.hasAnnotation+' ?curr_excerpt .' +'\n\t\t\t'+
-                        '?curr_excerpt ?curr_prop ?curr_obj.' +'\n\t\t\t'+
-                        '?curr_obj ' + q.label + ' ?curr_o.' +'\n\t\t'+
-                    '}' +'\n\t\t'+
-                    '{' +'\n\t\t\t'+
-                        '?file '+q.hasAnnotation+' ?excerpt .' +'\n\t\t\t'+
-                        '?excerpt ' + q.label + ' ?s. ?excerpt ?prop ?obj.' +'\n\t\t\t'+
-                        '?prop ' + q.label + ' ?p.' +'\n\t\t\t'+
-                        '?obj ' + q.label + ' ?o.' +'\n\t\t'+
-                    '}' +'\n\t\t'+
-                    'FILTER (?obj in (?curr_obj) and !sameTerm('+q.Publication+', ?file))' +'\n\t'+
-                '}' +'\n'+
-            '}' +'\n'+
-            'GROUP BY ?file ' +'\n'+
-            'ORDER BY DESC(count(?file))  LIMIT '+sparql.SIMILAR_RESULT_LIMIT ;
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
     },
@@ -654,6 +564,34 @@ var sparql  = {
                 'FILTER (STRSTARTS(STR(?aType), "' +sparql.GRAPH_DBPEDIA+ '")) ' +'\n\t'+
                 'FILTER (?curr_file = ' +q.Publication+ ')' +'\n\t'+
                 'FILTER (!sameTerm(?curr_file, ?file))' +'\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
+        return selectQuery;
+    },
+    
+    /**
+     * Query for returning a common parent SDEO ontology context between 2 annotations from different papers
+     * @param {Array} a pair of annotations for which to find shared context
+     * @return {String}
+     */
+    selectCommonContextQuery :function(annotationPair){
+        var q = sparql.resource();
+        var selectQuery =
+            'DEFINE input:inference "' +sparql.GRAPH_RULES+ '"' +'\n'+
+            'SELECT DISTINCT ?parent ?parentType ?thisParent ?label' +'\n'+
+            'FROM <' +sparql.GRAPH_NAME+ '>' +'\n'+
+            'FROM <' +sparql.GRAPH_META_NAME+ '>' +'\n'+
+            'FROM <' +sparql.ONTOLOGY_SDEO+ '>' +'\n'+
+            'WHERE' +'\n'+
+            '{' +'\n\t'+
+                '{' +'\n\t\t'+
+                    '?parent <http://purl.org/dc/terms/hasPart> <' +annotationPair[0]+ '> .' +'\n\t\t'+
+                    '?parent a ?parentType .' +'\n\t\t'+
+                    '?parentType <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <' +sparql.ONTOLOGY_SDEO+ '> .' +'\n\t\t'+
+                    '?thisParent <http://purl.org/dc/terms/hasPart> <' +annotationPair[1]+ '> .' +'\n\t\t'+
+                    '?thisParent a ?parentType .' +'\n\t'+
+                '}' +'\n\t'+
+                '{ ?parent <http://www.w3.org/2000/rdf-schema#label> ?label. }' +'\n'+
             '}';
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;

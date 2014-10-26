@@ -75,26 +75,6 @@ var sparqlResponseParser  = {
      * @param JSON response
      * @returns {Array} of results
      */
-    parseSimilarSearch:function(response) {
-
-        var items = [];
-
-        $.each(response, function(name, value) {
-            if(name == 'results'){
-                $.each(value.bindings, function(index,item) {
-                    items.push(item.file.value);
-                });
-            }
-        });
-        return items;
-    },
-    
-    /**
-     * Parse the json response and return as array
-     *
-     * @param JSON response
-     * @returns {Array} of results
-     */
     parseLoadOntology:function(response) {
 
         var items = [];
@@ -182,7 +162,7 @@ var sparqlResponseParser  = {
                     var ann = sparql.recommendations.papers[item.file.value];
                     ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "skos": {}} : ann[item.a.value];
                     var cat = ann.annotations[item.a.value];
-                    cat.skos[item.curr_category.value] = (jQuery.isEmptyObject(cat.skos[item.curr_category.value])) ? { "label": categoryLabel, "subjectOf":  item.aType.value, "thisSubjectOf": item.curr_aType.value } : cat.skos[item.curr_category.value];
+                    cat.skos[item.curr_category.value] = (jQuery.isEmptyObject(cat.skos[item.curr_category.value])) ? { "thisAnnotation": item.curr_a.value, "label": categoryLabel, "subjectOf":  item.aType.value, "thisSubjectOf": item.curr_aType.value } : cat.skos[item.curr_category.value];
                 });
             }
         });
@@ -204,11 +184,35 @@ var sparqlResponseParser  = {
                     var ann = sparql.recommendations.papers[item.file.value];
                     ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "dbpedia": {}} : ann[item.a.value];
                     var cat = ann.annotations[item.a.value];
-                    cat.dbpedia[item.aType.value] = (jQuery.isEmptyObject(cat[item.aType.value])) ? { "label": null } : cat.dbpedia[item.aType.value];
+                    cat.dbpedia[item.aType.value] = (jQuery.isEmptyObject(cat[item.aType.value])) ? { "thisAnnotation": item.curr_a.value, "label": null } : cat.dbpedia[item.aType.value];
                 });
             }
         });
         return sparql.recommendations;
+    },
+    
+    /**
+     * Parse json response of recommendation contexts.
+     *
+     * @return JSON response
+     * @returns {Object} of recommendations 
+     */
+    parseCommonContextQuery :function(response){
+        
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    //sparql.recommendations.papers[item.file.value] = (jQuery.isEmptyObject(sparql.recommendations.papers[item.file.value])) ? { "label": item.fileLabel.value, "annotations": {}} : sparql.recommendations.papers[item.file.value];
+                    //var ann = sparql.recommendations.papers[item.file.value];
+                    //ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "dbpedia": {}} : ann[item.a.value];
+                    //var cat = ann.annotations[item.a.value];
+                    //cat.dbpedia[item.aType.value] = (jQuery.isEmptyObject(cat[item.aType.value])) ? { "thisAnnotation": item.curr_a.value, "label": null } : cat.dbpedia[item.aType.value];
+                    alert();
+                });
+            }
+        });
+        return true;
+        //return sparql.recommendations;
     },
     
     /**
