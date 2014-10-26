@@ -19,6 +19,7 @@ var sparql  = {
     GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph',
     GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta',
     GRAPH_NAME_EIS : 'http://eis.iai.uni-bonn.de/semann/graph/cube',
+    GRAPH_DBPEDIA : 'http://dbpedia.org',
     // annotation properties
     PREFIX_FILE : "http://eis.iai.uni-bonn.de/semann/pdf/",
     PREFIX_PUB : "http://eis.iai.uni-bonn.de/semann/publication/",
@@ -32,6 +33,7 @@ var sparql  = {
     // For auto complete property and object maximum size of the list
     AUTO_COMPLETE_RESULT_LIMIT : 200,
     ontologies: {}, //holds all ontologies
+    recommendations: { papers: {} }, //holds all recommendations
     
     triple: { //holds triple SPO values to be added into the database. Comes with convenience methods
         
@@ -522,7 +524,71 @@ var sparql  = {
         if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
     },
-
+    
+    /**
+     * Query for returning a list of recommendations where DBpedia resources share the same SKOS category.
+     *
+     * @return {String}
+     */
+    selectRecommendationsBySKOSCategoryQuery :function(){
+        var q = sparql.resource();
+        var selectQuery =
+            'SELECT distinct ?curr_a ?curr_aType ?file ?a ?aType ?curr_category ?category_label ?fileLabel ?aLabel' +'\n'+
+            'WHERE' +'\n'+
+            '{' +'\n\t'+
+                'GRAPH <' +sparql.GRAPH_NAME+ '> {' +'\n\t\t'+
+                    '?curr_file ' +q.hasAnnotation + ' ?curr_a .' +'\n\t\t'+
+                    '?curr_a a ?curr_aType .' +'\n\t\t'+
+                    'FILTER (?curr_file = ' +q.Publication+ ')' +'\n\t\t'+
+                    'FILTER (STRSTARTS(STR(?curr_aType), "' +sparql.GRAPH_DBPEDIA+ '"))' +'\n\t\t'+
+                '}' +'\n\t'+
+                'GRAPH <' +sparql.GRAPH_NAME+ '> {' +'\n\t\t'+
+                    '?file ' +q.hasAnnotation + ' ?a .' +'\n\t\t'+
+                    //'?file <http://www.w3.org/2000/rdf-schema#label> ?fileLabel .' +'\n\t\t'+
+                    '?a a ?aType .' +'\n\t\t'+
+                    //'?a <http://www.w3.org/2000/rdf-schema#label> ?aLabel .' +'\n\t\t'+
+                    'FILTER (STRSTARTS(STR(?aType), "' +sparql.GRAPH_DBPEDIA+ '")) ' + '\n\t\t'+
+                '}' +'\n\t'+
+                'FILTER (!sameTerm(?curr_file, ?file))' +'\n\t'+
+                'FILTER (!sameTerm(?curr_aType, ?aType))' +'\n\t'+
+                '?file <http://www.w3.org/2000/rdf-schema#label> ?fileLabel .' +'\n\t\t'+
+                '?a <http://www.w3.org/2000/rdf-schema#label> ?aLabel .' +'\n\t\t'+
+                'GRAPH <' +sparql.GRAPH_DBPEDIA+ '> {' +'\n\t\t'+
+                    '?curr_aType <http://purl.org/dc/terms/subject> ?curr_category .' +'\n\t\t'+
+                    '?aType <http://purl.org/dc/terms/subject> ?curr_category .' +'\n\t\t'+
+                    'OPTIONAL {?curr_category <http://www.w3.org/2004/02/skos/core#prefLabel> ?category_label . }' + '\n\t'+
+                '}' +'\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
+        return selectQuery;
+    },
+    
+    /**
+     * Query for returning a list of recommendations which share the same DBpedia resources.
+     *
+     * @return {String}
+     */
+    selectRecommendationsByDBpediaQuery :function(){
+        var q = sparql.resource();
+        var selectQuery =
+            'SELECT ?curr_a ?aType ?a ?file ?fileLabel ?aLabel' +'\n'+
+            'FROM <' +sparql.GRAPH_NAME+ '>' +'\n'+
+            'WHERE' +'\n'+
+            '{' +'\n\t'+
+                '?curr_file ' +q.hasAnnotation+ ' ?curr_a .' +'\n\t'+
+                '?curr_a a ?aType .' +'\n\t'+
+                '?file ' +q.hasAnnotation+ ' ?a .' +'\n\t'+
+                '?file <http://www.w3.org/2000/rdf-schema#label> ?fileLabel .' +'\n\t'+
+                '?a a ?aType .' +'\n\t'+
+                '?a <http://www.w3.org/2000/rdf-schema#label> ?aLabel .' +'\n\t'+
+                'FILTER (STRSTARTS(STR(?aType), "' +sparql.GRAPH_DBPEDIA+ '")) ' +'\n\t'+
+                'FILTER (?curr_file = ' +q.Publication+ ')' +'\n\t'+
+                'FILTER (!sameTerm(?curr_file, ?file))' +'\n'+
+            '}';
+        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
+        return selectQuery;
+    },
+    
     /**
      * Updates the triple drawing in UI to reflect the state of triple values
      *

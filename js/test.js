@@ -130,6 +130,43 @@ var test  = {
     bindEvents: function () {
                 
         $("#test").bind("click", function () {
+            var myDBpediaRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsByDBpediaQuery());
+            myDBpediaRecommendations.done( function(response) {
+                if( response && response.results.bindings.length >0) {
+                    console.log(response);
+                    var r = sparqlResponseParser.parseRecommendationsByDBpedia(response);
+                    console.log(JSON.stringify(r, null, 4));
+                } else {
+                    messageHandler.showWarningMessage('No recommendations found for this file.');
+                }
+            });
+            
+            var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQuery());
+            //var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQuery());
+            //var mySkosRecommendations = sparql.makeAjaxRequest(sparql.selectRecommendationsBySKOSCategoryQueryNew());
+            mySkosRecommendations.done( function(response) {
+                if( response && response.results.bindings.length >0) {
+                    console.log(response);
+                    var r = sparqlResponseParser.parseRecommendationsBySKOSCategory(response);
+                    console.log(JSON.stringify(r, null, 4));
+                    
+                } else {
+                    messageHandler.showWarningMessage('No recommendations found for this file.');
+                }
+            });
+            
+            var myRecommendationInfo;
+            
+            $.when( //when both ajax calls are done
+                myDBpediaRecommendations,
+                mySkosRecommendations
+            ).then(function(){
+                alert("all done");
+                for (var paper in sparql.recommendations.papers) {
+                    var splitArray = paper.split("/");
+                    scientificAnnotation.addRecommendation(splitArray[splitArray.length-1]);
+                }
+            });
             /*
             var s = window.getSelection();
             var oRange = s.getRangeAt(0); //get the text range

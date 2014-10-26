@@ -430,6 +430,29 @@ var scientificAnnotation  = {
     },
 
     /**
+     * Adds recommendations to the UI. Each recommendation is a collapsible accordion.
+     * @return void
+     */
+    addRecommendation:function(fileURI){
+        var escapedId = "#" + fileURI.replace( /(:|\.|\[|\])/g, "\\$1" ); //selectors don't work with chars like ".", ":". They should be escaped with "\\"
+        var selector = $(escapedId);
+        var isDuplicate = (selector.length) ? true : false;
+        if (!isDuplicate) {
+            var htmlTemplate = '<div class="panel panel-default">' +'\n'+
+                                            '<div class="panel-heading">' +'\n'+
+                                                '<h4 class="panel-title">' + '\n'+
+                                                    '<a data-toggle="collapse" data-parent="#accordion" href="'+escapedId+'"> ' +fileURI+ ' </a>' + '\n'+
+                                                '</h4>' + '\n'+
+                                            '</div>' + '\n'+
+                                            '<div id="' +fileURI+ '" class="panel-collapse collapse in">' + '\n'+
+                                                '<div class="panel-body"> SMHT </div>' + '\n'+
+                                            '</div>' + '\n'+
+                                        '</div>' + '\n';
+            scientificAnnotation.DIV_RECOMMENDATIONS.append(htmlTemplate);
+        }
+    },
+    
+    /**
      * Hide the available annotation table
      * @return void
      */
@@ -683,6 +706,7 @@ var scientificAnnotation  = {
         scientificAnnotation.DIV_SUBJECT_COUNT = $("#subjectCount");
         scientificAnnotation.DIV_OBJECTS = $("#displayObjectURI");
         scientificAnnotation.DIV_RECOMMENDER = $("#similarPubsList");
+        scientificAnnotation.DIV_RECOMMENDATIONS = $("#recommendations");
         scientificAnnotation.DIV_TRIPLES = $("#displayTriples");
         scientificAnnotation.DIV_DATACUBES = $("#viewSelectedInfoFromPfdTable");
         scientificAnnotation.DIV_VOCABULARIES = $("#vocabularyList");

@@ -163,6 +163,51 @@ var sparqlResponseParser  = {
         return restrictedItems;
     },
     
+    /**
+     * Parse json response of recommendations which share the same SKOS category.
+     *
+     * @return JSON response
+     * @returns {Object} of recommendations 
+     */
+    parseRecommendationsBySKOSCategory :function(response){
+        
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    var categoryLabel = (jQuery.isEmptyObject(item.category_label)) ? null: item.category_label.value;
+                    //var skosValues = { "curr_a" : item.curr_a.value, "curr_aType": item.curr_aType.value, "a": item.a.value, "aType": item.aType.value, "curr_category": item.curr_category.value, "category_label" : categoryLabel };
+                    sparql.recommendations.papers[item.file.value] = (jQuery.isEmptyObject(sparql.recommendations.papers[item.file.value])) ? { "label": item.fileLabel.value, "annotations": {} } : sparql.recommendations.papers[item.file.value];
+                    var ann = sparql.recommendations.papers[item.file.value];
+                    ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "skos": {}} : ann[item.a.value];
+                    var cat = ann.annotations[item.a.value];
+                    cat.skos[item.curr_category.value] = (jQuery.isEmptyObject(cat.skos[item.curr_category.value])) ? { "label": categoryLabel, "subjectOf":  item.aType.value, "thisSubjectOf": item.curr_aType.value } : cat.skos[item.curr_category.value];
+                });
+            }
+        });
+        return sparql.recommendations;
+    },
+    
+    /**
+     * Parse json response of recommendations which share the same DBpedia resource.
+     *
+     * @return JSON response
+     * @returns {Object} of recommendations 
+     */
+    parseRecommendationsByDBpedia :function(response){
+        
+        $.each(response, function(name, value) {
+            if(name == 'results'){
+                $.each(value.bindings, function(index,item) {
+                    sparql.recommendations.papers[item.file.value] = (jQuery.isEmptyObject(sparql.recommendations.papers[item.file.value])) ? { "label": item.fileLabel.value, "annotations": {}} : sparql.recommendations.papers[item.file.value];
+                    var ann = sparql.recommendations.papers[item.file.value];
+                    ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "dbpedia": {}} : ann[item.a.value];
+                    var cat = ann.annotations[item.a.value];
+                    cat.dbpedia[item.aType.value] = (jQuery.isEmptyObject(cat[item.aType.value])) ? { "label": null } : cat.dbpedia[item.aType.value];
+                });
+            }
+        });
+        return sparql.recommendations;
+    },
     
     /**
      * Filters out given URI parameter value from the sURL and returns the values as a string array.
