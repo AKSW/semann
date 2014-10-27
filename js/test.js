@@ -140,59 +140,9 @@ var test  = {
         });
     },
     
-    /**
-     * Retrieves the context of recommendations
-     *
-     * @return void
-     */
-    myContextCheck: function (annotationPairs) {
-        
-        var pair = annotationPairs[annotationPairs.length-1];
-        console.log(pair);
-        var myRecommendationContext = sparql.makeAjaxRequest(sparql.selectCommonContextQuery(pair));
-        myRecommendationContext.done( function(response) {
-                if( response && response.results.bindings.length >0) {
-                    console.log(response);
-                    var r = sparqlResponseParser.parseCommonContextQuery(response);
-                    console.log(JSON.stringify(r, null, 4));
-                } else {
-                    messageHandler.showWarningMessage('No context found for this annotation pair.');
-                }
-        });
-        //sparql.selectCommonContextQuery( ["http://eis.iai.uni-bonn.de/semann/pdf/sample.pdf#page=4?char=11897,11907&id=0/5/1/7:22,0/5/1/7:32", "http://eis.iai.uni-bonn.de/semann/pdf/sampleTable1.pdf#page=1?char=104,115&id=0/19/1/1:1,0/19/1/1:12" ] );
-        annotationPairs.pop();
-        if (annotationPairs.length > 0) test.myContextCheck(annotationPairs);
-    },
     
-    /**
-     * Retrieves the context of recommendations
-     *
-     * @return void
-     */
-    checkAnnotationPairForContext: function () {
-        var compareContexts = [];
-            
-        for (var paper in sparql.recommendations.papers) {
-            for (var annotation in sparql.recommendations.papers[paper].annotations) {
-                for (var grouping in sparql.recommendations.papers[paper].annotations[annotation]) {
-                    if (grouping === "skos") {
-                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].skos) {
-                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation);
-                            compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].skos[match].thisAnnotation ]);
-                        }
-                    }
-                    if (grouping === "dbpedia") {
-                        for (var match in sparql.recommendations.papers[paper].annotations[annotation].dbpedia) {
-                            //console.log("Compare the following (that, this): " +annotation+ " - " + sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation);
-                            compareContexts.push( [ annotation, sparql.recommendations.papers[paper].annotations[annotation].dbpedia[match].thisAnnotation ]);
-                        }
-                    }
-                }
-            }
-        }
-        if (scientificAnnotation.DEBUG) console.log("Fetch context for the following annotations: " + console.log(JSON.stringify(compareContexts, null, 4)));
-        return compareContexts;
-    },
+    
+    
     
     ajaxHandler: function (response) {
         if( response!= null && response.results.bindings.length >0) {

@@ -199,19 +199,39 @@ var sparqlResponseParser  = {
      */
     parseCommonContextQuery :function(response){
         
+        var results = {};
+        var explanationDivs = $('#'+scientificAnnotation.DIV_RECOMMENDATIONS.prop("id")+' .explanation');
+        console.log("expl. "+ explanationDivs.length + " " +explanationDivs);
         $.each(response, function(name, value) {
             if(name == 'results'){
                 $.each(value.bindings, function(index,item) {
+                    $.each(explanationDivs, function(index,div) {
+                        var annotation = $(div).attr("annotation");
+                        var thisAnnotation = $(div).attr("thisAnnotation");
+                        if (annotation === item.annotation.value && thisAnnotation === item.thisAnnotation.value) {
+                            //$(div).after( '<span class="label label-warning">New</span>' );
+                            var label = item.parentType.value;
+                            label = label.split("#");
+                            label = label[label.length-1];
+                            var divContent = $(div).html();
+                            divContent = divContent + '<span class="label label-warning" title="' +item.label.value+ '">' +label+ '</span>' ;
+                            $(div).html(divContent);
+                        }
+                        console.log($(item).attr("annotation"));
+                        //console.log(JSON.stringify(item, null, 4));
+                        //console.log(JSON.stringify(index, null, 4));
+                    });
+                    results["thisAnnotation"] = item.thisAnnotation.value;
                     //sparql.recommendations.papers[item.file.value] = (jQuery.isEmptyObject(sparql.recommendations.papers[item.file.value])) ? { "label": item.fileLabel.value, "annotations": {}} : sparql.recommendations.papers[item.file.value];
                     //var ann = sparql.recommendations.papers[item.file.value];
                     //ann.annotations[item.a.value] = (jQuery.isEmptyObject(ann[item.a.value])) ? { "label": item.aLabel.value, "dbpedia": {}} : ann[item.a.value];
                     //var cat = ann.annotations[item.a.value];
                     //cat.dbpedia[item.aType.value] = (jQuery.isEmptyObject(cat[item.aType.value])) ? { "thisAnnotation": item.curr_a.value, "label": null } : cat.dbpedia[item.aType.value];
-                    alert();
+                    
                 });
             }
         });
-        return true;
+        return results;
         //return sparql.recommendations;
     },
     

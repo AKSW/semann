@@ -570,7 +570,7 @@ var sparql  = {
     },
     
     /**
-     * Query for returning a common parent SDEO ontology context between 2 annotations from different papers
+     * Query for returning a common parent SDEO ontology context between 2 annotations from different papers. Includes inferencing
      * @param {Array} a pair of annotations for which to find shared context
      * @return {String}
      */
@@ -578,22 +578,24 @@ var sparql  = {
         var q = sparql.resource();
         var selectQuery =
             'DEFINE input:inference "' +sparql.GRAPH_RULES+ '"' +'\n'+
-            'SELECT DISTINCT ?parent ?parentType ?thisParent ?label' +'\n'+
+            'SELECT DISTINCT ?parent ?parentType ?thisParent ?label ?annotation ?thisAnnotation' +'\n'+
             'FROM <' +sparql.GRAPH_NAME+ '>' +'\n'+
             'FROM <' +sparql.GRAPH_META_NAME+ '>' +'\n'+
             'FROM <' +sparql.ONTOLOGY_SDEO+ '>' +'\n'+
             'WHERE' +'\n'+
             '{' +'\n\t'+
                 '{' +'\n\t\t'+
-                    '?parent <http://purl.org/dc/terms/hasPart> <' +annotationPair[0]+ '> .' +'\n\t\t'+
+                    '?parent <http://purl.org/dc/terms/hasPart> ?annotation .' +'\n\t\t'+
                     '?parent a ?parentType .' +'\n\t\t'+
                     '?parentType <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <' +sparql.ONTOLOGY_SDEO+ '> .' +'\n\t\t'+
-                    '?thisParent <http://purl.org/dc/terms/hasPart> <' +annotationPair[1]+ '> .' +'\n\t\t'+
+                    '?thisParent <http://purl.org/dc/terms/hasPart> ?thisAnnotation .' +'\n\t\t'+
                     '?thisParent a ?parentType .' +'\n\t'+
+                    'FILTER (?annotation = <' +annotationPair[0]+ '>)' +
+                    'FILTER (?thisAnnotation = <' +annotationPair[1]+ '>)' +
                 '}' +'\n\t'+
                 '{ ?parent <http://www.w3.org/2000/rdf-schema#label> ?label. }' +'\n'+
             '}';
-        if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
+        //if (scientificAnnotation.DEBUG) console.log('Triggering query:\n' +selectQuery);
         return selectQuery;
     },
     
