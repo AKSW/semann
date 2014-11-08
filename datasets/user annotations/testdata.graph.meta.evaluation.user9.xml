@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:dcterms="http://purl.org/dc/terms/" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=357,368&amp;id=0/23/1/1:0,0/23/1/1:11" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,30&amp;id=0/0/1/1:0,0/0/1/1:30" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=13?char=28699,28712&amp;id=0/28/1/25:0,0/28/1/25:13" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=348,1035&amp;id=0/22/1/1:0,0/33/1/1:27" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=916,928&amp;id=0/31/1/1:45,0/31/1/1:57" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=13?char=29763,29785&amp;id=0/45/1/25:0,0/45/1/25:22" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,122&amp;id=0/0/1/1:0,0/12/1/1:1" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1035,1050&amp;id=0/34/1/1:0,0/34/1/1:15" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=915,928&amp;id=0/31/1/1:44,0/31/1/1:57" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=348,1035&amp;id=0/22/1/1:0,0/33/1/1:27">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=357,368&amp;id=0/23/1/1:0,0/23/1/1:11" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=915,928&amp;id=0/31/1/1:44,0/31/1/1:57" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,122&amp;id=0/0/1/1:0,0/12/1/1:1">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,30&amp;id=0/0/1/1:0,0/0/1/1:30" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=915,928&amp;id=0/31/1/1:44,0/31/1/1:57">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=916,928&amp;id=0/31/1/1:45,0/31/1/1:57" />
+  </rdf:Description>
+</rdf:RDF>

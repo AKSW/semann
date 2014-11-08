@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:ns2="http://eis.iai.uni-bonn.de/semann/0.2/owl#"
+	xmlns:ns3="http://www.w3.org/2000/rdf-schema#" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=3?char=6010,6025&amp;id=0/22/1/5:0,0/22/1/5:15" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=4?char=8083,8106&amp;id=0/13/1/7:34,0/13/1/7:57" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=716,731&amp;id=0/28/1/1:21,0/28/1/1:36" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=3741,3760&amp;id=0/21/1/3:51,0/21/1/3:70" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1066&amp;id=0/35/1/1:4,0/35/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2545,2548&amp;id=0/2/1/3:39,0/2/1/3:42" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1063&amp;id=0/35/1/1:4,0/35/1/1:13" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,29&amp;id=0/0/1/1:0,0/0/1/1:29" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=479,492&amp;id=0/25/1/1:0,0/25/1/1:13" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=348,1033&amp;id=0/22/1/1:0,0/33/1/1:25" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=4?char=7177,7182&amp;id=0/0/1/7:13,0/0/1/7:18" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=7?char=15151,15159&amp;id=0/10/1/13:26,0/10/1/13:34" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4192,4211&amp;id=0/30/1/3:0,0/30/1/3:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4588,4596&amp;id=0/37/1/3:19,0/37/1/3:27" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=7?char=16801,16822&amp;id=0/48/1/13:18,0/48/1/13:39" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=31,122&amp;id=0/2/1/1:0,0/12/1/1:1" />
+    <ns3:label xml:lang="en">what are semantic annotations.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2545,2548&amp;id=0/2/1/3:39,0/2/1/3:42">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Resource_Description_Framework" />
+    <ns3:label xml:lang="en">RDF</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1063&amp;id=0/35/1/1:4,0/35/1/1:13">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantics" />
+    <ns3:label xml:lang="en">Semantic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1066&amp;id=0/35/1/1:4,0/35/1/1:16">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">Semantic Web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=348,1033&amp;id=0/22/1/1:0,0/33/1/1:25">
+    <rdf:type rdf:resource="http://salt.semanticauthoring.org/ontologies/sro#Abstract" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Abstract. Annotations of Web resources can be created using traditional document annotation tools or more recent approaches such as semantic wikis, semantic blogs and collaborative tagging. Currently no unified model exists for all these different kinds of annotations, making it difficult both to compare and assess annotation tools and to integrate the various kinds of annotation data. We analyse annotations in various domains and present a unified formal model for semantic annotations. We evaluate existing annotation tools from these different domains and show how to map the data these tools produce onto our formal model, thus allowing to access and represent this data in a unified wa</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=0,29&amp;id=0/0/1/1:0,0/0/1/1:29">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/sdeo#Title" />
+    <ns3:label xml:lang="en">What are Semantic Annotations</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=479,492&amp;id=0/25/1/1:0,0/25/1/1:13">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_wiki" />
+    <ns3:label xml:lang="en">semantic wiki</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4192,4211&amp;id=0/30/1/3:0,0/30/1/3:19">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">document annotation</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4588,4596&amp;id=0/37/1/3:19,0/37/1/3:27">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ontology_(information_science)" />
+    <ns3:label xml:lang="en">ontology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=4?char=7177,7182&amp;id=0/0/1/7:13,0/0/1/7:18">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Markup_language" />
+    <ns3:label xml:lang="en">tags</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=7?char=15151,15159&amp;id=0/10/1/13:26,0/10/1/13:34">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotea" />
+    <ns3:label xml:lang="en">Annotea</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=7?char=16801,16822&amp;id=0/48/1/13:18,0/48/1/13:39">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">document annotations</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=31,122&amp;id=0/2/1/1:0,0/12/1/1:1">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/sdeo#Author" />
+    <ns3:label xml:lang="en">Eyal Oren 1 , Knud Hinnerk M ̈oller 1 , Simon Scerri 1 , Siegfried Handschuh 1 , and Michael Sintek 2</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=716,731&amp;id=0/28/1/1:21,0/28/1/1:36">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">annotation data</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=3741,3760&amp;id=0/21/1/3:51,0/21/1/3:70">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">semantic annotation</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=3?char=6010,6025&amp;id=0/22/1/5:0,0/22/1/5:15">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Tagging systems</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=4?char=8083,8106&amp;id=0/13/1/7:34,0/13/1/7:57">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">ontological annotation</ns3:label>
+  </rdf:Description>
+</rdf:RDF>

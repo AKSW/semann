@@ -217,7 +217,7 @@ var sparqlResponseParser  = {
                             divContent = divContent + '<span class="label label-warning" title="' +item.label.value+ '">' +label+ '</span>' ;
                             $(div).html(divContent);
                         }
-                        console.log($(item).attr("annotation"));
+                        //console.log($(item).attr("annotation"));
                         //console.log(JSON.stringify(item, null, 4));
                         //console.log(JSON.stringify(index, null, 4));
                     });

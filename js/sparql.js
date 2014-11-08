@@ -16,8 +16,13 @@
 var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
-    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation',
-    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation',
+    
+    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation/extra',
+    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation/extra',
+    
+    //GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph',
+    //GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta',
+    
     GRAPH_NAME_EIS : 'http://eis.iai.uni-bonn.de/semann/graph/cube',
     GRAPH_DBPEDIA : 'http://dbpedia.org',
     GRAPH_RULES : 'http://eis.iai.uni-bonn.de/semann/0.2/rules',
@@ -232,7 +237,7 @@ var sparql  = {
             objectIsAnnotation = true;
         }
         if (objectIsAnnotation && sparql.triple.object.uri) {
-            defineObjectType = false;
+            defineObjectType = true;
         }        
         
         var insertQuery = "";

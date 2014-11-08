@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:dcterms="http://purl.org/dc/terms/" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6501,6508&amp;id=0/80/1/5:1,0/80/1/5:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6709,6726&amp;id=0/151/1/5:2,0/158/1/5:0" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1188,1196&amp;id=0/21/1/1:67,0/22/1/1:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1513,1526&amp;id=0/26/1/1:78,0/26/1/1:91" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6352,6362&amp;id=0/3/1/5:3,0/11/1/5:2" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=7044,7047&amp;id=0/279/1/5:2,0/279/1/5:5" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=467,483&amp;id=0/12/1/1:84,0/12/1/1:100" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=2372,2381&amp;id=0/38/1/1:23,0/38/1/1:32" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=551,559&amp;id=0/45/1/1:49,0/45/1/1:57" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=598,614&amp;id=0/46/1/1:9,0/48/1/1:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=1763,1774&amp;id=0/122/1/1:12,0/122/1/1:23" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=4?char=9078,9107&amp;id=0/31/1/7:0,0/31/1/7:29" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=10?char=24477,24485&amp;id=0/56/1/19:1,0/57/1/19:5" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=2?char=5155,5173&amp;id=0/186/1/3:0,0/187/1/3:10" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=5?char=20492,20510&amp;id=0/141/1/9:3,0/143/1/9:9" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=208,222&amp;id=0/25/1/1:9,0/26/1/1:14" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,495&amp;id=0/64/1/1:0,0/66/1/1:9" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,485&amp;id=0/64/1/1:0,0/65/1/1:7" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,495&amp;id=0/64/1/1:0,0/66/1/1:9">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,485&amp;id=0/64/1/1:0,0/65/1/1:7" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1075&amp;id=0/31/1/1:0,0/31/1/1:17" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1078,1094&amp;id=0/32/1/1:0,0/32/1/1:16" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=709,723&amp;id=0/22/1/1:38,0/22/1/1:52" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=897,908&amp;id=0/25/1/1:28,0/25/1/1:39" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1078&amp;id=0/31/1/1:0,0/32/1/1:0" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1078&amp;id=0/31/1/1:0,0/32/1/1:0">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1075&amp;id=0/31/1/1:0,0/31/1/1:17" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=411,440&amp;id=0/17/1/1:50,0/18/1/1:22" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=613,628&amp;id=0/21/1/1:19,0/21/1/1:34" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=719,732&amp;id=0/23/1/1:20,0/23/1/1:33" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=1194,1206&amp;id=0/31/1/1:6,0/31/1/1:18" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=374,380&amp;id=0/20/1/1:35,0/20/1/1:41" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3358,3374&amp;id=0/87/1/1:44,0/87/1/1:60" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=3?char=9920,9930&amp;id=0/82/1/5:53,0/82/1/5:63" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=277,289&amp;id=0/18/1/1:37,0/18/1/1:49" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3325,3343&amp;id=0/87/1/1:11,0/87/1/1:29" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=716,731&amp;id=0/28/1/1:33,0/28/1/1:48" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=693,702&amp;id=0/28/1/1:10,0/28/1/1:19" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=890,894&amp;id=0/32/1/1:11,0/32/1/1:15" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1036,1039&amp;id=0/35/1/1:11,0/35/1/1:14" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1248,1264&amp;id=0/45/1/1:0,0/45/1/1:16" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=884,900&amp;id=0/24/1/1:45,0/24/1/1:61" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=1191,1208&amp;id=0/29/1/1:0,0/29/1/1:17" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=63,76&amp;id=0/1/1/1:10,0/1/1/1:23" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=23,35&amp;id=0/0/1/1:23,0/0/1/1:35" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=932,960&amp;id=0/25/1/1:6,0/25/1/1:34" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=430,436&amp;id=0/10/1/1:35,0/10/1/1:41" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=189,203&amp;id=0/5/1/1:24,0/5/1/1:38" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=165,187&amp;id=0/5/1/1:0,0/5/1/1:22" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=440,449&amp;id=0/10/1/1:45,0/10/1/1:54" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=1063,1081&amp;id=0/20/1/1:36,0/20/1/1:54" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3043,3055&amp;id=0/78/1/1:14,0/78/1/1:26" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3002,3013&amp;id=0/76/1/1:39,0/76/1/1:50" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=4?char=21320,21339&amp;id=0/164/1/7:20,0/165/1/7:4" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=508,524&amp;id=0/30/1/1:0,0/30/1/1:16" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=1169,1182&amp;id=0/41/1/1:29,0/41/1/1:42" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=46,58&amp;id=0/0/1/1:46,0/0/1/1:58" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=540,556&amp;id=0/7/1/1:39,0/7/1/1:55" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=558,563&amp;id=0/7/1/1:57,0/7/1/1:62" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=21,37&amp;id=0/0/1/1:21,0/0/1/1:37" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=904,916&amp;id=0/11/1/1:7,0/11/1/1:19" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=928,938&amp;id=0/11/1/1:31,0/11/1/1:41" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=1028,1046&amp;id=0/15/1/1:6,0/15/1/1:24" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=108,129&amp;id=0/10/1/1:0,0/11/1/1:20" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=494,510&amp;id=0/18/1/1:87,0/20/1/1:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=2?char=7514,7518&amp;id=0/92/1/3:50,0/92/1/3:54" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=10?char=33393,33400&amp;id=0/62/1/19:32,0/64/1/19:6" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=12?char=37815,37824&amp;id=0/1/1/23:28,0/1/1/23:37" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=302,351&amp;id=0/26/1/1:37,0/27/1/1:27" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=294,324&amp;id=0/26/1/1:29,0/26/1/1:59" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=2?char=3859,3878&amp;id=0/39/1/3:2,0/39/1/3:21" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=539,552&amp;id=0/34/1/1:12,0/35/1/1:3" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=717,725&amp;id=0/43/1/1:6,0/43/1/1:14" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=888,902&amp;id=0/48/1/1:35,0/48/1/1:49" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=1208,1222&amp;id=0/58/1/1:0,0/58/1/1:14" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=313,334&amp;id=0/26/1/1:48,0/27/1/1:10" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=302,351&amp;id=0/26/1/1:37,0/27/1/1:27">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=313,334&amp;id=0/26/1/1:48,0/27/1/1:10" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1205,1216&amp;id=0/22/1/1:10,0/22/1/1:21" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1256,1271&amp;id=0/23/1/1:0,0/23/1/1:15" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1508,1557&amp;id=0/30/1/1:4,0/31/1/1:29" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1025,1038&amp;id=0/17/1/1:9,0/18/1/1:13" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1869,1887&amp;id=0/40/1/1:25,0/40/1/1:43" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=296,319&amp;id=0/9/1/1:19,0/9/1/1:42" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=407,419&amp;id=0/11/1/1:12,0/11/1/1:24" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=727,755&amp;id=0/16/1/1:29,0/16/1/1:57" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=832,845&amp;id=0/18/1/1:15,0/18/1/1:28" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=2155,2163&amp;id=0/55/1/1:44,0/55/1/1:52" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=undefined?char=undefined,undefined&amp;id=undefined" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=1589,1600&amp;id=0/41/1/1:53,0/42/1/1:3" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=4?char=18619,18622&amp;id=0/56/1/7:50,0/56/1/7:53" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=6?char=24707,24722&amp;id=0/29/1/11:0,0/29/1/11:15" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=628,636&amp;id=0/21/1/1:13,0/21/1/1:21" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=4?char=11614,11637&amp;id=0/67/1/7:29,0/68/1/7:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=300,309&amp;id=0/12/1/1:14,0/12/1/1:23" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=8?char=23961,23964&amp;id=0/18/1/15:18,0/18/1/15:21" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=5?char=14728,14739&amp;id=0/73/1/9:18,0/75/1/9:8" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=698,710&amp;id=0/46/1/1:3,0/47/1/1:12" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=736,752&amp;id=0/54/1/1:0,0/57/1/1:6" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=151,161&amp;id=0/30/1/1:46,0/31/1/1:10" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=1012,1019&amp;id=0/92/1/1:41,0/93/1/1:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=715,721&amp;id=0/48/1/1:4,0/50/1/1:5" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=481,500&amp;id=0/10/1/1:11,0/10/1/1:30" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=86,102&amp;id=0/5/1/1:9,0/5/1/1:25" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=177,182&amp;id=0/6/1/1:33,0/6/1/1:38" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=719,725&amp;id=0/13/1/1:19,0/13/1/1:25" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=2?char=1848,1865&amp;id=0/1/1/3:36,0/1/1/3:53" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1423,1441&amp;id=0/42/1/1:39,0/42/1/1:57" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1152,1164&amp;id=0/40/1/1:4,0/40/1/1:16" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1787,1801&amp;id=0/45/1/1:96,0/45/1/1:110" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=54,62&amp;id=0/3/1/1:19,0/3/1/1:27" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1241,1252&amp;id=0/40/1/1:93,0/40/1/1:104" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1675,1706&amp;id=0/15/1/1:72,0/15/1/1:103" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=425,472&amp;id=0/7/1/1:0,0/7/1/1:47" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=599,643&amp;id=0/8/1/1:38,0/8/1/1:82" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1435,1470&amp;id=0/13/1/1:121,0/14/1/1:17" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=667,680&amp;id=0/13/1/1:67,0/13/1/1:80" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=984,992&amp;id=0/17/1/1:62,0/17/1/1:70" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=272,279&amp;id=0/9/1/1:1,0/9/1/1:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=211,218&amp;id=0/8/1/1:12,0/8/1/1:19" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=354,362&amp;id=0/10/1/1:5,0/10/1/1:13" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1282,1302&amp;id=0/47/1/1:17,0/47/1/1:37" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=467,474&amp;id=0/24/1/1:23,0/24/1/1:30" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=476,486&amp;id=0/24/1/1:32,0/24/1/1:42" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=573,584&amp;id=0/26/1/1:8,0/26/1/1:19" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1638,1668&amp;id=0/56/1/1:3,0/57/1/1:19" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1338,1349&amp;id=0/194/1/1:5,0/196/1/1:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1266,1280&amp;id=0/184/1/1:0,0/185/1/1:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1285,1300&amp;id=0/187/1/1:0,0/188/1/1:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=52292,52311&amp;id=0/252/1/25:3,0/254/1/25:10" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=53331,53352&amp;id=0/408/1/25:0,0/409/1/25:5" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2028,2041&amp;id=0/12/1/3:17,0/12/1/3:30" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2253,2273&amp;id=0/14/1/3:64,0/14/1/3:84" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2361,2382&amp;id=0/15/1/3:79,0/16/1/3:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=6?char=26207,26233&amp;id=0/2/1/11:1,0/2/1/11:27" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=316,319&amp;id=0/31/1/1:9,0/31/1/1:12" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=972,988&amp;id=0/82/1/1:1,0/83/1/1:16" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=907,923&amp;id=0/75/1/1:0,0/75/1/1:16" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=1024,1033&amp;id=0/86/1/1:2,0/86/1/1:11" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=837,872&amp;id=0/69/1/1:0,0/71/1/1:0" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2165,2181&amp;id=0/243/1/1:0,0/244/1/1:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2989,2999&amp;id=0/355/1/1:24,0/355/1/1:34" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2918,2942&amp;id=0/354/1/1:0,0/354/1/1:24" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=2?char=8301,8308&amp;id=0/748/1/3:5,0/749/1/3:7" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=14?char=76458,76470&amp;id=0/601/1/27:0,0/602/1/27:7" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1272,1290&amp;id=0/23/1/1:0,0/23/1/1:18" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=10?char=42076,42089&amp;id=0/54/1/19:22,0/54/1/19:35" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=723,738&amp;id=0/9/1/1:51,0/9/1/1:66" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1213,1230&amp;id=0/21/1/1:52,0/21/1/1:69" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=160,178&amp;id=0/7/1/1:0,0/7/1/1:18" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=96,111&amp;id=0/4/1/1:12,0/4/1/1:27" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=23?char=58695,58710&amp;id=0/106/1/45:35,0/106/1/45:50" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=190,202&amp;id=0/7/1/1:30,0/7/1/1:42" />
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=758,768&amp;id=0/29/1/1:40,0/30/1/1:10" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=796,805&amp;id=0/30/1/1:38,0/31/1/1:8" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=866,892&amp;id=0/38/1/1:19,0/38/1/1:45" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1148,1160&amp;id=0/49/1/1:16,0/50/1/1:6" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1314,1325&amp;id=0/54/1/1:43,0/55/1/1:7" />
+  </rdf:Description>
+</rdf:RDF>

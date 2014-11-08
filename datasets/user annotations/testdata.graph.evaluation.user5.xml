@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:ns2="http://eis.iai.uni-bonn.de/semann/0.2/owl#"
+	xmlns:ns3="http://www.w3.org/2000/rdf-schema#" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1066&amp;id=0/35/1/1:4,0/35/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=2046,2506&amp;id=0/51/1/1:5,0/1/1/3:79" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4641,4647&amp;id=0/37/1/3:72,0/37/1/3:78" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=3013,3017&amp;id=0/11/1/3:47,0/11/1/3:51" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2994,2998&amp;id=0/11/1/3:28,0/11/1/3:32" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2545,2548&amp;id=0/2/1/3:39,0/2/1/3:42" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4575,4581&amp;id=0/37/1/3:6,0/37/1/3:12" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1479,1482&amp;id=0/41/1/1:27,0/41/1/1:30" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1419,1431&amp;id=0/39/1/1:65,0/39/1/1:77" />
+    <ns3:label xml:lang="en">what are semantic annotations.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2545,2548&amp;id=0/2/1/3:39,0/2/1/3:42">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Resource_Description_Framework" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">RDF</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1419,1431&amp;id=0/39/1/1:65,0/39/1/1:77">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">“annotations</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1479,1482&amp;id=0/41/1/1:27,0/41/1/1:30">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Uniform_resource_identifier" />
+    <ns3:label xml:lang="en">URI</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4575,4581&amp;id=0/37/1/3:6,0/37/1/3:12">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Paris" />
+    <ns3:label xml:lang="en">Paris”</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1054,1066&amp;id=0/35/1/1:4,0/35/1/1:16">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">Semantic Web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=2046,2506&amp;id=0/51/1/1:5,0/1/1/3:79">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://salt.semanticauthoring.org/ontologies/sro#Motivation" />
+    <ns3:label xml:lang="en">Currently, no unified formal model exists to describe these different kinds ? This material is based upon works supported by the Science Foundation Ireland under Grants No. SFI/02/CE1/I131 and SFI/04/BR/CS0694 and by the European Commission under the Nepomuk project FP6-027705. 3 http://www.w3.org/Addressing/ of annotations. The lack of such a model limits the comparison of annotation tools and complicates the integration of annotation data from multiple sources.</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=3013,3017&amp;id=0/11/1/3:47,0/11/1/3:51">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Blog" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">blog</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=2994,2998&amp;id=0/11/1/3:28,0/11/1/3:32">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Wiki" />
+    <ns3:label xml:lang="en">wiki</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=2?char=4641,4647&amp;id=0/37/1/3:72,0/37/1/3:78">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/France" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">France</ns3:label>
+  </rdf:Description>
+</rdf:RDF>

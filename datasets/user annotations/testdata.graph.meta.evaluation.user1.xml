@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:dcterms="http://purl.org/dc/terms/" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf">
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=855,865&amp;id=0/30/1/1:53,0/30/1/1:63" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=9,29&amp;id=0/0/1/1:9,0/0/1/1:29" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=357,376&amp;id=0/23/1/1:0,0/23/1/1:19" />
+    <dcterms:hasPart rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/what%20are%20semantic%20annotations.pdf#page=1?char=1053,1067&amp;id=0/35/1/1:3,0/35/1/1:17" />
+  </rdf:Description>
+</rdf:RDF>

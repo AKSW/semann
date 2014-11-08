@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:ns2="http://eis.iai.uni-bonn.de/semann/0.2/owl#"
+	xmlns:ns3="http://www.w3.org/2000/rdf-schema#" >
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=2?char=3859,3878&amp;id=0/39/1/3:2,0/39/1/3:21">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Semantic Annotation</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=539,552&amp;id=0/34/1/1:12,0/35/1/1:3">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <ns3:label xml:lang="en">annotation and</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=717,725&amp;id=0/43/1/1:6,0/43/1/1:14">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ontology" />
+    <ns3:label xml:lang="en">ontology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=888,902&amp;id=0/48/1/1:35,0/48/1/1:49">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">ntic Web techn</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=294,324&amp;id=0/26/1/1:29,0/26/1/1:59">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">ovel Knowledge and Information</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=2155,2163&amp;id=0/55/1/1:44,0/55/1/1:52">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/DBpedia" />
+    <ns3:label xml:lang="en">DBpedia</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6501,6508&amp;id=0/80/1/5:1,0/80/1/5:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6709,6726&amp;id=0/151/1/5:2,0/158/1/5:0" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1513,1526&amp;id=0/26/1/1:78,0/26/1/1:91" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6352,6362&amp;id=0/3/1/5:3,0/11/1/5:2" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1188,1196&amp;id=0/21/1/1:67,0/22/1/1:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=7044,7047&amp;id=0/279/1/5:2,0/279/1/5:5" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=467,483&amp;id=0/12/1/1:84,0/12/1/1:100" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=2372,2381&amp;id=0/38/1/1:23,0/38/1/1:32" />
+    <ns3:label xml:lang="en">Using Aspect-Oriented Programming to extend Protégé - pdftab in protege.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=467,483&amp;id=0/12/1/1:84,0/12/1/1:100">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Knowledge_base" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">nowledge bases.</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=2372,2381&amp;id=0/38/1/1:23,0/38/1/1:32">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">reasoning</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=7044,7047&amp;id=0/279/1/5:2,0/279/1/5:5">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Portable_Document_Format" />
+    <ns3:label xml:lang="en">PDF</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=300,309&amp;id=0/12/1/1:14,0/12/1/1:23">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Graphical_user_interface" />
+    <ns3:label xml:lang="en">graphical</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=8?char=23961,23964&amp;id=0/18/1/15:18,0/18/1/15:21">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Natural_language_processing" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">NLP</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=5?char=14728,14739&amp;id=0/73/1/9:18,0/75/1/9:8">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en"> semantic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=598,614&amp;id=0/46/1/1:9,0/48/1/1:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=551,559&amp;id=0/45/1/1:49,0/45/1/1:57" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=4?char=9078,9107&amp;id=0/31/1/7:0,0/31/1/7:29" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=10?char=24477,24485&amp;id=0/56/1/19:1,0/57/1/19:5" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=1763,1774&amp;id=0/122/1/1:12,0/122/1/1:23" />
+    <ns3:label xml:lang="en">Integrating Keywords and Semantics on Document Annotation and Search - gontogle_full.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=1763,1774&amp;id=0/122/1/1:12,0/122/1/1:23">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <ns3:label xml:lang="en">Annotations</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=4?char=9078,9107&amp;id=0/31/1/7:0,0/31/1/7:29">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Search_engine_optimization" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Automatic Semantic Annotation</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=10?char=24477,24485&amp;id=0/56/1/19:1,0/57/1/19:5">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Portable_Document_Format" />
+    <ns3:label xml:lang="en">pdf files</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=719,725&amp;id=0/13/1/1:19,0/13/1/1:25">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Pascal_(programming_language)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Pascal</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=52292,52311&amp;id=0/252/1/25:3,0/254/1/25:10">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Relational_DBMS" />
+    <ns3:label xml:lang="en">abase management</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=53331,53352&amp;id=0/408/1/25:0,0/409/1/25:5">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Object_database" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">t-Oriented </ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=2?char=5155,5173&amp;id=0/186/1/3:0,0/187/1/3:10" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=5?char=20492,20510&amp;id=0/141/1/9:3,0/143/1/9:9" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,495&amp;id=0/64/1/1:0,0/66/1/1:9" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,485&amp;id=0/64/1/1:0,0/65/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=208,222&amp;id=0/25/1/1:9,0/26/1/1:14" />
+    <ns3:label xml:lang="en">p257-ben-ari constructivism in computer science education.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=208,222&amp;id=0/25/1/1:9,0/26/1/1:14">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Constructivism_(learning_theory)" />
+    <ns3:label xml:lang="en">ivism</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,495&amp;id=0/64/1/1:0,0/66/1/1:9">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Education" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">computer science education</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=1?char=469,485&amp;id=0/64/1/1:0,0/65/1/1:7">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=2?char=5155,5173&amp;id=0/186/1/3:0,0/187/1/3:10">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Science_education" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Science Education</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/p257-ben-ari%20constructivism%20in%20computer%20science%20education.pdf#page=5?char=20492,20510&amp;id=0/141/1/9:3,0/143/1/9:9">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_literacy" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">puter literacy</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1075&amp;id=0/31/1/1:0,0/31/1/1:17" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=897,908&amp;id=0/25/1/1:28,0/25/1/1:39" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1078&amp;id=0/31/1/1:0,0/32/1/1:0" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1078,1094&amp;id=0/32/1/1:0,0/32/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=709,723&amp;id=0/22/1/1:38,0/22/1/1:52" />
+    <ns3:label xml:lang="en">As noted above, the authors of the Computing Curriculum 2001 document claim that an objects first approach adds complexity to - cooper_dann Teaching objects first in CS.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1075&amp;id=0/31/1/1:0,0/31/1/1:17">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Science_education" />
+    <ns3:label xml:lang="en">Science Education</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1078,1094&amp;id=0/32/1/1:0,0/32/1/1:16">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">Computer Science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=709,723&amp;id=0/22/1/1:38,0/22/1/1:52">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/3D_computer_graphics" />
+    <ns3:label xml:lang="en">animation env</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=897,908&amp;id=0/25/1/1:28,0/25/1/1:39">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Pedagogy" />
+    <ns3:label xml:lang="en">pedagogical</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/As%20noted%20above,%20the%20authors%20of%20the%20Computing%20Curriculum%202001%20document%20claim%20that%20an%20objects%20first%20approach%20adds%20complexity%20to%20-%20cooper_dann%20Teaching%20objects%20first%20in%20CS.pdf#page=1?char=1058,1078&amp;id=0/31/1/1:0,0/32/1/1:0">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Education" />
+    <ns3:label xml:lang="en">Science </ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=613,628&amp;id=0/21/1/1:19,0/21/1/1:34" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=719,732&amp;id=0/23/1/1:20,0/23/1/1:33" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=411,440&amp;id=0/17/1/1:50,0/18/1/1:22" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=1194,1206&amp;id=0/31/1/1:6,0/31/1/1:18" />
+    <ns3:label xml:lang="en">iops_1301.dvi - j.1754-9434.2010.01301 psychology.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=411,440&amp;id=0/17/1/1:50,0/18/1/1:22">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Industrial_&amp;_Organizational_Assessment" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Industrial_and_organizational_psychology" />
+    <ns3:label xml:lang="en">industrial–organizational</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=613,628&amp;id=0/21/1/1:19,0/21/1/1:34">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Evidence-based_practice" />
+    <ns3:label xml:lang="en">evidence-based</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=719,732&amp;id=0/23/1/1:20,0/23/1/1:33">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Social_commentary" />
+    <ns3:label xml:lang="en">e commentarie</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/iops_1301.dvi%20-%20j.1754-9434.2010.01301%20psychology.pdf#page=1?char=1194,1206&amp;id=0/31/1/1:6,0/31/1/1:18">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Feedback" />
+    <ns3:label xml:lang="en">commentaries</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=374,380&amp;id=0/20/1/1:35,0/20/1/1:41" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3358,3374&amp;id=0/87/1/1:44,0/87/1/1:60" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=3?char=9920,9930&amp;id=0/82/1/5:53,0/82/1/5:63" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3325,3343&amp;id=0/87/1/1:11,0/87/1/1:29" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=277,289&amp;id=0/18/1/1:37,0/18/1/1:49" />
+    <ns3:label xml:lang="en">Thymic carcinoma in children - medicine umit.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=374,380&amp;id=0/20/1/1:35,0/20/1/1:41">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Tumor" />
+    <ns3:label xml:lang="en">tumors</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1205,1216&amp;id=0/22/1/1:10,0/22/1/1:21">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Education" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">educational</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1256,1271&amp;id=0/23/1/1:0,0/23/1/1:15">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Active_learning" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">active learning</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1508,1557&amp;id=0/30/1/1:4,0/31/1/1:29">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Technology_enhanced_active_learning" />
+    <ns3:label xml:lang="en">learner engagement with visualization technology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=890,894&amp;id=0/32/1/1:11,0/32/1/1:15" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1036,1039&amp;id=0/35/1/1:11,0/35/1/1:14" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=716,731&amp;id=0/28/1/1:33,0/28/1/1:48" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=693,702&amp;id=0/28/1/1:10,0/28/1/1:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1248,1264&amp;id=0/45/1/1:0,0/45/1/1:16" />
+    <ns3:label xml:lang="en">() - 1006.5276 cosmology.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=716,731&amp;id=0/28/1/1:33,0/28/1/1:48">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Big_Bang_nucleosynthesis" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">nucleosynthesis</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=693,702&amp;id=0/28/1/1:10,0/28/1/1:19">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Cosmology" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">cosmology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=890,894&amp;id=0/32/1/1:11,0/32/1/1:15">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Wilkinson_Microwave_Anisotropy_Probe" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">WMAP</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1036,1039&amp;id=0/35/1/1:11,0/35/1/1:14">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Hubble_Space_Telescope" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">HST</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/()%20-%201006.5276%20cosmology.pdf#page=1?char=1248,1264&amp;id=0/45/1/1:0,0/45/1/1:16">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Sterile_neutrino" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">sterile neutrino</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=63,76&amp;id=0/1/1/1:10,0/1/1/1:23" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=884,900&amp;id=0/24/1/1:45,0/24/1/1:61" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=1191,1208&amp;id=0/29/1/1:0,0/29/1/1:17" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=23,35&amp;id=0/0/1/1:23,0/0/1/1:35" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=932,960&amp;id=0/25/1/1:6,0/25/1/1:34" />
+    <ns3:label xml:lang="en">MEC_5355 5167..5181 - 79e4150752360e0de8 oceanography.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=23,35&amp;id=0/0/1/1:23,0/0/1/1:35">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Oceanography" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">oceanography</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=932,960&amp;id=0/25/1/1:6,0/25/1/1:34">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Genetics" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">genetic distribution pattern</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=884,900&amp;id=0/24/1/1:45,0/24/1/1:61">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Marine_biology" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">marine organism</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=1191,1208&amp;id=0/29/1/1:0,0/29/1/1:17">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Comber_(fish)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Serranus cabrilla</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/MEC_5355%205167..5181%20-%2079e4150752360e0de8%20oceanography.pdf#page=1?char=63,76&amp;id=0/1/1/1:10,0/1/1/1:23">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Mediterranean_Sea" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Mediterranean</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=430,436&amp;id=0/10/1/1:35,0/10/1/1:41" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=440,449&amp;id=0/10/1/1:45,0/10/1/1:54" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=1063,1081&amp;id=0/20/1/1:36,0/20/1/1:54" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=189,203&amp;id=0/5/1/1:24,0/5/1/1:38" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=165,187&amp;id=0/5/1/1:0,0/5/1/1:22" />
+    <ns3:label xml:lang="en">Challenge3: Creativity, Innovation and communication - Muller2007Three sociology.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=189,203&amp;id=0/5/1/1:24,0/5/1/1:38">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Social_realism" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">social realism</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=165,187&amp;id=0/5/1/1:0,0/5/1/1:22">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Sociology_of_knowledge" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">sociology of knowledge</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=440,449&amp;id=0/10/1/1:45,0/10/1/1:54">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Education" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">education</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=1063,1081&amp;id=0/20/1/1:36,0/20/1/1:54">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Education_policy" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">educational policy</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Challenge3:%20Creativity,%20Innovation%20and%20communication%20-%20Muller2007Three%20sociology.pdf#page=1?char=430,436&amp;id=0/10/1/1:35,0/10/1/1:41">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Future" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">future</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=4?char=21320,21339&amp;id=0/164/1/7:20,0/165/1/7:4" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3043,3055&amp;id=0/78/1/1:14,0/78/1/1:26" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3002,3013&amp;id=0/76/1/1:39,0/76/1/1:50" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=508,524&amp;id=0/30/1/1:0,0/30/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=1169,1182&amp;id=0/41/1/1:29,0/41/1/1:42" />
+    <ns3:label xml:lang="en">Microsoft Word - Paper I-Semantics2013 OQT FJ 20130624 Camera Ready.doc - S.Auer - User-driven quality evaluation of DBpedia.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=508,524&amp;id=0/30/1/1:0,0/30/1/1:16">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Linked_data" />
+    <ns3:label xml:lang="en">Linked Open Data</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=1169,1182&amp;id=0/41/1/1:29,0/41/1/1:42">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Crowdsourcing" />
+    <ns3:label xml:lang="en">crowdsourcing</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3043,3055&amp;id=0/78/1/1:14,0/78/1/1:26">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">semantic web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=1?char=3002,3013&amp;id=0/76/1/1:39,0/76/1/1:50">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_extraction" />
+    <ns3:label xml:lang="en">Extraction</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Paper%20I-Semantics2013%20OQT%20FJ%2020130624%20Camera%20Ready.doc%20-%20S.Auer%20-%20User-driven%20quality%20evaluation%20of%20DBpedia.pdf#page=4?char=21320,21339&amp;id=0/164/1/7:20,0/165/1/7:4">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Data_quality_assessment" />
+    <ns3:label xml:lang="en">QUALITY ASSESSMENT</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=558,563&amp;id=0/7/1/1:57,0/7/1/1:62" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=21,37&amp;id=0/0/1/1:21,0/0/1/1:37" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=46,58&amp;id=0/0/1/1:46,0/0/1/1:58" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=540,556&amp;id=0/7/1/1:39,0/7/1/1:55" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=1028,1046&amp;id=0/15/1/1:6,0/15/1/1:24" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=904,916&amp;id=0/11/1/1:7,0/11/1/1:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=928,938&amp;id=0/11/1/1:31,0/11/1/1:41" />
+    <ns3:label xml:lang="en">110 A survey of trust in computer science.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=46,58&amp;id=0/0/1/1:46,0/0/1/1:58">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">Semantic Web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=540,556&amp;id=0/7/1/1:39,0/7/1/1:55">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=558,563&amp;id=0/7/1/1:57,0/7/1/1:62">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">trust</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=21,37&amp;id=0/0/1/1:21,0/0/1/1:37">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=904,916&amp;id=0/11/1/1:7,0/11/1/1:19">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Web_of_trust" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Web of trust</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=928,938&amp;id=0/11/1/1:31,0/11/1/1:41">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Reputation" />
+    <ns3:label xml:lang="en">Reputation</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/110%20A%20survey%20of%20trust%20in%20computer%20science.pdf#page=1?char=1028,1046&amp;id=0/15/1/1:6,0/15/1/1:24">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web_Stack" />
+    <ns3:label xml:lang="en">Semantic Web stack</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=108,129&amp;id=0/10/1/1:0,0/11/1/1:20" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=494,510&amp;id=0/18/1/1:87,0/20/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=12?char=37815,37824&amp;id=0/1/1/23:28,0/1/1/23:37" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=2?char=7514,7518&amp;id=0/92/1/3:50,0/92/1/3:54" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=10?char=33393,33400&amp;id=0/62/1/19:32,0/64/1/19:6" />
+    <ns3:label xml:lang="en">Some Computer Science Issues in&lt;BR&gt; Ubiquitous Computing - Wei93 some computer science issues in ubiquotus computing.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=108,129&amp;id=0/10/1/1:0,0/11/1/1:20">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ubiquitous_computing" />
+    <ns3:label xml:lang="en"> </ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=1?char=494,510&amp;id=0/18/1/1:87,0/20/1/1:7">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">us computing framework. This paper explains what is new and different about the computer s cience in ubiquitous computing. It starts with a brief overview of ubiquitous computing</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=294,324&amp;id=0/26/1/1:29,0/26/1/1:59" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=717,725&amp;id=0/43/1/1:6,0/43/1/1:14" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=888,902&amp;id=0/48/1/1:35,0/48/1/1:49" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=2?char=3859,3878&amp;id=0/39/1/3:2,0/39/1/3:21" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=539,552&amp;id=0/34/1/1:12,0/35/1/1:3" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=1208,1222&amp;id=0/58/1/1:0,0/58/1/1:14" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=313,334&amp;id=0/26/1/1:48,0/27/1/1:10" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=302,351&amp;id=0/26/1/1:37,0/27/1/1:27" />
+    <ns3:label xml:lang="en">KIM_SAP_168.PDF - kim - semantic annotation platform.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=302,351&amp;id=0/26/1/1:37,0/27/1/1:27">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">wledge and Information Management infrastructure a</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=2?char=1848,1865&amp;id=0/1/1/3:36,0/1/1/3:53">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Logic_programming" />
+    <ns3:label xml:lang="en">logic programming</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1025,1038&amp;id=0/17/1/1:9,0/18/1/1:13" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1869,1887&amp;id=0/40/1/1:25,0/40/1/1:43" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1508,1557&amp;id=0/30/1/1:4,0/31/1/1:29" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1205,1216&amp;id=0/22/1/1:10,0/22/1/1:21" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1256,1271&amp;id=0/23/1/1:0,0/23/1/1:15" />
+    <ns3:label xml:lang="en">Microsoft Word - Inroads-2003June-Part02-2adobe.doc - exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1025,1038&amp;id=0/17/1/1:9,0/18/1/1:13">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Visualization_(computer_graphics)" />
+    <ns3:label xml:lang="en">tion</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Inroads-2003June-Part02-2adobe.doc%20-%20exploring_constructivist_learning_theory_and_course_visualization_on_computer_graphics.pdf#page=1?char=1869,1887&amp;id=0/40/1/1:25,0/40/1/1:43">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=837,872&amp;id=0/69/1/1:0,0/71/1/1:0">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_retrieval" />
+    <ns3:label xml:lang="en">Information </ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=296,319&amp;id=0/9/1/1:19,0/9/1/1:42" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=832,845&amp;id=0/18/1/1:15,0/18/1/1:28" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=407,419&amp;id=0/11/1/1:12,0/11/1/1:24" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=727,755&amp;id=0/16/1/1:29,0/16/1/1:57" />
+    <ns3:label xml:lang="en">Real-time</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=296,319&amp;id=0/9/1/1:19,0/9/1/1:42">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Geotagging" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Location-based_service" />
+    <ns3:label xml:lang="en">ocation-based services.</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=407,419&amp;id=0/11/1/1:12,0/11/1/1:24">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">Semantic We</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=727,755&amp;id=0/16/1/1:29,0/16/1/1:57">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Real-time_data" />
+    <ns3:label xml:lang="en">real-time, user-driven data</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Real-time#page=1?char=832,845&amp;id=0/18/1/1:15,0/18/1/1:28">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Microblogging" />
+    <ns3:label xml:lang="en">microblogging</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=4?char=18619,18622&amp;id=0/56/1/7:50,0/56/1/7:53" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=6?char=24707,24722&amp;id=0/29/1/11:0,0/29/1/11:15" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=undefined?char=undefined,undefined&amp;id=undefined" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=1589,1600&amp;id=0/41/1/1:53,0/42/1/1:3" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=2155,2163&amp;id=0/55/1/1:44,0/55/1/1:52" />
+    <ns3:label xml:lang="en">owl sameAs and Linked Data - An Empirical Study.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=undefined?char=undefined,undefined&amp;id=undefined">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Linked_data" />
+    <ns3:label xml:lang="en">linked data</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=1?char=1589,1600&amp;id=0/41/1/1:53,0/42/1/1:3">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <ns3:label xml:lang="en">Semantic Web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=4?char=18619,18622&amp;id=0/56/1/7:50,0/56/1/7:53">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Web_Ontology_Language" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">OWL</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/owl%20sameAs%20and%20Linked%20Data%20-%20An%20Empirical%20Study.pdf#page=6?char=24707,24722&amp;id=0/29/1/11:0,0/29/1/11:15">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Resource_Description_Framework" />
+    <ns3:label xml:lang="en">RDF description</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=313,334&amp;id=0/26/1/1:48,0/27/1/1:10">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_management" />
+    <ns3:label xml:lang="en">Information Management</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/KIM_SAP_168.PDF%20-%20kim%20-%20semantic%20annotation%20platform.pdf#page=1?char=1208,1222&amp;id=0/58/1/1:0,0/58/1/1:14">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Knowledge_base" />
+    <ns3:label xml:lang="en">knowledge base</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1188,1196&amp;id=0/21/1/1:67,0/22/1/1:8">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">documents</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=1?char=1513,1526&amp;id=0/26/1/1:78,0/26/1/1:91">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">mantic Web ap</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6352,6362&amp;id=0/3/1/5:3,0/11/1/5:2">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <ns3:label xml:lang="en"> n o t a t i on</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6501,6508&amp;id=0/80/1/5:1,0/80/1/5:8">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Protégé</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Using%20Aspect-Oriented%20Programming%20to%20extend%20Prot%C3%A9g%C3%A9%20-%20pdftab%20in%20protege.pdf#page=3?char=6709,6726&amp;id=0/151/1/5:2,0/158/1/5:0">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Metadata" />
+    <ns3:label xml:lang="en">sem a nt ic-d oc um </ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=628,636&amp;id=0/21/1/1:13,0/21/1/1:21" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=4?char=11614,11637&amp;id=0/67/1/7:29,0/68/1/7:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=8?char=23961,23964&amp;id=0/18/1/15:18,0/18/1/15:21" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=5?char=14728,14739&amp;id=0/73/1/9:18,0/75/1/9:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=300,309&amp;id=0/12/1/1:14,0/12/1/1:23" />
+    <ns3:label xml:lang="en">gate architecture.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=1?char=628,636&amp;id=0/21/1/1:13,0/21/1/1:21">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <ns3:label xml:lang="en">annotate</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/gate%20architecture.pdf#page=4?char=11614,11637&amp;id=0/67/1/7:29,0/68/1/7:8">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_extraction" />
+    <ns3:label xml:lang="en">Information Extraction</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=551,559&amp;id=0/45/1/1:49,0/45/1/1:57">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Semantic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Integrating%20Keywords%20and%20Semantics%20on%20Document%20Annotation%20and%20Search%20-%20gontogle_full.pdf#page=1?char=598,614&amp;id=0/46/1/1:9,0/48/1/1:8">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ontology_(information_science)" />
+    <ns3:label xml:lang="en"> ontology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=151,161&amp;id=0/30/1/1:46,0/31/1/1:10" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=1012,1019&amp;id=0/92/1/1:41,0/93/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=698,710&amp;id=0/46/1/1:3,0/47/1/1:12" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=736,752&amp;id=0/54/1/1:0,0/57/1/1:6" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=715,721&amp;id=0/48/1/1:4,0/50/1/1:5" />
+    <ns3:label xml:lang="en">Communications of the ACM - August 2013 - areas-wainer productivity across cs fields.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=698,710&amp;id=0/46/1/1:3,0/47/1/1:12">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Productivity" />
+    <ns3:label xml:lang="en">ductivity</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=736,752&amp;id=0/54/1/1:0,0/57/1/1:6">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">C omputer S cience</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=151,161&amp;id=0/30/1/1:46,0/31/1/1:10">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Publishing" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">practices, so applying a single pro</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=1012,1019&amp;id=0/92/1/1:41,0/93/1/1:7">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Journal_Citation_Reports" />
+    <ns3:label xml:lang="en">productivity differs across</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Communications%20of%20the%20ACM%20-%20August%202013%20-%20areas-wainer%20productivity%20across%20cs%20fields.pdf#page=1?char=715,721&amp;id=0/48/1/1:4,0/50/1/1:5">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Impact_factor" />
+    <ns3:label xml:lang="en"> mpact</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=481,500&amp;id=0/10/1/1:11,0/10/1/1:30" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=86,102&amp;id=0/5/1/1:9,0/5/1/1:25" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=177,182&amp;id=0/6/1/1:33,0/6/1/1:38" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=2?char=1848,1865&amp;id=0/1/1/3:36,0/1/1/3:53" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=719,725&amp;id=0/13/1/1:19,0/13/1/1:25" />
+    <ns3:label xml:lang="en">Microsoft Word - 74.doc - logic and the challenge of CS.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=86,102&amp;id=0/5/1/1:9,0/5/1/1:25">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <ns3:label xml:lang="en">computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=177,182&amp;id=0/6/1/1:33,0/6/1/1:38">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Mathematical_logic" />
+    <ns3:label xml:lang="en">logic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%2074.doc%20-%20logic%20and%20the%20challenge%20of%20CS.pdf#page=1?char=481,500&amp;id=0/10/1/1:11,0/10/1/1:30">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Finite_model_theory" />
+    <ns3:label xml:lang="en">finite model theory</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1787,1801&amp;id=0/45/1/1:96,0/45/1/1:110" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1423,1441&amp;id=0/42/1/1:39,0/42/1/1:57" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1152,1164&amp;id=0/40/1/1:4,0/40/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=54,62&amp;id=0/3/1/1:19,0/3/1/1:27" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1241,1252&amp;id=0/40/1/1:93,0/40/1/1:104" />
+    <ns3:label xml:lang="en">Metarel ontology.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=54,62&amp;id=0/3/1/1:19,0/3/1/1:27">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ontology_(information_science)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">ontology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1241,1252&amp;id=0/40/1/1:93,0/40/1/1:104">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Linked_data" />
+    <ns3:label xml:lang="en">Linked Data</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1423,1441&amp;id=0/42/1/1:39,0/42/1/1:57">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Description_logic" />
+    <ns3:label xml:lang="en">Description Logic,</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1152,1164&amp;id=0/40/1/1:4,0/40/1/1:16">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Semantic Web</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Metarel%20ontology.pdf#page=1?char=1787,1801&amp;id=0/45/1/1:96,0/45/1/1:110">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Knowledge_base" />
+    <ns3:label xml:lang="en">knowledge base</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1675,1706&amp;id=0/15/1/1:72,0/15/1/1:103" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1435,1470&amp;id=0/13/1/1:121,0/14/1/1:17" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=425,472&amp;id=0/7/1/1:0,0/7/1/1:47" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=599,643&amp;id=0/8/1/1:38,0/8/1/1:82" />
+    <ns3:label xml:lang="en">Faceted Semantic Search for Scientific Publications.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=425,472&amp;id=0/7/1/1:0,0/7/1/1:47">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_retrieval" />
+    <ns3:label xml:lang="en">Information Retriveal in</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=599,643&amp;id=0/8/1/1:38,0/8/1/1:82">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <ns3:label xml:lang="en">emantic annotation in</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1435,1470&amp;id=0/13/1/1:121,0/14/1/1:17">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Ontology_(information_science)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">linguistic ontology.</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Faceted%20Semantic%20Search%20for%20Scientific%20Publications.pdf#page=1?char=1675,1706&amp;id=0/15/1/1:72,0/15/1/1:103">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Scientific_literature" />
+    <ns3:label xml:lang="en">scienti&#28;c pap er</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=272,279&amp;id=0/9/1/1:1,0/9/1/1:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=667,680&amp;id=0/13/1/1:67,0/13/1/1:80" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=984,992&amp;id=0/17/1/1:62,0/17/1/1:70" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=211,218&amp;id=0/8/1/1:12,0/8/1/1:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=354,362&amp;id=0/10/1/1:5,0/10/1/1:13" />
+    <ns3:label xml:lang="en">CrowdSem13-formatted - crowdsourced semantics with semantic tagging.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=211,218&amp;id=0/8/1/1:12,0/8/1/1:19">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Tag_(metadata)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">tagging</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=354,362&amp;id=0/10/1/1:5,0/10/1/1:13">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Semantic_Web" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Semantic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=667,680&amp;id=0/13/1/1:67,0/13/1/1:80">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Crowdsourcing" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">crowdsourcing</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=984,992&amp;id=0/17/1/1:62,0/17/1/1:70">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">annotate</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/CrowdSem13-formatted%20-%20crowdsourced%20semantics%20with%20semantic%20tagging.pdf#page=1?char=272,279&amp;id=0/9/1/1:1,0/9/1/1:8">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Web_2.0" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Web2.0”</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1282,1302&amp;id=0/47/1/1:17,0/47/1/1:37" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=573,584&amp;id=0/26/1/1:8,0/26/1/1:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1638,1668&amp;id=0/56/1/1:3,0/57/1/1:19" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=467,474&amp;id=0/24/1/1:23,0/24/1/1:30" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=476,486&amp;id=0/24/1/1:32,0/24/1/1:42" />
+    <ns3:label xml:lang="en">sps_sigir2008.dvi - Exploring folksonomy for personalized search.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=467,474&amp;id=0/24/1/1:23,0/24/1/1:30">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Web_2.0" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Web 2.0</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=476,486&amp;id=0/24/1/1:32,0/24/1/1:42">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Folksonomy" />
+    <ns3:label xml:lang="en">folksonomy</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=573,584&amp;id=0/26/1/1:8,0/26/1/1:19">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Annotation" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">annotations</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1638,1668&amp;id=0/56/1/1:3,0/57/1/1:19">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_retrieval" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Information search and Retrieva</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/sps_sigir2008.dvi%20-%20Exploring%20folksonomy%20for%20personalized%20search.pdf#page=1?char=1282,1302&amp;id=0/47/1/1:17,0/47/1/1:37">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Personalized_search" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">personalized search</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=52292,52311&amp;id=0/252/1/25:3,0/254/1/25:10" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=13?char=53331,53352&amp;id=0/408/1/25:0,0/409/1/25:5" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1338,1349&amp;id=0/194/1/1:5,0/196/1/1:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1266,1280&amp;id=0/184/1/1:0,0/185/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1285,1300&amp;id=0/187/1/1:0,0/188/1/1:7" />
+    <ns3:label xml:lang="en">PII: 0167-9236(94)00041-2 - R203-Desugn+and+natrualscience.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1266,1280&amp;id=0/184/1/1:0,0/185/1/1:7">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Design_science_(methodology)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">design science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1285,1300&amp;id=0/187/1/1:0,0/188/1/1:7">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Natural_science" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">natural science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/PII:%200167-9236(94)00041-2%20-%20R203-Desugn+and+natrualscience.pdf#page=1?char=1338,1349&amp;id=0/194/1/1:5,0/196/1/1:8">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_technology" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en"> research</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=277,289&amp;id=0/18/1/1:37,0/18/1/1:49">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Mediastinal_tumor" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">mediastinum</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3325,3343&amp;id=0/87/1/1:11,0/87/1/1:29">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Pediatric_oncology" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">pediatric oncology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=1?char=3358,3374&amp;id=0/87/1/1:44,0/87/1/1:60">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Thymic_carcinoma" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">thymic carcinoma</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Thymic%20carcinoma%20in%20children%20-%20medicine%20umit.pdf#page=3?char=9920,9930&amp;id=0/82/1/5:53,0/82/1/5:63">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Metastasis" />
+    <ns3:label xml:lang="en">Metastasis</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2028,2041&amp;id=0/12/1/3:17,0/12/1/3:30" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=6?char=26207,26233&amp;id=0/2/1/11:1,0/2/1/11:27" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2253,2273&amp;id=0/14/1/3:64,0/14/1/3:84" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2361,2382&amp;id=0/15/1/3:79,0/16/1/3:7" />
+    <ns3:label xml:lang="en">Huelsenbeck2001 evolutionary biology.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2028,2041&amp;id=0/12/1/3:17,0/12/1/3:30">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Phylogenetics" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Molecular_phylogenetics" />
+    <ns3:label xml:lang="en">phylogenetics</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2253,2273&amp;id=0/14/1/3:64,0/14/1/3:84">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Bayesian_inference_in_phylogeny" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Bayesian inference</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=2?char=2361,2382&amp;id=0/15/1/3:79,0/16/1/3:7">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Evolutionary_biology" />
+    <ns3:label xml:lang="en">evolutionary biology</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Huelsenbeck2001%20evolutionary%20biology.pdf#page=6?char=26207,26233&amp;id=0/2/1/11:1,0/2/1/11:27">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Molecular_evolution" />
+    <ns3:label xml:lang="en">volution of the genome</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=907,923&amp;id=0/75/1/1:0,0/75/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=1024,1033&amp;id=0/86/1/1:2,0/86/1/1:11" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=316,319&amp;id=0/31/1/1:9,0/31/1/1:12" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=972,988&amp;id=0/82/1/1:1,0/83/1/1:16" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=837,872&amp;id=0/69/1/1:0,0/71/1/1:0" />
+    <ns3:label xml:lang="en">Docear&#39;s PDF Inspector: Title Extraction from PDF files - Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=316,319&amp;id=0/31/1/1:9,0/31/1/1:12">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Portable_Document_Format" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">PDF</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=972,988&amp;id=0/82/1/1:1,0/83/1/1:16">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Information_extraction" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">tle extraction,</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=907,923&amp;id=0/75/1/1:0,0/75/1/1:16">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Content_analysis" />
+    <ns3:label xml:lang="en">Indexing methods</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Docear&#39;s%20PDF%20Inspector:%20Title%20Extraction%20from%20PDF%20files%20-%20Docear&#39;s_PDF_Inspector_--_Title_Extraction_from_PDF_files.pdf#page=1?char=1024,1033&amp;id=0/86/1/1:2,0/86/1/1:11">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Heuristic" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">heuristic</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=2?char=7514,7518&amp;id=0/92/1/3:50,0/92/1/3:54">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/PARC_(company)" />
+    <ns3:label xml:lang="en">PARC</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=10?char=33393,33400&amp;id=0/62/1/19:32,0/64/1/19:6">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Privacy" />
+    <ns3:label xml:lang="en"> rivacy</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Some%20Computer%20Science%20Issues%20in%3CBR%3E%20Ubiquitous%20Computing%20-%20Wei93%20some%20computer%20science%20issues%20in%20ubiquotus%20computing.pdf#page=12?char=37815,37824&amp;id=0/1/1/23:28,0/1/1/23:37">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Mobile_computing" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">substrate</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2918,2942&amp;id=0/354/1/1:0,0/354/1/1:24" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=2?char=8301,8308&amp;id=0/748/1/3:5,0/749/1/3:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2165,2181&amp;id=0/243/1/1:0,0/244/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2989,2999&amp;id=0/355/1/1:24,0/355/1/1:34" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=14?char=76458,76470&amp;id=0/601/1/27:0,0/602/1/27:7" />
+    <ns3:label xml:lang="en">Newell+Simon-cacm-76.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2165,2181&amp;id=0/243/1/1:0,0/244/1/1:7">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Computer_science" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Computer science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2989,2999&amp;id=0/355/1/1:24,0/355/1/1:34">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Heuristic_(computer_science)" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">heuristics</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=1?char=2918,2942&amp;id=0/354/1/1:0,0/354/1/1:24">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Artificial_intelligence" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">artificial intelligence</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=2?char=8301,8308&amp;id=0/748/1/3:5,0/749/1/3:7">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Symbol" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">ls</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Newell+Simon-cacm-76.pdf#page=14?char=76458,76470&amp;id=0/601/1/27:0,0/602/1/27:7">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Turing_Award" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">A.M. Turing</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1272,1290&amp;id=0/23/1/1:0,0/23/1/1:18" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=10?char=42076,42089&amp;id=0/54/1/19:22,0/54/1/19:35" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=723,738&amp;id=0/9/1/1:51,0/9/1/1:66" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1213,1230&amp;id=0/21/1/1:52,0/21/1/1:69" />
+    <ns3:label xml:lang="en">1110.3309 thermo.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=723,738&amp;id=0/9/1/1:51,0/9/1/1:66">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Superfluid_helium-4" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Fermi_gas" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">uperuidity is</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1213,1230&amp;id=0/21/1/1:52,0/21/1/1:69">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/High-temperature_superconductivity" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">superconductivity</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=1?char=1272,1290&amp;id=0/23/1/1:0,0/23/1/1:18">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Phase_transition" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Phase transitions</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/1110.3309%20thermo.pdf#page=10?char=42076,42089&amp;id=0/54/1/19:22,0/54/1/19:35">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Fermi_liquid_theory" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Fermi Liquid</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=190,202&amp;id=0/7/1/1:30,0/7/1/1:42" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=23?char=58695,58710&amp;id=0/106/1/45:35,0/106/1/45:50" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=160,178&amp;id=0/7/1/1:0,0/7/1/1:18" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=96,111&amp;id=0/4/1/1:12,0/4/1/1:27" />
+    <ns3:label xml:lang="en">Chemical reactions of polymer crosslinking and post-crosslinking at room and medium temperature - 2011117162747744 chemical.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=190,202&amp;id=0/7/1/1:30,0/7/1/1:42">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Cross-link" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Crosslinking_agent" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">crosslinking</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=160,178&amp;id=0/7/1/1:0,0/7/1/1:18">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Chemical_reaction" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Chemical reactions</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=1?char=96,111&amp;id=0/4/1/1:12,0/4/1/1:27">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Polymer_science" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">Polymer Science</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Chemical%20reactions%20of%20polymer%20crosslinking%20and%20post-crosslinking%20at%20room%20and%20medium%20temperature%20-%202011117162747744%20chemical.pdf#page=23?char=58695,58710&amp;id=0/106/1/45:35,0/106/1/45:50">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Click_chemistry" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">click chemistry</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Publication" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1148,1160&amp;id=0/49/1/1:16,0/50/1/1:6" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1314,1325&amp;id=0/54/1/1:43,0/55/1/1:7" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=796,805&amp;id=0/30/1/1:38,0/31/1/1:8" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=866,892&amp;id=0/38/1/1:19,0/38/1/1:45" />
+    <ns2:hasAnnotation rdf:resource="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=758,768&amp;id=0/29/1/1:40,0/30/1/1:10" />
+    <ns3:label xml:lang="en">Microsoft Word - Yaldis.doc - eng-2009-4-329-339 CEYALDIZ.pdf</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=758,768&amp;id=0/29/1/1:40,0/30/1/1:10">
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Cermet" />
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <ns3:label xml:lang="en">with Ni-Mo binders and thin</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=796,805&amp;id=0/30/1/1:38,0/31/1/1:8">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Coating" />
+    <ns3:label xml:lang="en"> coatings</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=866,892&amp;id=0/38/1/1:19,0/38/1/1:45">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Physical_vapor_deposition" />
+    <ns3:label xml:lang="en">Physical Vapor Deposition</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1148,1160&amp;id=0/49/1/1:16,0/50/1/1:6">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Nanocomposite" />
+    <ns3:label xml:lang="en">anocom posite</ns3:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://eis.iai.uni-bonn.de/semann/pdf/Microsoft%20Word%20-%20Yaldis.doc%20-%20eng-2009-4-329-339%20CEYALDIZ.pdf#page=1?char=1314,1325&amp;id=0/54/1/1:43,0/55/1/1:7">
+    <rdf:type rdf:resource="http://eis.iai.uni-bonn.de/semann/0.2/owl#Annotation" />
+    <rdf:type rdf:resource="http://dbpedia.org/resource/Titanium_carbide" />
+    <ns3:label xml:lang="en">r-re sistant</ns3:label>
+  </rdf:Description>
+</rdf:RDF>
