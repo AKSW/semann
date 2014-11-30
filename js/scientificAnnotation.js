@@ -761,6 +761,7 @@ var scientificAnnotation  = {
             if (autoComputeClasses.length > 0) {
                 scientificAnnotation.setAutoComputeDataForField(autoComputeClasses, scientificAnnotation.INPUT_SUBJECT);
                 messageHandler.displayInfo("Refreshed "+autoComputeClasses.length+" classes.", scientificAnnotation.DIV_SUBJECT_COUNT, true);
+                scientificAnnotation.setAutoComputeDataForField(autoComputeClasses, scientificAnnotation.INPUT_OBJECT);
             } else { 
                 messageHandler.showWarningMessage("No classes were extracted from '" +ontologyURL+ "' ontology.")
             }

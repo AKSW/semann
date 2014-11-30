@@ -17,8 +17,8 @@ var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
     
-    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation/extra',
-    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation/extra',
+    GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation',
+    GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation',
     
     //GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph',
     //GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta',
@@ -593,7 +593,7 @@ var sparql  = {
                     '?parent <http://purl.org/dc/terms/hasPart> ?annotation .' +'\n\t\t'+
                     '?parent a ?parentType .' +'\n\t\t'+
                     '?parentType <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <' +sparql.ONTOLOGY_SDEO+ '> .' +'\n\t\t'+
-                    '?thisParent <http://purl.org/dc/terms/hasPart> ?thisAnnotation .' +'\n\t\t'+
+                    '?thisParent <http://purl.org/dc/terms/hasPart>* ?thisAnnotation .' +'\n\t\t'+
                     '?thisParent a ?parentType .' +'\n\t'+
                     'FILTER (?annotation = <' +annotationPair[0]+ '>)' +
                     'FILTER (?thisAnnotation = <' +annotationPair[1]+ '>)' +
