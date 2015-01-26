@@ -638,7 +638,7 @@ var scientificAnnotation  = {
             myDBpediaRecommendations,
             mySkosRecommendations
         ).then(function(){
-            alert("all done");
+            //alert("all done");
             scientificAnnotation.DIV_RECOMMENDATIONS.empty();
             var checkContexts = scientificAnnotation.checkAnnotationPairForContext();
             if (checkContexts.length >  0) scientificAnnotation.recommendationContextCheck(checkContexts); //add a looping ajax call here

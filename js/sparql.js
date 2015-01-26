@@ -185,7 +185,7 @@ var sparql  = {
                     '?prop ' + q.label + ' ?PROPERTY. ' +'\n\t\t'+
                     '?obj ' + q.label + ' ?OBJECT.' +'\n\t'+
                 '}' +'\n'+
-            '}';
+            '} LIMIT 1000';
         if (scientificAnnotation.DEBUG) console.log(selectQuery);
         return selectQuery;
     },
@@ -339,16 +339,12 @@ var sparql  = {
             'SELECT distinct ?class ?classLabel ?classComment' + '\n'+
             'FROM <' +ontologyURL+ '>' + '\n'+
             'WHERE {' + '\n\t'+
-                '{' + '\n\t\t'+
-                    '?class a ?type.' + '\n\t\t'+
-                    'FILTER (?type IN (<http://www.w3.org/2002/07/owl#Class>, <http://www.w3.org/2000/01/rdf-schema#Class> ))' + '\n\t'+
-                '}' + '\n\t'+
+                '{ ?class a <http://www.w3.org/2002/07/owl#Class>. }' + '\n\t'+
+                'UNION { ?class a <http://www.w3.org/2000/01/rdf-schema#Class>. }' + '\n\t'+
                 '{' + '\n\t\t'+
                     'OPTIONAL { ' + '\n\t\t\t'+
                         '?class rdfs:label ?classLabel .' + '\n\t\t\t'+
-                        'FILTER (langMatches(lang(?classLabel),"en") || lang(?classLabel) = "" )' + '\n\t\t'+
-                    '}' + '\n\t\t'+
-                    'OPTIONAL { ' + '\n\t\t\t'+
+                        'FILTER (langMatches(lang(?classLabel),"en") || lang(?classLabel) = "" )' + '\n\t\t\t'+
                         '?class rdfs:comment ?classComment .' + '\n\t\t\t'+
                         'FILTER (langMatches(lang(?classComment),"en") || lang(?classComment) = "" )' + '\n\t\t'+
                     '}' + '\n\t'+
@@ -582,7 +578,7 @@ var sparql  = {
     selectCommonContextQuery :function(annotationPair){
         var q = sparql.resource();
         var selectQuery =
-            'DEFINE input:inference "' +sparql.GRAPH_RULES+ '"' +'\n'+
+            //'DEFINE input:inference "' +sparql.GRAPH_RULES+ '"' +'\n'+
             'SELECT DISTINCT ?parent ?parentType ?thisParent ?label ?annotation ?thisAnnotation' +'\n'+
             'FROM <' +sparql.GRAPH_NAME+ '>' +'\n'+
             'FROM <' +sparql.GRAPH_META_NAME+ '>' +'\n'+
