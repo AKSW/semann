@@ -1,7 +1,8 @@
 # Semantic Annotation Tool for PDF documents
 
-Semann is a web-based semantic annotation tool for PDF files.<br>
-This tool allows you to semantically annotate (as RDF triples) text in PDFs which is then used for recommending similar PDF documents that the end user might find relevant. 
+SemAnn is a web-based semantic annotation tool for PDF documents.<br>
+SemAnn allows you to semantically annotate (using RDF triples) text in PDFs.
+These annotations are then used for recommending similar PDF documents that the reader might find relevant. 
 
 ## Project Current state
 This project is a prototype.
