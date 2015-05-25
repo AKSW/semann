@@ -365,10 +365,10 @@ var sparql  = {
             'SELECT distinct ?property ?propertyLabel ?propertyComment ?domain ?range' + '\n'+
             'FROM <' +ontologyURL+ '>' + '\n'+
             'WHERE {' + '\n\t'+
-                '{' + '\n\t\t'+
-                    '?property a ?type .' + '\n\t\t'+
-                    'FILTER (?type IN (<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>, <http://www.w3.org/2002/07/owl#ObjectProperty>, <http://www.w3.org/2002/07/owl#TransitiveProperty>, <http://www.w3.org/2002/07/owl#SymmetricProperty> ))' + '\n\t'+
-                '}' + '\n\t'+
+		'{ ?property a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> . }' + '\n\t'+
+		'UNION { ?property a <http://www.w3.org/2002/07/owl#ObjectProperty> . }' + '\n\t'+
+		'UNION { ?property a <http://www.w3.org/2002/07/owl#TransitiveProperty> . }' + '\n\t'+
+		'UNION { ?property a <http://www.w3.org/2002/07/owl#SymmetricProperty> . }' + '\n\t'+
                 '{' + '\n\t\t'+
                     'OPTIONAL { ' + '\n\t\t\t'+
                         '?property rdfs:label ?propertyLabel .' + '\n\t\t\t'+
