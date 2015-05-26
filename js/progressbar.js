@@ -16,7 +16,7 @@ var progressbar  = {
      */
     showProgressBar: function(message){
         $('.progress-bar').html(message);
-        $('.progress').fadeIn();
+        $('.progress').show();
     },
 
     /**

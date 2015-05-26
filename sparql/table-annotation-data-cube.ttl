@@ -1,0 +1,119 @@
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+# TODO please change the URI below to something reasonable.  Resources in this namespace don't have to be generated for each table.
+@prefix semann: <http://whatever-you-would-like-to-call.it/#> .
+# TODO you may want to keep the URI below, or change it to something more reasonable; maybe similar to the URIs you have used before
+# TODO anything that starts with this prefix needs to be generated
+@prefix ex: <http://example.org/ns#> .
+
+# each annotated table is a data set
+ex:table1 a qb:DataSet ;
+  # the table is part of the whole document that we annotate (i.e. the URI of the document)
+  dct:isPartOf <.../TheDocument> ;
+  # the dataset in the table has a certain structure (see below)
+  qb:structure ex:dsdTable1 ;
+  # we have a slice (of the data cube) for each column.  Once we know more about what real-world concepts the rows represent (here, each row represents a concrete football team), we will also have a slice for each row.
+  # no of slice = no of column
+  qb:slice ex:table1SliceC1, ex:table1SliceC2, ex:table1SliceC3 .
+
+# definition of the data structure of this table
+# (very simple for now: first we have rows, then we have columns)
+ex:dsdTable1 a qb:DataStructureDefinition ;
+  qb:component
+    [ qb:dimension ex:table1Row ;
+      qb:order 1 ] ,
+    [ qb:dimension ex:table1Column ;
+      qb:order 2 ] ,
+  # TODO Christoph to figure out whether we need qb:componentAttachment qb:Slice here (as in the example from http://www.w3.org/TR/vocab-data-cube/) – a minor issue we can address later
+    # semann:value is part of the _general_ vocabulary of your annotation application; it doesn't change when a different table is annotated
+    # the value of a table cell; TODO rename it to "entry" here and below, if you prefer that
+    [ qb:measure semann:value ] ;
+  qb:sliceKey ex:sliceTable1ByRow .
+
+# TODO the following semann:* resources would, in the end, not go into the RDF generated from annotating one table, but they would be stored in some central vocabulary and merely _referenced_ from the annotation output for a specific table.
+semann:row a rdf:Property, qb:DimensionProperty ;
+  rdfs:label "row"@en ;
+  rdfs:comment "a row of a table"@en ;
+  rdfs:range xsd:nonNegativeInteger .
+
+semann:column a rdf:Property, qb:DimensionProperty ;
+  rdfs:label "column"@en ;
+  rdfs:comment "a column of a table"@en ;
+  rdfs:range xsd:nonNegativeInteger .
+
+semann:value a rdf:Property, qb:MeasureProperty ;
+  rdfs:label "value"@en ;
+  rdfs:comment "the value of a table cell"@en ;
+  rdfs:range rdfs:Literal .
+
+semann:columnHeader a rdf:Property ;
+  rdfs:subPropertyOf dcterms:title .
+
+# now come the _specific_ row and column types for _this_ table.
+#I.e. a row is not just a "row", but it has a more specific meaning.
+#Right now we don't know that in our example table a row corresponds to the real-world concept of a "football team",
+#as this will require further input from the user – but in future we will know it.
+#These specific properties are therefore placeholders to which this "further information" from
+#the user will eventually be attached.
+
+ex:table1Row a rdf:Property, qb:DimensionProperty ;
+  rdfs:subPropertyOf semann:row .
+
+ex:table1Column a rdf:Property, qb:DimensionProperty ;
+  rdfs:subPropertyOf semann:column .
+
+ex:sliceTable1ByRow a qb:SliceKey ;
+  rdfs:label "slice by row"@en ;
+  rdfs:comment "slice by grouping rows together, fixing a column value"@en ;
+  qb:componentProperty ex:table1Column .
+
+# Our sample table looks as follows:
+# 
+# ID, Country, Confederation
+# 1, Spain, UEFA
+
+# Let's use spreadsheet-style names for table cells for now.  But not A1, B2, etc., but R1C1, R2C2, as that's easier to scale.  Row 1 does not contain values, but column headers, so we start from row 2.
+ex:table1R1C1 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:table1Row 1 ;
+  ex:table1Column 1 ;
+  semann:value "1" .
+
+ex:table1R1C2 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:table1Row 1 ;
+  ex:table1Column 2 ;
+  semann:value "Spain" .
+
+ex:table1R1C3 a qb:Observation ;
+  qb:dataSet ex:table1 ;
+  ex:table1Row 1 ;
+  ex:table1Column 3 ;
+  semann:value "UEFA" .
+
+# We use slices to connect the data in a column to their column headers:
+
+ex:table1SliceC1 a qb:Slice ;
+  qb:sliceStructure ex:sliceTable1ByRow ;
+  semann:columnHeader "ID" ;
+  # This slice fixes the "column" dimension to 1.
+  ex:table1Column 1 ;
+  qb:Observation ex:table1R1C1 .
+  # once we have more observations, i.e. more rows in this column, we add triples like
+  # "ex:sliceC1 qb:observation ex:table1R3C1"
+
+ex:table1SliceC2 a qb:Slice ;
+  qb:sliceStructure ex:sliceTable1ByRow ;
+  semann:columnHeader "Country" ;
+  ex:table1Column 2 ;
+  qb:observation ex:table1R1C2 .
+
+ex:table1SliceC3 a qb:Slice ;
+  qb:sliceStructure ex:sliceTable1ByRow ;
+  semann:columnHeader "Confederation" ;
+  ex:table1Column 3 ;
+  qb:observation ex:table1R1C3 .

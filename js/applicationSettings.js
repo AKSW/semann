@@ -1,25 +1,46 @@
 /**
  This file setup the additional information for the application while it load first time.
  @authors : A Q M Saiful Islam
+ @dependency
+ {
+    progressbar.js
+    messageHandler.js
+ }
  */
 
-/*global scientificAnnotation :false, tableAnnotator: false, dataCubeSparql: false,
+/*global $:false, document:false, scientificAnnotation :false, tableAnnotator: false, dataCubeSparql: false,
  progressbar : false, sparql:false, messageHandler:false, plusplus: false  */
 
 /*jslint plusplus: true */
+var applicationSettings
 
-
-var applicationSettings  = {
+applicationSettings  = {
 
     isUnitTestOngoing : false,
+    isLoggingOn : false,
 
+    /**
+     * Set up the environment for property and dimensions
+     * @return {void}
+     */
     setUp: function () {
         applicationSettings.setUpForDimensionProperty();
     },
 
     /**
+     * Setting up the google analytics
+     */
+    setUpGoogleAnalytics : function() {
+
+        var _gaq = _gaq || [];
+        _gaq.push(["_setAccount", "UA-1234-1"]);
+        _gaq.push(["_setDomainName", "none"]);
+        _gaq.push(["_trackPageview"]);
+    },
+
+    /**    
      * Check if the dimensions is available in the backend
-     * @return void
+     * @return {void}
      */
     setUpForDimensionProperty: function () {
         var query =
@@ -56,10 +77,11 @@ var applicationSettings  = {
     },
 
     /**
-     * prepare and send the ajax request for add annotation as a data cube
-     * @param selectedTableCellTexts
+     * Insert the dimension if they are not available in the backend
      *
-     * @return void
+     * @param {boolean} isDimensionAvailable
+     *
+     * @return {void}
      */
     insertDimensionAndProperty: function (isDimensionAvailable) {
 

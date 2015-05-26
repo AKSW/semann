@@ -1,16 +1,16 @@
 /**
- This file contain all the necessary sparql related queries,
- that need to perform.
+ This file contain all the necessary sparql related queries for data cube vocabulary.
 
  @authors : A Q M Saiful Islam
  @dependency
  {
     scientificAnnotation.js
-    highlight.js
+    progressbar.js
+    messageHandler.js
  }
  */
 
-/*global scientificAnnotation :false, tableAnnotator: false,
+/*global $:false, document:false, scientificAnnotation :false, tableAnnotator: false,
 progressbar : false, sparql:false, messageHandler:false, plusplus: false  */
 
 /*jslint plusplus: true */
@@ -23,7 +23,7 @@ var dataCubeSparql  = {
     PREFIX_RDF      : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     PREFIX_RDFS     : "http://www.w3.org/2000/01/rdf-schema#",
     PREFIX_XSD      : "http://www.w3.org/2001/XMLSchema#",
-    PREFIX_SEMANN   : "http://eisAnnotation/#",
+    PREFIX_SEMANN   : "http://eis.iai.uni-bonn.de/table-annotation#",
     PREFIX_EX       : "http://example.org/ns#",
     PREFIX_DCTERMS  : "http://purl.org/dc/terms/",
 
@@ -31,20 +31,20 @@ var dataCubeSparql  = {
 
     /**
      * prepare and send the ajax request for add annotation as a data cube
-     * @param selectedTableCellTexts
+     * @param {Array} selectedTableCellTexts
+     * @param  {boolean} isCallForTesting
      *
      * @return void
      */
     addAnnotation: function (selectedTableCellTexts, isCallForTesting) {
 
-        var isCallForTesting = isCallForTesting || false;
+        var isCallForTesting = isCallForTesting || false,
+            selectedColumns = selectedTableCellTexts[0].length,
+            query = '';
 
         if ($.isEmptyObject(selectedTableCellTexts)) {
             return;
         }
-
-        var selectedColumns = selectedTableCellTexts[0].length,
-            query = '';
 
         progressbar.showProgressBar('Adding annotation to the selected table...');
         query =
@@ -88,10 +88,12 @@ var dataCubeSparql  = {
                 }
 
                 scientificAnnotation.hideAnnotationDisplayTable();
+		scientificAnnotation.resetAnnotation(null);
                 progressbar.hideProgressBar();
                 messageHandler.showSuccessMessage('Table annotation successfully added');
                 tableAnnotator.TABLE_ANNOTATION_COUNT++;
                 tableAnnotator.storedData = null;
+		dbPediaLookup.clearDbPediaLookupResultCache();
             },
             error: function (jqXHR, exception) {
 
@@ -118,37 +120,8 @@ var dataCubeSparql  = {
     },
 
     /**
-     * Return the standard error message if the server communication is failed
-     *
-     * @param exception
-     * @param jqXHR
-     */
-    getStandardErrorMessage : function (jqXHR, exception) {
-        var errorTxt = "Error occurred when sending data to the server: " + sparql.SERVER_ADDRESS;
-
-        if (jqXHR.status === 0) {
-            errorTxt = errorTxt + '<br>Not connected. Verify network.';
-        } else if (jqXHR.status === 404) {
-            errorTxt = errorTxt + '<br>Request cannot be fulfilled by the server. Check whether the <br />(a) sparql endpoint is available at the above address <br>(b) query contains bad syntax.';
-        } else if (jqXHR.status === 500) {
-            errorTxt = errorTxt + '<br>Internal server error [500].';
-        } else if (exception === 'parsererror') {
-            errorTxt = errorTxt + '<br>Requested JSON parse failed.';
-        } else if (exception === 'timeout') {
-            errorTxt = errorTxt + '<br>Timeout error.';
-        } else if (exception === 'abort') {
-            errorTxt = errorTxt + '<br>Ajax request aborted.';
-        } else {
-            errorTxt = errorTxt + '<br>Uncaught Error.\n' + jqXHR.responseText;
-        }
-
-        return errorTxt;
-    },
-
-    /**
      * Return the data set fo the data cube structure
      * @param {int} selectedColumns
-     * @param {int} tableNameCounter
      * @returns {string}
      */
     getDataSet: function (selectedColumns) {
@@ -206,17 +179,21 @@ var dataCubeSparql  = {
 
     /**
      * Get the observation and column slices based on selection
-     * @param selectedTableCellTexts
+     * @param {Array} selectedTableCellTexts
      * @returns {string}
      */
     getObservationsWithSlices: function (selectedTableCellTexts) {
 
         var observationTitle = '', columnNames =  selectedTableCellTexts[0],
-            observationQuery = '', i = 0, j = 0, index = 0, query = '', sliceRowList = '';
+            owlClassList = dataCubeSparql.getOwlClassListValue(),
+            observationQuery = '', i = 0, j = 0, index = 0, sliceValue = '',
+            query = '', cellName = '', sliceName = '', sliceRowList = '';
 
         for (i = 0; i < columnNames.length; i++) {
             index = (i + 1);
-            query += 'ex:' + dataCubeSparql.TABLE_NAME + 'SliceC' + index + ' a qb:Slice ; ' + '\n' +
+            sliceName = dataCubeSparql.TABLE_NAME + 'SliceC' + index;
+
+            query += 'ex:' + sliceName + ' a qb:Slice ; ' + '\n' +
                 'qb:sliceStructure ex:sliceTable1ByRow ; ' + '\n' +
                 'semann:columnHeader "' + columnNames[i] + '" ; ' + '\n' +
                 'ex:' + dataCubeSparql.TABLE_NAME + 'Column ' + index + ' ;' + '\n';
@@ -226,20 +203,26 @@ var dataCubeSparql  = {
 
             // skipping the 1st row as that is the column header
             for (j = 1; j < selectedTableCellTexts.length; j++) {
-                observationTitle = 'ex:' + dataCubeSparql.TABLE_NAME + 'R' + j + 'C' + (i + 1);
+                cellName = dataCubeSparql.TABLE_NAME + 'R' + j + 'C' + (i + 1);
+                observationTitle = 'ex:' + cellName;
 
                 observationQuery +=
                     observationTitle + ' a qb:Observation ;' + '\n' +
                     'qb:dataSet ex:' + dataCubeSparql.TABLE_NAME + ' ;' + '\n' +
                     'ex:' + dataCubeSparql.TABLE_NAME + 'Row ' + j + ' ;' + '\n' +
                     'ex:' + dataCubeSparql.TABLE_NAME + 'Column ' + (i + 1) + ' ;' + '\n' +
-                    'semann:value "' + selectedTableCellTexts[j][i] + '" .' + '\n\n';
+                    dataCubeSparql.getCellUriValue(selectedTableCellTexts[j][i],cellName) + '.' + '\n\n';
 
                 sliceRowList += observationTitle + ',';
             }
 
             // remove the last comma from the string;
             sliceRowList = sliceRowList.substring(0, sliceRowList.length - 1);
+	    
+            sliceValue = dataCubeSparql.getSliceUriInfo(sliceName, columnNames[i], owlClassList[i]);
+            if (sliceValue !== '') {
+                sliceRowList += ';\n' + sliceValue;
+            }
 
             // adding the rows to slice definition
             query += 'qb:observation ' + sliceRowList + '.' + '\n\n';
@@ -249,5 +232,108 @@ var dataCubeSparql  = {
         }
 
         return query;
+    },
+
+    /**
+     * Get the cell resource Uri if it's available
+     * @param {string} key search item
+     * @returns {string} resource uri syntax for data cube
+     */
+    getResourceUri : function (key) {
+        var resourceUri = '', mapResult = null;
+        key = dbPediaLookupUIOptions.getCustomId(key);
+        mapResult = dbPediaLookupUIOptions.searchKeyValueRadioInputMap[key];
+        if (mapResult !== undefined && mapResult.value.indexOf("http://") !== -1) {
+            resourceUri =  mapResult.value;
+        }
+        return resourceUri;
+    },
+
+    /**
+     * Get the slice info
+     * @param sliceName
+     * @param classLabel
+     * @param owlClassUri
+     * @returns {string}
+     */
+    getSliceUriInfo : function (sliceName, classLabel, owlClassUri) {
+
+        if (owlClassUri === dbPediaLookupUIOptions.CLASS_CUSTOM_SELECTION) {
+            return dataCubeSparql.getCustomUriClassValue(sliceName, classLabel);
+        }
+
+        if (owlClassUri === dbPediaLookupUIOptions.CLASS_NO_SELECTION
+            || owlClassUri === dbPediaLookupUIOptions.CLASS_AUTO_SELECTION
+            || dbPediaLookupUIOptions.IS_AUTO_SEARCHED_TRIGGERED_YET) {
+            return '';
+        }
+
+        var sliceClassName = 'ex:' + sliceName + 'Class',
+            sliceInfo = 'semann:class ' + sliceClassName +' .\n' +
+            sliceClassName + '\n' +
+            ' rdfs:label "' + classLabel +'" ;' +'\n' +
+            ' owl:sameAs <' + owlClassUri + '>';
+
+        return sliceInfo;
+    },
+
+    /**
+     * Get the cell resource Uri if it's available
+     * @param {string} key search item
+     * @returns {string} resource uri syntax for data cube
+     */
+    getCellUriValue : function (key, cellName) {
+        var uri = dataCubeSparql.getResourceUri(key),
+            value = 'semann:value ';
+
+        if (uri === '') {
+            return value + '"' +key +'"';
+        }
+
+        cellName = ' ex:' + cellName + 'Value';
+        value += cellName + '.\n' +
+            cellName + '\n' +
+            ' rdfs:label "' + key + '" ;' + '\n' +
+            ' owl:sameAs <' + uri + '> ';
+
+        return value;
+    },
+
+    /**
+     *
+     */
+    getOwlClassListValue : function() {
+        var classNames = [];
+
+        $( ".ontologyClassSelection" ).each(function() {
+            classNames.push($( this ).val().trim());
+        });
+
+        return classNames;
+    },
+
+    /**
+     * Return the custom Uri class input bye the user
+     *
+     * @param sliceName
+     * @param columnName
+     * @returns {string}
+     */
+    getCustomUriClassValue : function(sliceName, columnName) {
+
+        var id = '#customClassInput_'+dbPediaLookupUIOptions.getCustomId(columnName),
+            customUriInputValue = $(id).val();
+
+        if (customUriInputValue === null || customUriInputValue.trim() === '') {
+            return '';
+        }
+
+        var sliceClassName = 'ex:' + sliceName + 'Class',
+        sliceInfo = 'semann:class ' + sliceClassName +' .\n' +
+            sliceClassName + '\n' +
+            ' rdfs:label "' + columnName +'" ;' +'\n' +
+            ' semann:customUri "' + customUriInputValue +'" ';
+
+        return sliceInfo;
     }
 };

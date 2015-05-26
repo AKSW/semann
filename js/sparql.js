@@ -16,6 +16,7 @@
 var sparql  = {
 
     SERVER_ADDRESS : "http://localhost:8890/sparql",
+    DBPEDIA_SERVER_ADDRESS : "http://dbpedia.org/sparql",
     
     GRAPH_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/evaluation',
     GRAPH_META_NAME : 'http://eis.iai.uni-bonn.de/semann/graph/meta/evaluation',

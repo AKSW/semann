@@ -1,280 +1,330 @@
 <!DOCTYPE html>
 <html dir="ltr" mozdisallowselectionprint moznomarginboxes>
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-        <meta name="google" content="notranslate"/>
-        <title>Semantic Annotation Tool For EIS documents</title>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<meta name="google" content="notranslate"/>
+		<title>Semantic Annotation Tool For EIS documents</title>
 
-        <link rel="stylesheet" href="./css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="./css/viewer.css"/>
-        <link rel="stylesheet" href="./css/annotation.css"/>
-        <!-- highlighting related -->
-        <link rel="stylesheet" href="./css/highlight.css"/>
+		<link rel="stylesheet" href="./css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="./css/viewer.css"/>
+		<link rel="stylesheet" href="./css/annotation.css"/>
+		<!-- highlighting related -->
+		<link rel="stylesheet" href="./css/highlight.css"/>
 
-        <script type="text/javascript" src="./libs/jquery.min.js"></script>
-        <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
-        <script type="text/javascript" src="./libs/typeahead.min.js"></script>
+		<script type="text/javascript" src="./libs/jquery.min.js"></script>
+		<script type="text/javascript" src="./libs/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./libs/typeahead.min.js"></script>
 
-        <script type="text/javascript" src="./external/webL10n/l10n.js"></script>
-        <script type="text/javascript" src="./libs/shared/util.js"></script>
-        <script type="text/javascript" src="./libs/shared/colorspace.js"></script>
-        <script type="text/javascript" src="./libs/shared/pattern.js"></script>
-        <script type="text/javascript" src="./libs/shared/function.js"></script>
-        <script type="text/javascript" src="./libs/shared/annotation.js"></script>
-        <script type="text/javascript" src="./libs/display/api.js"></script>
-        <script type="text/javascript" src="./libs/display/metadata.js"></script>
-        <script type="text/javascript" src="./libs/display/canvas.js"></script>
-        <script type="text/javascript" src="./libs/display/font_loader.js"></script>
-        <script type="text/javascript">PDFJS.workerSrc = './libs/worker_loader.js';</script>
+		<script type="text/javascript" src="./external/webL10n/l10n.js"></script>
+		<script type="text/javascript" src="./libs/shared/util.js"></script>
+		<script type="text/javascript" src="./libs/shared/colorspace.js"></script>
+		<script type="text/javascript" src="./libs/shared/pattern.js"></script>
+		<script type="text/javascript" src="./libs/shared/function.js"></script>
+		<script type="text/javascript" src="./libs/shared/annotation.js"></script>
+		<script type="text/javascript" src="./libs/display/api.js"></script>
+		<script type="text/javascript" src="./libs/display/metadata.js"></script>
+		<script type="text/javascript" src="./libs/display/canvas.js"></script>
+		<script type="text/javascript" src="./libs/display/font_loader.js"></script>
+		<script type="text/javascript">PDFJS.workerSrc = './libs/worker_loader.js';</script>
 
-        <script type="text/javascript" src="./libs/ui_utils.js"></script>
-        <script type="text/javascript" src="./libs/download_manager.js"></script>
-        <script type="text/javascript" src="./libs/page_view.js"></script>
-        <script type="text/javascript" src="./libs/thumbnail_view.js"></script>
-        <script type="text/javascript" src="./libs/text_layer_builder.js"></script>
-        <script type="text/javascript" src="./libs/pdf_find_bar.js"></script>
-        <script type="text/javascript" src="./libs/pdf_find_controller.js"></script>
-        <script type="text/javascript" src="./libs/pdf_history.js"></script>
-        <script type="text/javascript" src="./libs/secondary_toolbar.js"></script>
-        <script type="text/javascript" src="./libs/debugger.js"></script>
-        <script type="text/javascript" src="./libs/viewer.js"></script>
-        <!-- highlighting related -->
-        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-core.js"></script>
-        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-serializer.js"></script>
-        <script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-cssclassapplier.js"></script>
+		<script type="text/javascript" src="./libs/ui_utils.js"></script>
+		<script type="text/javascript" src="./libs/download_manager.js"></script>
+		<script type="text/javascript" src="./libs/page_view.js"></script>
+		<script type="text/javascript" src="./libs/thumbnail_view.js"></script>
+		<script type="text/javascript" src="./libs/text_layer_builder.js"></script>
+		<script type="text/javascript" src="./libs/pdf_find_bar.js"></script>
+		<script type="text/javascript" src="./libs/pdf_find_controller.js"></script>
+		<script type="text/javascript" src="./libs/pdf_history.js"></script>
+		<script type="text/javascript" src="./libs/secondary_toolbar.js"></script>
+		<script type="text/javascript" src="./libs/debugger.js"></script>
+		<script type="text/javascript" src="./libs/viewer.js"></script>
+		<!-- highlighting related -->
+		<script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-core.js"></script>
+		<script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-serializer.js"></script>
+		<script type="text/javascript" src="./libs/rangy-1.3alpha.804/rangy-cssclassapplier.js"></script>
 
-        <!-- Custom library to maintain the main functionality -->
-        <script type="text/javascript" src="./js/test.js"></script>
-        <script type="text/javascript" src="./js/applicationSettings.js"></script>
-        <script type="text/javascript" src="./js/dbLookup.js"></script>
-        <script type="text/javascript" src="./js/highlight.js"></script>
-        <script type="text/javascript" src="./js/scientificAnnotation.js"></script>
-        <script type="text/javascript" src="./js/sparql.js"></script>
-        <script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
-        <script type="text/javascript" src="./js/messageHandler.js"></script>
-        <script type="text/javascript" src="./js/progressbar.js"></script>
-        <script type="text/javascript" src="./js/tableAnnotator.js"></script>
-        <script type="text/javascript" src="./js/dataCubeSparql.js"></script>
-    </head>
+		<!-- Custom library to maintain the main functionality -->
+		<script type="text/javascript" src="./js/test.js"></script>
+		<script type="text/javascript" src="./js/applicationSettings.js"></script>
+		<script type="text/javascript" src="./js/dbLookup.js"></script>
+		<script type="text/javascript" src="./js/highlight.js"></script>
+		<script type="text/javascript" src="./js/scientificAnnotation.js"></script>
+		<script type="text/javascript" src="./js/sparql.js"></script>
+		<script type="text/javascript" src="./js/sparqlResponseParser.js"></script>
+		<script type="text/javascript" src="./js/messageHandler.js"></script>
+		<script type="text/javascript" src="./js/progressbar.js"></script>
+		<script type="text/javascript" src="./js/tableAnnotator.js"></script>
+		<script type="text/javascript" src="./js/dataCubeSparql.js"></script>
+		<script type="text/javascript" src="./js/dbPediaLookup.js"></script>
+		<script type="text/javascript" src="./js/dbPediaLookupUIOptions.js"></script>
+		<script type="text/javascript" src="./js/dbPediaOwlTypes.js"></script>
+		<script type="text/javascript" src="./js/csvExporter.js"></script>
+		<script type="text/javascript" src="./js/googleAnalytics.js"></script>
 
-    <body tabindex="1">
-        <div id="outerContainer" class="loadingInProgress">
-            <div id="sidebarContainer">
-                <div id="toolbarSidebar">
-                    <div class="splitToolbarButton toggled">
-                        <button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2"><span>Thumbnails</span></button>
-                        <button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3"><span>Document Outline</span></button>
-                    </div>
-                </div>
-                <div id="sidebarContent">
-                    <div id="thumbnailView"></div>
-                    <div id="outlineView" class="hidden"></div>
-                </div>
-            </div>  <!-- sidebarContainer -->
+		<script>
+			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+					  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','http://google-analytics.com/analytics.js','ga');
 
-            <div id="mainContainer">
-                <div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
-                    <label for="findInput" class="toolbarLabel">Find:</label>
-                    <input id="findInput" class="toolbarField" tabindex="41"/>
-                    <div class="splitToolbarButton">
-                        <button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="42"><span>Previous</span></button>
-                        <div class="splitToolbarButtonSeparator"></div>
-                        <button class="toolbarButton findNext" title="" id="findNext" tabindex="43"><span>Next</span></button>
-                    </div>
-                    <input type="checkbox" id="findHighlightAll" class="toolbarField"/>
-                    <label for="findHighlightAll" class="toolbarLabel" tabindex="44">Highlight all</label>
-                    <input type="checkbox" id="findMatchCase" class="toolbarField"/>
-                    <label for="findMatchCase" class="toolbarLabel" tabindex="45">Match case</label>
-                    <span id="findMsg" class="toolbarLabel"></span>
-                </div>  <!-- findbar -->
-                <div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
-                    <div id="secondaryToolbarButtonContainer">
-                        <button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="18"><span>Presentation Mode</span></button>
-                        <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="19"><span>Open</span></button>
-                        <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="20"><span>Print</span></button>
-                        <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="21"><span>Download</span></button>
-                        <div class="horizontalToolbarSeparator visibleLargeView"></div>
-                        <button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="22"><span>Go to First Page</span></button>
-                        <button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="23"><span>Go to Last Page</span></button>
-                        <div class="horizontalToolbarSeparator"></div>
-                        <button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="24"><span>Rotate Clockwise</span></button>
-                        <button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="25"><span>Rotate Counterclockwise</span></button>
-                    </div>
-                </div>  <!-- secondaryToolbar -->
-                <div class="toolbar">
-                    <div id="toolbarContainer">
-                        <div id="toolbarViewer">
-                            <div id="toolbarViewerLeft">
-                                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="4"><span>Toggle Sidebar</span></button>
-                                <div class="toolbarButtonSpacer"></div>
-                                <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="5"><span>Find</span></button>
-                                <div class="splitToolbarButton">
-                                    <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="6"><span>Previous</span></button>
-                                    <div class="splitToolbarButtonSeparator"></div>
-                                    <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="7"><span>Next</span></button>
-                                </div>
-                                <label id="pageNumberLabel" class="toolbarLabel" for="pageNumber">Page: </label>
-                                <input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="8"/>
-                                <span id="numPages" class="toolbarLabel"></span>
-                            </div>
-                            <div id="toolbarViewerRight">
-                                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="12"><span>Presentation Mode</span></button>
-                                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="13"><span>Open</span></button>
-                                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="14"><span>Print</span></button>
-                                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="15"><span>Download</span></button>
-                                <!-- <div class="toolbarButtonSpacer"></div> -->
-                                <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="16"><span>Current View</span></a>
-                                <div class="verticalToolbarSeparator hiddenSmallView"></div>
-                                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="17"><span>Tools</span></button>
-                            </div>
-                            <div class="outerCenter">
-                                <div class="innerCenter" id="toolbarViewerMiddle">
-                                    <div class="splitToolbarButton">
-                                        <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="9"><span>Zoom Out</span></button>
-                                        <div class="splitToolbarButtonSeparator"></div>
-                                        <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="10"><span>Zoom In</span></button>
-                                    </div>
-                                    <span id="scaleSelectContainer" class="dropdownToolbarButton">
-                                        <select id="scaleSelect" title="Zoom" tabindex="11">
-                                            <option id="pageAutoOption" value="auto" selected="selected">Automatic Zoom</option>
-                                            <option id="pageActualOption" value="page-actual">Actual Size</option>
-                                            <option id="pageFitOption" value="page-fit">Fit Page</option>
-                                            <option id="pageWidthOption" value="page-width">Full Width</option>
-                                            <option id="customScaleOption" value="custom"></option>
-                                            <option value="0.5">50%</option>
-                                            <option value="0.75">75%</option>
-                                            <option value="1">100%</option>
-                                            <option value="1.25">125%</option>
-                                            <option value="1.5">150%</option>
-                                            <option value="2">200%</option>
-                                        </select>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="loadingBar">
-                            <div class="progress">
-                                <div class="glimmer"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+			  if (applicationSettings && applicationSettings.isLoggingOn) {
+				  ga('create', 'UA-59751499-1', {
+					  'cookieDomain': 'none'
+				  });
+				  ga('send', 'pageview');
+			  }
+		</script>
+	</head>
 
-                <menu type="context" id="viewerContextMenu">
-                    <menuitem id="contextFirstPage" label="First Page"></menuitem>
-                    <menuitem id="contextLastPage" label="Last Page"></menuitem>
-                    <menuitem id="contextPageRotateCw" label="Rotate Clockwise"></menuitem>
-                    <menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise"></menuitem>
-                </menu>
+	<body tabindex="1">
+		<div id="outerContainer" class="loadingInProgress">
+			<div id="sidebarContainer">
+				<div id="toolbarSidebar">
+					<div class="splitToolbarButton toggled">
+						<button id="viewThumbnail" class="toolbarButton group toggled" title="Show Thumbnails" tabindex="2"><span>Thumbnails</span></button>
+						<button id="viewOutline" class="toolbarButton group" title="Show Document Outline" tabindex="3"><span>Document Outline</span></button>
+					</div>
+				</div>
+				<div id="sidebarContent">
+					<div id="thumbnailView"></div>
+					<div id="outlineView" class="hidden"></div>
+				</div>
+			</div>  <!-- sidebarContainer -->
 
-                <div id="viewerContainer" tabindex="0">
-                    <div id="viewer"></div>
-                </div>
+			<div id="mainContainer">
+				<div class="findbar hidden doorHanger hiddenSmallView" id="findbar">
+					<label for="findInput" class="toolbarLabel">Find:</label>
+					<input id="findInput" class="toolbarField" tabindex="41"/>
+					<div class="splitToolbarButton">
+						<button class="toolbarButton findPrevious" title="" id="findPrevious" tabindex="42"><span>Previous</span></button>
+						<div class="splitToolbarButtonSeparator"></div>
+						<button class="toolbarButton findNext" title="" id="findNext" tabindex="43"><span>Next</span></button>
+					</div>
+					<input type="checkbox" id="findHighlightAll" class="toolbarField"/>
+					<label for="findHighlightAll" class="toolbarLabel" tabindex="44">Highlight all</label>
+					<input type="checkbox" id="findMatchCase" class="toolbarField"/>
+					<label for="findMatchCase" class="toolbarLabel" tabindex="45">Match case</label>
+					<span id="findMsg" class="toolbarLabel"></span>
+				</div>  <!-- findbar -->
+				<div id="secondaryToolbar" class="secondaryToolbar hidden doorHangerRight">
+					<div id="secondaryToolbarButtonContainer">
+						<button id="secondaryPresentationMode" class="secondaryToolbarButton presentationMode visibleLargeView" title="Switch to Presentation Mode" tabindex="18"><span>Presentation Mode</span></button>
+						<button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="19"><span>Open</span></button>
+						<button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="20"><span>Print</span></button>
+						<button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="21"><span>Download</span></button>
+						<div class="horizontalToolbarSeparator visibleLargeView"></div>
+						<button id="firstPage" class="secondaryToolbarButton firstPage" title="Go to First Page" tabindex="22"><span>Go to First Page</span></button>
+						<button id="lastPage" class="secondaryToolbarButton lastPage" title="Go to Last Page" tabindex="23"><span>Go to Last Page</span></button>
+						<div class="horizontalToolbarSeparator"></div>
+						<button id="pageRotateCw" class="secondaryToolbarButton rotateCw" title="Rotate Clockwise" tabindex="24"><span>Rotate Clockwise</span></button>
+						<button id="pageRotateCcw" class="secondaryToolbarButton rotateCcw" title="Rotate Counterclockwise" tabindex="25"><span>Rotate Counterclockwise</span></button>
+					</div>
+				</div>  <!-- secondaryToolbar -->
+				<div class="toolbar">
+					<div id="toolbarContainer">
+						<div id="toolbarViewer">
+							<div id="toolbarViewerLeft">
+								<button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="4" style="display: none"><span>Toggle Sidebar</span></button>
+								<div class="toolbarButtonSpacer"></div>
+								<button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="5"><span>Find</span></button>
+								<div class="splitToolbarButton" style="display: none">
+									<button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="6"><span>Previous</span></button>
+									<div class="splitToolbarButtonSeparator"></div>
+									<button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="7"><span>Next</span></button>
+								</div>
+								<label id="pageNumberLabel" class="toolbarLabel" for="pageNumber">Page: </label>
+								<input type="number" id="pageNumber" class="toolbarField pageNumber" value="1" size="4" min="1" tabindex="8"/>
+								<span id="numPages" class="toolbarLabel"></span>
+							</div>
+							<div id="toolbarViewerRight">
+								<button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="12"><span>Presentation Mode</span></button>
+								<button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="13"><span>Open</span></button>
+								<button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="14"><span>Print</span></button>
+								<button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="15"><span>Download</span></button>
+								<!-- <div class="toolbarButtonSpacer"></div> -->
+								<a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="16"><span>Current View</span></a>
+								<div class="verticalToolbarSeparator hiddenSmallView"></div>
+								<button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="17"><span>Tools</span></button>
+							</div>
+							<div class="outerCenter">
+								<div class="innerCenter" id="toolbarViewerMiddle">
+									<div class="splitToolbarButton">
+										<button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="9"><span>Zoom Out</span></button>
+										<div class="splitToolbarButtonSeparator"></div>
+										<button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="10"><span>Zoom In</span></button>
+									</div>
+									<span id="scaleSelectContainer" class="dropdownToolbarButton">
+										<select id="scaleSelect" title="Zoom" tabindex="11">
+											<option id="pageAutoOption" value="auto" selected="selected">Automatic Zoom</option>
+											<option id="pageActualOption" value="page-actual">Actual Size</option>
+											<option id="pageFitOption" value="page-fit">Fit Page</option>
+											<option id="pageWidthOption" value="page-width">Full Width</option>
+											<option id="customScaleOption" value="custom"></option>
+											<option value="0.5">50%</option>
+											<option value="0.75">75%</option>
+											<option value="1">100%</option>
+											<option value="1.25">125%</option>
+											<option value="1.5">150%</option>
+											<option value="2">200%</option>
+										</select>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div id="loadingBar">
+							<div class="progress">
+								<div class="glimmer"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                <div id="errorWrapper" hidden='true'>
-                    <div id="errorMessageLeft">
-                        <span id="errorMessage"></span>
-                        <button id="errorShowMore">More Information</button>
-                        <button id="errorShowLess" hidden='true'>Less Information</button>
-                    </div>
-                    <div id="errorMessageRight">
-                        <button id="errorClose">Close</button>
-                    </div>
-                    <div class="clearBoth"></div>
-                    <textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
-                </div>
-            </div> <!-- mainContainer -->
-        </div> <!-- outerContainer -->
-        <div id="printContainer"></div>
-        <!-- SEMANN code below -->
-        <div id="annotationToolbar" class="annotationToolbar"><br/>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#textAnnotations" role="tab" data-toggle="tab">Text Annotations</a></li>
-                <li><a href="#tableAnnotations" role="tab" data-toggle="tab">Table Annotations</a></li>
-                <li><a href="#vocabularies" role="tab" data-toggle="tab">Vocabulary Selection</a></li>
-            </ul>
-            
-            <!-- Tab panes -->
-            <div class="tab-content">
-            
-                <div class="tab-pane active" id="textAnnotations">
-                    <!--Start: Simple Annotation panel div-->
-                    <div id="simpleAnnotatePanel" style="display: none">
-                        <div id="annotationInputArea" >
-                            <div class="form-inline" role="form" id="newValueForm">
-                                <div class="form-group">
-                                    <br/><br/>
-                                    <input type="text" class="form-control" id="subjectValueInput" placeholder="Subject" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
-                                    <span id="subjectCount" style="display: none"></span><br/>
-                                    <div id="displaySubjectURI" style="display: none"></div><br/>
-                                    <input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
-                                    <span id="propertyCount" style="display: none"></span><br/><br/>
-                                    <input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
-                                    <button id="objectTextSelection" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Describe information about another annotation in the document"><span class="glyphicon glyphicon-text-height"></span> Select text</button><br/><br/>
-                                    <div id="displayObjectURI" style="display: none"></div><br/>
-                                </div>
-                            </div>
-                            <button id="addAnnotationButton" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Add annotation to database"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button><br/><br/>
-                        </div>
-                        <div id="drawing">
-                            <div id="visualProperty" class="property">property</div>
-                            <div id="visualSubject" class="oval">subject</div>
-                            <div id="arrow" class="arrow">
-                                <span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span>
-                                <span style="margin-right:-3px;" class="glyphicon glyphicon-play"></span>
-                            </div>
-                            <div id="visualObject" class="oval">object</div>
-                        </div>
-                        <!--All the functional buttons -->
-                        <button id="queryButton" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="See all annotations that exist for the document"><span class="glyphicon "></span>Fetch annotations</button>
-                        <button id="showSimilarSearchButton" class="btn btn-info" data-toggle="tooltip" data-placement="right" title="See other similar publications based on the annotations that exist for the document">Find Similar</button>
-                        <br/><br/>
-                    </div>
-                    <!--End : Simple Annotation panel div -->
-                </div>
-        
-                <div class="tab-pane" id="tableAnnotations">
-                    <button id="annotateTableButton" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
-                    <button id="resetAnnotationButton" class="btn btn-default" style="display: none"> Reset Selection</button>
-                </div>
-                
-                <div class="tab-pane" id="vocabularies">
-                    <br/>
-                    <div id="vocabularyList">
-                        <input type="checkbox" checked="true" disabled="true" /> <a href="http://eis.iai.uni-bonn.de/semann/0.2/sdeo" target="_blank">Semann Discourse Elements Ontology</a><br>
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                        <span class="input-group-addon">http://</span>
-                        <input id="vocabulary" type="text" class="form-control"/>
-                        <span class="input-group-btn">
-                            <button id="addVocabulary" class="btn btn-default" type="button">Add vocabulary</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-                        
-            <button id="test" class="btn btn-default" style="display: none">Test</button></br>
-            <!-- message boxes start -->
-            <div class="alert alert-success" style="display: none"></div>
-            <div class="alert alert-danger" style="display: none"></div>
-            <div class="alert alert-warning" style="display: none"></div>
-            <!-- message boxes end -->
+				<menu type="context" id="viewerContextMenu">
+					<menuitem id="contextFirstPage" label="First Page"></menuitem>
+					<menuitem id="contextLastPage" label="Last Page"></menuitem>
+					<menuitem id="contextPageRotateCw" label="Rotate Clockwise"></menuitem>
+					<menuitem id="contextPageRotateCcw" label="Rotate Counter-Clockwise"></menuitem>
+				</menu>
 
-            <!-- progress bar start -->
-            <div class="progress progress-striped active" style="width: 55%; display: none">
-                <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Processing....</div>
-            </div>
-            <!-- progress bar end -->
+				<div id="viewerContainer" tabindex="0">
+					<div id="viewer"></div>
+				</div>
 
-            <div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;"></div>
-            <div id="displayAnnotationResult" style='overflow:auto; width:600px;'></div>
-            <div id="recommendations" class="panel-group"></div>
-            <!-- view results tables -->
-            <div id="displayTriples"></div>
-            <div id="viewSelectedInfoFromPfdTable" style='display:none ; overflow:auto; width:600px; height:400px;'> </div>
-        </div> <!-- outerContainer -->
-    </body>
+				<div id="errorWrapper" hidden='true'>
+					<div id="errorMessageLeft">
+						<span id="errorMessage"></span>
+						<button id="errorShowMore">More Information</button>
+						<button id="errorShowLess" hidden='true'>Less Information</button>
+					</div>
+					<div id="errorMessageRight">
+						<button id="errorClose">Close</button>
+					</div>
+					<div class="clearBoth"></div>
+					<textarea id="errorMoreInfo" hidden='true' readonly="readonly"></textarea>
+				</div>
+			</div> <!-- mainContainer -->
+		</div> <!-- outerContainer -->
+		<div id="printContainer"></div>
+		<!-- SEMANN code below -->
+		<div id="annotationToolbar" class="annotationToolbar"><br/>
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#textAnnotations" role="tab" data-toggle="tab">Text Annotations</a></li>
+				<li><a href="#tableAnnotations" role="tab" data-toggle="tab">Table Annotations</a></li>
+				<li><a href="#vocabularies" role="tab" data-toggle="tab">Vocabulary Selection</a></li>
+			</ul>
+			
+			<!-- Tab panes -->
+			<div class="tab-content">
+			
+				<div class="tab-pane active" id="textAnnotations">
+					<!--Start: Simple Annotation panel div-->
+					<div id="simpleAnnotatePanel" style="display: none">
+						<div id="annotationInputArea" >
+							<div class="form-inline" role="form" id="newValueForm">
+								<div class="form-group">
+									<br/><br/>
+									<input type="text" class="form-control" id="subjectValueInput" placeholder="Subject" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+									<span id="subjectCount" style="display: none"></span><br/>
+									<div id="displaySubjectURI" style="display: none"></div><br/>
+									<input type="text" class="form-control" id="propertyValueInput" placeholder="Property" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+									<span id="propertyCount" style="display: none"></span><br/><br/>
+									<input type="text" class="form-control" id="objectValueInput" placeholder="Object" data-provide="typeahead" autocomplete="off" style="width:400px" disabled="true"/>
+									<button id="objectTextSelection" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Describe information about another annotation in the document"><span class="glyphicon glyphicon-text-height"></span> Select text</button><br/><br/>
+									<div id="displayObjectURI" style="display: none"></div><br/>
+								</div>
+							</div>
+							<button id="addAnnotationButton" class="btn btn-info" disabled="true" data-toggle="tooltip" data-placement="right" title="Add annotation to database"><span class="glyphicon glyphicon-pencil"></span> Add annotation</button><br/><br/>
+						</div>
+						<div id="drawing">
+							<div id="visualProperty" class="property">property</div>
+							<div id="visualSubject" class="oval">subject</div>
+							<div id="arrow" class="arrow">
+								<span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span><span  class="glyphicon glyphicon-minus"></span>
+								<span style="margin-right:-3px;" class="glyphicon glyphicon-play"></span>
+							</div>
+							<div id="visualObject" class="oval">object</div>
+						</div>
+						<!--All the functional buttons -->
+						<button id="queryButton" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="See all annotations that exist for the document"><span class="glyphicon "></span>Fetch annotations</button>
+						<button id="showSimilarSearchButton" class="btn btn-info" data-toggle="tooltip" data-placement="right" title="See other similar publications based on the annotations that exist for the document">Find Similar</button>
+						<br/><br/>
+					</div>
+					<!--End : Simple Annotation panel div -->
+				</div>
+		
+				<div class="tab-pane" id="tableAnnotations">
+					<p><br/>
+						<button id="annotateTableButton" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Annotate table</button>
+						<button id="resetAnnotationButton" class="btn btn-default" style="display: none"> Reset Selection</button>
+					</p>
+					<div id="ontologyClassSelectionContainer" style='display:none;'>
+						<p>Select the ontology class to lookup available Uri for columns :</p>
+						<div id="ontologyClassSelectionPanel" style='display:none ; overflow:auto; width:auto; height:180px;'> </div>
+						<br>
+						<button id="getResourceUriButton" class="btn btn-default" >Manual URI Search</button>
+						<button id="getAutoUriButton" class="btn btn-default" >Auto URI Search</button>
+						<button id="exportCSVButton" class="btn btn-default" >Export as CSV</button>
+					</div>
+					<div id="viewSelectedInfoFromPfdTable" style='display:none ; overflow:auto; width:auto; height:250px;'> </div>
+				</div>
+				
+				<div class="tab-pane" id="vocabularies">
+					<br/>
+					<div id="vocabularyList">
+						<input type="checkbox" checked="true" disabled="true" /> <a href="http://eis.iai.uni-bonn.de/semann/0.2/sdeo" target="_blank">Semann Discourse Elements Ontology</a><br>
+					</div>
+					<br/>
+					<div class="input-group">
+						<span class="input-group-addon">http://</span>
+						<input id="vocabulary" type="text" class="form-control"/>
+						<span class="input-group-btn">
+							<button id="addVocabulary" class="btn btn-default" type="button">Add vocabulary</button>
+						</span>
+					</div>
+				</div>
+			</div>
+						
+			<button id="test" class="btn btn-default" style="display: none">Test</button></br>
+			<!-- message boxes start -->
+			<div class="alert alert-success" style="display: none"></div>
+			<div class="alert alert-danger" style="display: none"></div>
+			<div class="alert alert-warning" style="display: none"></div>
+			<!-- message boxes end -->
+
+			<!-- progress bar start -->
+			<br><br>
+			<div class="progress progress-striped active" style="width: 85%; display: none;">
+				<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding-top: 2px">Processing....</div>
+			</div>
+			<!-- progress bar end -->
+
+			<div id="similarPubsList" class="list-group" style="display: none; padding-right: 10px;"></div>
+			<div id="displayAnnotationResult" style='overflow:auto; width:600px;'></div>
+			<div id="recommendations" class="panel-group"></div>
+			<!-- view results tables -->
+			<div id="displayTriples"></div>
+			<div id="displayTableTitle"> </div>
+			<div id="displaySparqlTableRows" style='overflow:auto; display:none ; width:auto; height:300px;'> </div>
+
+			<!-- tab model start -->
+			<div id="ontologySelectionModel" class="modal fade modal-width" role="dialog">
+					<div class="modal-header">
+						<strong>Ontology Selection Panel</strong>
+					</div>
+					<div class="modal-body">
+							<div class="tabbable"> <!-- Only required for left/right tabs -->
+								<ul class="nav nav-tabs"></ul>
+								<div class="tab-content"></div>
+							</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#" id="modal-close-btn" class="btn btn-primary">Close</a>
+						<a href="#" id="modal-success-btn" class="btn btn-success">OK</a>
+					</div>
+			</div>
+			<!-- tab model end -->
+		</div> <!-- outerContainer -->
+	</body>
 </html>

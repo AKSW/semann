@@ -1,4 +1,10 @@
+
+/*global $:false, tableAnnotator:false, console:flase, scientificAnnotation :false,dataCubeSparql:false, confirm: false,
+ progressbar : false, sparql:false, messageHandler:false, plusplus: false  */
+
+/*jslint plusplus: true */
 var dataCubeSparqlUnitTest = {
+
 
     /**
      * Sample data to to insert
@@ -11,66 +17,67 @@ var dataCubeSparqlUnitTest = {
     ],
 
     /**
-     * All the
+     * Test all the main
      * @param QUnit
+     * @return {void}
      */
     testDataCube : function (QUnit) {
 
-        var temp_name = scientificAnnotation.GRAPH_NAME_EIS;
-        scientificAnnotation.GRAPH_NAME_EIS = 'TestEisAnnotation';
-
+        var temp_name = sparql.GRAPH_NAME_EIS;
+        sparql.GRAPH_NAME_EIS = 'TestEisAnnotation';
         dataCubeSparql.addAnnotation(dataCubeSparqlUnitTest.sampleData, true);
 
-        QUnit.test( "Testing Dimension and property insertion", function( assert ) {
+        QUnit.test("Testing Dimension and property insertion", function (assert) {
             stop();
-            expect( 1 );
+            expect(1);
             dataCubeSparqlUnitTest.isDimensionPropertyAvailable(assert);
-                setTimeout(function() {
+                setTimeout(function () {
                 start();
             }, 500);
         });
 
-        QUnit.test( "Testing Data set insertion", function( assert ) {
+        QUnit.test("Testing Data set insertion", function (assert) {
             stop();
-            expect( 1 );
+            expect(1);
             dataCubeSparqlUnitTest.isDataSetInserted(assert);
-            setTimeout(function() {
+            setTimeout(function () {
                 start();
             }, 500);
         });
 
-        QUnit.test( "Testing observation insertion", function( assert ) {
+        QUnit.test("Testing observation insertion", function (assert) {
             stop();
-            expect( 1 );
+            expect(1);
             dataCubeSparqlUnitTest.isObserverInserted(assert);
-            setTimeout(function() {
+            setTimeout(function () {
                 start();
             }, 500);
         });
 
-        QUnit.test( "Testing column header insertion", function( assert ) {
+        QUnit.test("Testing column header insertion", function (assert) {
             stop();
-            expect( 1 );
+            expect(1);
             dataCubeSparqlUnitTest.isColumnHeaderInserted(assert);
-            setTimeout(function() {
+            setTimeout(function () {
                 start();
             }, 500);
         });
 
-        QUnit.test( "Cleaning up the test database ", function( assert ) {
+        QUnit.test("Cleaning up the test database ", function (assert) {
             stop();
-            expect( 1 );
-            dataCubeSparqlUnitTest.clearGraph(scientificAnnotation.GRAPH_NAME_EIS, assert);
-            scientificAnnotation.GRAPH_NAME_EIS = temp_name;
-            setTimeout(function() {
+            expect(1);
+            dataCubeSparqlUnitTest.clearGraph(sparql.GRAPH_NAME_EIS, assert);
+            sparql.GRAPH_NAME_EIS = temp_name;
+            setTimeout(function () {
                 start();
             }, 500);
         });
     },
 
     /**
-     * Check if the
-     * @param assert
+     * This test check if the inserted column header is available in the datacube
+     * @param {Object} assert
+     * @return {void}
      */
     isColumnHeaderInserted: function (assert) {
         var query =
@@ -91,10 +98,10 @@ var dataCubeSparqlUnitTest = {
                 format: "application/json"
             },
             success: function (response) {
-                assert.ok (response.boolean, 'Column header successfully inserted');
+                assert.ok(response.boolean, 'Column header successfully inserted');
             },
             error: function (jqXHR, exception) {
-                assert.ok (false, 'Column header was not inserted');
+                assert.ok(false, 'Column header was not inserted');
             }
         });
     },
@@ -102,7 +109,9 @@ var dataCubeSparqlUnitTest = {
     /**
      * Check if the inserted item rows available
      * Note: here we are checking the 1st rows is available or not
-     * @param assert
+     * @param {Object} assert
+     * @return {void}
+     *
      */
     isObserverInserted: function (assert) {
         var query =
@@ -123,18 +132,19 @@ var dataCubeSparqlUnitTest = {
                 format: "application/json"
             },
             success: function (response) {
-                assert.ok (response.boolean, 'Observation successfully inserted');
+                assert.ok(response.boolean, 'Observation successfully inserted');
             },
             error: function (jqXHR, exception) {
-                assert.ok (false, 'Failed to insert observation');
+                assert.ok(false, 'Failed to insert observation');
             }
         });
     },
 
     /**
-     * Check if the inserted item rows available
-     * Note: here we are checking the 1st rows is available or not
-     * @param assert
+     * Check if the data set is part of the table or not.
+     * Here we are checking a row 1 and column 1 of the table 1
+     * @param {Object} assert
+     * @return {void}
      */
     isDataSetInserted: function (assert) {
         var query =
@@ -154,17 +164,18 @@ var dataCubeSparqlUnitTest = {
                 format: "application/json"
             },
             success: function (response) {
-                assert.ok (response.boolean, 'Data Set Inserted success');
+                assert.ok(response.boolean, 'Data Set Inserted success');
             },
             error: function (jqXHR, exception) {
-                assert.ok (false, 'Failed to insert data set');
+                assert.ok(false, 'Failed to insert data set');
             }
         });
     },
 
     /**
-     * Check if the dimensions is available in the backend
-     * @return void
+     * Check if the dimensions property is available in the backend
+     * @param {Object} assert
+     * @return {void}
      */
     isDimensionPropertyAvailable: function (assert) {
         var query =
@@ -188,7 +199,7 @@ var dataCubeSparqlUnitTest = {
                 assert.ok(response.boolean, 'Dimension and property found success test data');
             },
             error: function (jqXHR, exception) {
-                assert.ok (false, 'Failed to insert dimension and property');
+                assert.ok(false, 'Failed to insert dimension and property');
             }
         });
     },
@@ -196,7 +207,9 @@ var dataCubeSparqlUnitTest = {
     /**
      * Clean up the test data base
      *
-     * @param graphName
+     * @param {string} graphName
+     * @param {Object} assert
+     * @return {void}
      */
     clearGraph : function (graphName, assert) {
 
@@ -204,7 +217,7 @@ var dataCubeSparqlUnitTest = {
             return;
         }
 
-        var query = "CLEAR GRAPH <" + graphName +">";
+        var query = "CLEAR GRAPH <" + graphName + ">";
 
         $.ajax({
             type: "POST",
